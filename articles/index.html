@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gunns in America</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────── */
+    :root {
+      --ink:        #1c1814;
+      --ink-light:  #4a3f35;
+      --paper:      #f5f0e8;
+      --paper-dark: #e8e0d0;
+      --rule:       #c8baa0;
+      --accent:     #7a3b1e;        /* colonial brick red */
+      --accent2:    #3b5c3e;        /* aged forest green */
+      --gold:       #b08840;
+      --white:      #fdfaf4;
+
+      --serif:      'Playfair Display', Georgia, serif;
+      --body:       'Libre Baskerville', Georgia, serif;
+      --sans:       'Raleway', sans-serif;
+
+      --max:        1160px;
+      --nav-h:      64px;
+    }
+
+    /* ── RESET ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 17px;
+      line-height: 1.75;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── NAV ────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--ink);
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      border-bottom: 3px solid var(--gold);
+    }
+    .nav-brand {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      color: var(--paper);
+      letter-spacing: 0.04em;
+    }
+    .nav-brand span { color: var(--gold); }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--paper-dark);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--gold); text-decoration: none; }
+
+    /* ── PAGE SECTIONS (SPA navigation) ─────────────────── */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ── HERO ───────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 6rem 2rem 5rem;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 39px,
+          rgba(200,186,160,0.07) 39px,
+          rgba(200,186,160,0.07) 40px
+        );
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 0.5rem;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero-sub {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--rule);
+      margin-bottom: 2rem;
+    }
+    .hero-rule {
+      width: 80px;
+      height: 2px;
+      background: var(--gold);
+      margin: 0 auto 2rem;
+    }
+    .hero-desc {
+      max-width: 640px;
+      margin: 0 auto 2.5rem;
+      font-size: 1rem;
+      color: var(--paper-dark);
+      line-height: 1.8;
+    }
+    .hero-dates {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.7;
+    }
+
+    /* ── TIMELINE BAND ──────────────────────────────────── */
+    .timeline-band {
+      background: var(--accent);
+      padding: 1.5rem 2rem;
+      overflow-x: auto;
+    }
+    .timeline-inner {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      max-width: var(--max);
+      margin: 0 auto;
+      position: relative;
+    }
+    .timeline-inner::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0; right: 0;
+      height: 1px;
+      background: rgba(255,255,255,0.25);
+      transform: translateY(-50%);
+    }
+    .tl-era {
+      flex: 1;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+    }
+    .tl-dot {
+      width: 10px; height: 10px;
+      background: var(--gold);
+      border-radius: 50%;
+      margin: 0 auto 0.4rem;
+      transition: transform 0.2s;
+    }
+    .tl-era:hover .tl-dot { transform: scale(1.5); }
+    .tl-label {
+      font-family: var(--sans);
+      font-size: 0.63rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.85);
+      white-space: nowrap;
+    }
+    .tl-year {
+      font-family: var(--serif);
+      font-size: 0.72rem;
+      color: var(--gold);
+    }
+
+    /* ── SECTION WRAPPER ────────────────────────────────── */
+    .section {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 1rem;
+    }
+    .section-header h2 {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .section-header .count {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+
+    /* ── HOME FEATURE CARDS ─────────────────────────────── */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .feature-card {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-top: 3px solid var(--accent);
+      padding: 1.75rem;
+      cursor: pointer;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .feature-card:hover {
+      box-shadow: 0 6px 24px rgba(28,24,20,0.12);
+      transform: translateY(-2px);
+    }
+    .card-era {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .feature-card h3 {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      line-height: 1.3;
+      margin-bottom: 0.75rem;
+      color: var(--ink);
+    }
+    .feature-card p {
+      font-size: 0.88rem;
+      color: var(--ink-light);
+      line-height: 1.65;
+    }
+    .card-link {
+      display: inline-block;
+      margin-top: 1rem;
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    /* ── ABOUT STRIP ────────────────────────────────────── */
+    .about-strip {
+      background: var(--paper-dark);
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    .about-strip h2 {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+    .about-strip p {
+      max-width: 680px;
+      margin: 0 auto;
+      font-size: 0.95rem;
+      color: var(--ink-light);
+    }
+
+    /* ── ARTICLES INDEX ─────────────────────────────────── */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .filter-btn {
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.9rem;
+      border: 1px solid var(--rule);
+      background: transparent;
+      color: var(--ink-light);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--white);
+    }
+
+    .articles-list { display: flex; flex-direction: column; gap: 0; }
+    .article-row {
+      display: grid;
+      grid-template-columns: 120px 1fr auto;
+      gap: 1.5rem;
+      align-items: baseline;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--rule);
+      transition: background 0.15s;
+    }
+    .article-row:hover { background: rgba(200,186,160,0.15); padding-left: 0.5rem; }
+    .article-era-tag {
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      padding: 0.2rem 0.5rem;
+      border: 1px solid var(--accent2);
+      white-space: nowrap;
+      text-align: center;
+    }
+    .article-title {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      color: var(--ink);
+    }
+    .article-title small {
+      display: block;
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      color: var(--ink-light);
+      font-style: normal;
+      margin-top: 0.2rem;
+    }
+    .article-arrow {
+      font-size: 0.9rem;
+      color: var(--rule);
+    }
+
+    /* ── GALLERY ────────────────────────────────────────── */
+    .gallery-search {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .gallery-search input {
+      font-family: var(--body);
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--rule);
+      background: var(--white);
+      color: var(--ink);
+      flex: 1;
+      min-width: 200px;
+      outline: none;
+    }
+    .gallery-search input:focus { border-color: var(--accent); }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+    .gallery-card {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      overflow: hidden;
+      cursor: pointer;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .gallery-card:hover {
+      box-shadow: 0 8px 28px rgba(28,24,20,0.15);
+      transform: translateY(-3px);
+    }
+    .gallery-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: var(--paper-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .gallery-img img { width: 100%; height: 100%; object-fit: cover; }
+    .gallery-img .placeholder {
+      font-family: var(--serif);
+      font-size: 2.5rem;
+      color: var(--rule);
+      font-style: italic;
+    }
+    .gallery-caption {
+      padding: 0.85rem 1rem;
+    }
+    .gallery-name {
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.2rem;
+    }
+    .gallery-relation {
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      color: var(--ink-light);
+      line-height: 1.4;
+    }
+    .gallery-era-dot {
+      display: inline-block;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-right: 0.4rem;
+      vertical-align: middle;
+    }
+
+    /* ── LIGHTBOX ───────────────────────────────────────── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(28,24,20,0.92);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .lightbox.open { display: flex; }
+    .lb-inner {
+      background: var(--white);
+      max-width: 680px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .lb-img {
+      width: 100%;
+      max-height: 420px;
+      object-fit: contain;
+      background: var(--paper-dark);
+    }
+    .lb-img-placeholder {
+      width: 100%;
+      height: 320px;
+      background: var(--paper-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 3rem;
+      color: var(--rule);
+      font-style: italic;
+    }
+    .lb-body { padding: 1.75rem 2rem; }
+    .lb-name {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.25rem;
+    }
+    .lb-relation {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      color: var(--ink-light);
+      margin-bottom: 1rem;
+    }
+    .lb-desc {
+      font-size: 0.92rem;
+      color: var(--ink-light);
+      line-height: 1.7;
+    }
+    .lb-close {
+      position: absolute;
+      top: 1.5rem; right: 1.5rem;
+      background: none;
+      border: 1px solid var(--rule);
+      color: var(--paper);
+      font-size: 1.2rem;
+      width: 36px; height: 36px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lb-close:hover { background: var(--accent); border-color: var(--accent); }
+
+    /* ── FOOTER ─────────────────────────────────────────── */
+    footer {
+      background: var(--ink);
+      color: var(--rule);
+      text-align: center;
+      padding: 2.5rem 2rem;
+      border-top: 3px solid var(--gold);
+    }
+    footer .footer-brand {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--paper);
+      margin-bottom: 0.5rem;
+    }
+    footer p {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      opacity: 0.6;
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .article-row { grid-template-columns: 1fr; gap: 0.5rem; }
+      .article-arrow { display: none; }
+      .nav-links { gap: 1rem; }
+      .nav-brand { font-size: 1rem; }
+    }
+  .Bios {
+}
+  </style>
+</head>
+<body>
+<!-- ══ NAV ══════════════════════════════════════════════ -->
+<nav class="Bios">
+  <div class="nav-brand"><span>Gunns</span> in America</div>
+  <ul class="nav-links">
+    <li><a href="#" class="active" data-page="home">Home</a></li>
+    <li><a href="#" data-page="articles">Articles</a></li>
+    <li><a href="#" data-page="gallery">Gallery</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HOME PAGE ════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <section class="hero">
+    <div class="hero-eyebrow">A Family History · 1635 to the Present</div>
+    <h1>Gunns<br><em>in America</em></h1>
+    <div class="hero-sub">From the colonies to the modern era</div>
+    <div class="hero-rule"></div>
+    <p class="hero-desc">
+      In 1635, Jasper Gunn sailed from England and set foot in New England — one family's beginning in a world being made. This site is the companion to the book, collecting the stories, documents, and faces that couldn't fit between two covers.
+    </p>
+    <div class="hero-dates">1635 &nbsp;·&nbsp; Colonial &nbsp;·&nbsp; Revolution &nbsp;·&nbsp; Frontier &nbsp;·&nbsp; Civil War &nbsp;·&nbsp; Modern Era</div>
+  </section>
+
+  <div class="timeline-band">
+    <div class="timeline-inner">
+      <div class="tl-era" onclick="goPage('articles', 'Colonial')">
+        <div class="tl-dot"></div>
+        <div class="tl-label">Colonial</div>
+        <div class="tl-year">1635</div>
+      </div>
+      <div class="tl-era" onclick="goPage('articles', 'Revolutionary')">
+        <div class="tl-dot"></div>
+        <div class="tl-label">Revolution</div>
+        <div class="tl-year">1775</div>
+      </div>
+      <div class="tl-era" onclick="goPage('articles', 'War of 1812')">
+        <div class="tl-dot"></div>
+        <div class="tl-label">War of 1812</div>
+        <div class="tl-year">1812</div>
+      </div>
+      <div class="tl-era" onclick="goPage('articles', 'Frontier')">
+        <div class="tl-dot"></div>
+        <div class="tl-label">Frontier</div>
+        <div class="tl-year">1830s</div>
+      </div>
+      <div class="tl-era" onclick="goPage('articles', 'Civil War')">
+        <div class="tl-dot"></div>
+        <div class="tl-label">Civil War</div>
+        <div class="tl-year">1861</div>
+      </div>
+      <div class="tl-era" onclick="goPage('articles', 'Modern')">
+        <div class="tl-dot"></div>
+        <div class="tl-label">Modern Era</div>
+        <div class="tl-year">1900s</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <h2>Featured Stories</h2>
+      <span class="count">From the Archives</span>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card" onclick="goPage('articles')">
+        <div class="card-era">Colonial · 1635</div>
+        <h3>Jasper Gunn Arrives in New England</h3>
+        <p>A young man leaves England for an uncertain shore. What brought him, what he found, and how he put down roots that would hold for centuries.</p>
+        <span class="card-link">Read the story →</span>
+      </div>
+      <div class="feature-card" onclick="goPage('articles')">
+        <div class="card-era">Revolutionary War · 1776</div>
+        <h3>The Gunns at Lexington and Beyond</h3>
+        <p>When the colonies rose against the Crown, members of the Gunn family answered. Their roles, their sacrifices, and their aftermath.</p>
+        <span class="card-link">Read the story →</span>
+      </div>
+      <div class="feature-card" onclick="goPage('articles')">
+        <div class="card-era">Frontier · 1840s</div>
+        <h3>Moving West: The Family Crosses the Appalachians</h3>
+        <p>Successive generations pushed further from New England, following the promise of land, opportunity, and reinvention.</p>
+        <span class="card-link">Read the story →</span>
+      </div>
+      <div class="feature-card" onclick="goPage('articles')">
+        <div class="card-era">Modern Era · Early 1900s</div>
+        <h3>Nina Belle Pyle: The Last Gunn</h3>
+        <p>The story closes with a grandmother and her family — living memory of a line that stretches back almost four hundred years.</p>
+        <span class="card-link">Read the story →</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-strip">
+    <h2>About This Project</h2>
+    <p>The book traces the Gunn family through American history — from Jasper's arrival in 1635 through the Colonial period, the Revolution, westward expansion, the Civil War, and into the modern era. This companion site holds the overflow: longer articles, additional photographs, and every face in the family gallery.</p>
+  </div>
+
+</div><!-- /home -->
+
+
+<!-- ══ ARTICLES PAGE ═════════════════════════════════════ -->
+<div class="page" id="page-bios">
+  <div class="section">
+    <div class="section-header">
+      <h2>Articles &amp; Stories</h2>
+      <span class="count" id="article-count2">-- articles</span></div>
+    <div class="filter-bar" id="era-filters2">
+      <button class="filter-btn active" data-era="All">All Eras</button>
+      <button class="filter-btn" data-era="Colonial">Colonial</button>
+      <button class="filter-btn" data-era="Revolutionary">Revolutionary</button>
+      <button class="filter-btn" data-era="War of 1812">War of 1812</button>
+      <button class="filter-btn" data-era="Frontier">Frontier</button>
+      <button class="filter-btn" data-era="Civil War">Civil War</button>
+      <button class="filter-btn" data-era="Modern">Modern</button>
+    </div>
+    <div class="articles-list" id="articles-list2"></div>
+  </div>
+Content for New nav Tag Goes Here</div>
+<.section></.section>
+<div class="page" id="page-articles">
+  <div class="section">
+    <div class="section-header">
+      <h2>Articles &amp; Stories</h2>
+      <span class="count" id="article-count">-- articles</span>
+    </div>
+
+    <div class="filter-bar" id="era-filters">
+      <button class="filter-btn active" data-era="All">All Eras</button>
+      <button class="filter-btn" data-era="Colonial">Colonial</button>
+      <button class="filter-btn" data-era="Revolutionary">Revolutionary</button>
+      <button class="filter-btn" data-era="War of 1812">War of 1812</button>
+      <button class="filter-btn" data-era="Frontier">Frontier</button>
+      <button class="filter-btn" data-era="Civil War">Civil War</button>
+      <button class="filter-btn" data-era="Modern">Modern</button>
+    </div>
+
+    <div class="articles-list" id="articles-list"></div>
+  </div>
+</div><!-- /articles -->
+
+
+<!-- ══ GALLERY PAGE ══════════════════════════════════════ -->
+<div class="page" id="page-gallery">
+  <div class="section">
+    <div class="section-header">
+      <h2>Family Gallery</h2>
+      <span class="count" id="gallery-count">-- images</span>
+    </div>
+
+    <div class="gallery-search">
+      <input type="text" id="gallery-search" placeholder="Search by name or relationship…" oninput="filterGallery()" />
+      <div class="filter-bar" style="margin:0;" id="gallery-era-filters">
+        <button class="filter-btn active" data-gera="All">All</button>
+        <button class="filter-btn" data-gera="Colonial">Colonial</button>
+        <button class="filter-btn" data-gera="Revolutionary">Revolutionary</button>
+        <button class="filter-btn" data-gera="Frontier">Frontier</button>
+        <button class="filter-btn" data-gera="Civil War">Civil War</button>
+        <button class="filter-btn" data-gera="Modern">Modern</button>
+      </div>
+    </div>
+
+    <div class="gallery-grid" id="gallery-grid"></div>
+  </div>
+</div><!-- /gallery -->
+
+
+<!-- ══ LIGHTBOX ══════════════════════════════════════════ -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lb-close" onclick="closeLightbox()">✕</button>
+  <div class="lb-inner">
+    <div class="lb-img-placeholder" id="lb-img-wrap">G</div>
+    <div class="lb-body">
+      <div class="lb-name" id="lb-name"></div>
+      <div class="lb-relation" id="lb-relation"></div>
+      <div class="lb-desc" id="lb-desc"></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ FOOTER ════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-brand">Gunns in America · GunnsinAmerica.org</div>
+  <p>A family history spanning 1635 to the present · Companion to the book ©2026 All Rights Reserved. </p> 
+</footer>
+
+
+<script>
+// ── DATA ─────────────────────────────────────────────────
+// Replace / extend these arrays with your real content
+
+const ARTICLES = [
+  { era: 'Colonial',      title: 'Jasper Gunn Arrives in New England',            sub: '1635 — The founding of the American line' },
+  { era: 'Colonial',      title: 'The Puritan World Jasper Entered',               sub: 'Life in the Massachusetts Bay Colony' },
+  { era: 'Colonial',      title: 'Land, Community, and the First Generation',      sub: 'Jasper\'s children and grandchildren settle in' },
+  { era: 'Colonial',      title: 'Church and Covenant: Faith of the Gunns',        sub: 'Religion\'s role in early family life' },
+  { era: 'Revolutionary', title: 'The Gunns at Lexington and Beyond',              sub: 'April 19, 1775 and after' },
+  { era: 'Revolutionary', title: 'A Family Divided? Loyalists and Patriots',       sub: 'How the Revolution tested kinship' },
+  { era: 'Revolutionary', title: 'Women of the Revolution in the Gunn Circle',     sub: 'The home front, 1775–1783' },
+  { era: 'War of 1812',   title: 'Gunn Men in the Second War with Britain',        sub: 'Service records and family letters' },
+  { era: 'War of 1812',   title: 'The Burning of Washington and Family Memory',    sub: '1814 and its echoes in family correspondence' },
+  { era: 'Frontier',      title: 'Moving West: Crossing the Appalachians',         sub: 'Migration patterns, 1800–1840' },
+  { era: 'Frontier',      title: 'Ohio, Indiana, Illinois: The Middle Passage',    sub: 'Settlement in the Old Northwest' },
+  { era: 'Frontier',      title: 'Farming the Frontier: Gunn Homesteads',          sub: 'Land claims, deeds, and daily life' },
+  { era: 'Frontier',      title: 'The Santa Fe Trail and the Far West',            sub: 'Were there Gunns in the great migration?' },
+  { era: 'Civil War',     title: 'Blue or Gray: Gunn Soldiers, 1861–1865',         sub: 'Known service records, North and South' },
+  { era: 'Civil War',     title: 'Letters Home from the Front',                    sub: 'Correspondence from wartime' },
+  { era: 'Civil War',     title: 'Reconstruction and the Gunn Family',             sub: 'Picking up after the war' },
+  { era: 'Modern',        title: 'Turn of the Century: The Gunns in 1900',         sub: 'Where the family stood at the new century' },
+  { era: 'Modern',        title: 'The Great War and the Family',                   sub: 'World War I and its impact' },
+  { era: 'Modern',        title: 'Nina Belle Pyle: The Last Gunn',                 sub: 'Living memory of the line' },
+  { era: 'Modern',        title: 'What Became of the Name',                        sub: 'The Gunn line through daughters and descendants' },
+];
+
+const GALLERY = [
+  { name: 'Jasper Gunn',          era: 'Colonial',      relation: 'Progenitor · Arrived 1635',                    desc: 'No known portrait survives. This entry marks the founding of the American line.' },
+  { name: 'Mary (Gunn) Smith',    era: 'Colonial',      relation: 'Daughter of Jasper Gunn',                      desc: 'Married into the Smith family of Connecticut, circa 1660.' },
+  { name: 'Thomas Gunn',          era: 'Revolutionary', relation: 'Great-grandson of Jasper · Militia, 1776',     desc: 'Believed to have served in the Connecticut militia during the Revolutionary War.' },
+  { name: 'Eliza Gunn',           era: 'Revolutionary', relation: '3rd generation · Wife of Thomas Gunn',         desc: 'Managed the family farm during Thomas\'s service.' },
+  { name: 'Capt. James Gunn',     era: 'War of 1812',   relation: '4th generation · U.S. Army, 1812',             desc: 'Captain in the New York Volunteers during the War of 1812.' },
+  { name: 'Hannah Gunn',          era: 'Frontier',      relation: '5th generation · Migrated to Ohio, 1831',      desc: 'Part of the westward migration of the 1830s.' },
+  { name: 'Ezra Gunn',            era: 'Frontier',      relation: '5th generation · Farmer, Ohio',                desc: 'Established a homestead in Licking County, Ohio.' },
+  { name: 'Pvt. William Gunn',    era: 'Civil War',     relation: '6th generation · Union Army, 62nd Ohio Inf.', desc: 'Enlisted 1862. Served at Chickamauga.' },
+  { name: 'Sarah Gunn',           era: 'Civil War',     relation: '6th generation · William\'s wife',             desc: 'Kept the farm and raised four children during the war.' },
+  { name: 'George Gunn',          era: 'Modern',        relation: '7th generation · Born 1871',                   desc: 'Farmer and local official in central Ohio.' },
+  { name: 'Nina Belle Pyle',      era: 'Modern',        relation: 'Last Gunn descendant · Grandmother',           desc: 'The last known descendant carrying the Gunn family line into the 20th century.' },
+  { name: 'The Pyle Family',      era: 'Modern',        relation: 'Nina\'s family · Early 1900s',                 desc: 'Family photograph, approximate date 1910–1920.' },
+];
+
+// Era dot colors
+const ERA_COLORS = {
+  'Colonial':      '#7a3b1e',
+  'Revolutionary': '#3b5c3e',
+  'War of 1812':   '#4a6080',
+  'Frontier':      '#7a6030',
+  'Civil War':     '#6b3a3a',
+  'Modern':        '#4a4060',
+};
+
+// ── NAVIGATION ───────────────────────────────────────────
+let currentEraFilter = 'All';
+let currentGalEra    = 'All';
+
+document.querySelectorAll('[data-page]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    goPage(a.dataset.page);
+  });
+});
+
+function goPage(name, eraFilter) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('[data-page]').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.querySelector(`[data-page="${name}"]`).classList.add('active');
+  window.scrollTo(0, 0);
+  if (name === 'articles') renderArticles(eraFilter || 'All');
+  if (name === 'gallery')  renderGallery();
+}
+
+// ── ARTICLES ─────────────────────────────────────────────
+function renderArticles(filterEra) {
+  currentEraFilter = filterEra || currentEraFilter;
+
+  document.querySelectorAll('#era-filters .filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.era === currentEraFilter);
+  });
+
+  const filtered = currentEraFilter === 'All'
+    ? ARTICLES
+    : ARTICLES.filter(a => a.era === currentEraFilter);
+
+  document.getElementById('article-count').textContent = filtered.length + ' articles';
+
+  const list = document.getElementById('articles-list');
+  list.innerHTML = filtered.map((a, i) => `
+    <div class="article-row" onclick="alert('Article: ${a.title.replace(/'/g,"\\'")}\\n\\n(Link your HTML page here)')">
+      <span class="article-era-tag" style="border-color:${ERA_COLORS[a.era]||'#888'};color:${ERA_COLORS[a.era]||'#888'}">${a.era}</span>
+      <div class="article-title">
+        ${a.title}
+        <small>${a.sub}</small>
+      </div>
+      <span class="article-arrow">→</span>
+    </div>
+  `).join('');
+}
+
+document.querySelectorAll('#era-filters .filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => renderArticles(btn.dataset.era));
+});
+
+// ── GALLERY ──────────────────────────────────────────────
+function renderGallery() {
+  filterGallery();
+}
+
+function filterGallery() {
+  const q   = (document.getElementById('gallery-search').value || '').toLowerCase();
+  const era = currentGalEra;
+
+  const filtered = GALLERY.filter(g => {
+    const matchEra  = era === 'All' || g.era === era;
+    const matchText = !q || g.name.toLowerCase().includes(q) || g.relation.toLowerCase().includes(q);
+    return matchEra && matchText;
+  });
+
+  document.getElementById('gallery-count').textContent = filtered.length + ' images';
+
+  const grid = document.getElementById('gallery-grid');
+  grid.innerHTML = filtered.map((g, i) => `
+    <div class="gallery-card" onclick="openLightbox(${GALLERY.indexOf(g)})">
+      <div class="gallery-img">
+        <span class="placeholder">${g.name[0]}</span>
+      </div>
+      <div class="gallery-caption">
+        <div class="gallery-name">${g.name}</div>
+        <div class="gallery-relation">
+          <span class="gallery-era-dot" style="background:${ERA_COLORS[g.era]||'#888'}"></span>
+          ${g.relation}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+document.querySelectorAll('#gallery-era-filters .filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    currentGalEra = btn.dataset.gera;
+    document.querySelectorAll('#gallery-era-filters .filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterGallery();
+  });
+});
+
+// ── LIGHTBOX ─────────────────────────────────────────────
+function openLightbox(idx) {
+  const g = GALLERY[idx];
+  document.getElementById('lb-name').textContent     = g.name;
+  document.getElementById('lb-relation').textContent = g.relation;
+  document.getElementById('lb-desc').textContent     = g.desc;
+  document.getElementById('lb-img-wrap').textContent = g.name[0];
+  document.getElementById('lightbox').classList.add('open');
+}
+
+function closeLightbox(e) {
+  if (!e || e.target === document.getElementById('lightbox') || e.currentTarget.classList.contains('lb-close')) {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+}
+
+// ── INIT ─────────────────────────────────────────────────
+renderArticles('All');
+renderGallery();
+</script>
+</body>
+</html>

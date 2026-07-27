@@ -1,0 +1,219 @@
+---
+export interface Props {
+  title?:       string;
+  description?: string;
+  ogImage?:     string;
+}
+
+const {
+  title       = 'Gunns in America',
+  description = "A family history spanning 1635 to the present. The story of the Gunn family from Jasper's arrival in colonial New England through four centuries of American life.",
+  ogImage     = '/images/og-default.jpg',
+} = Astro.props;
+
+const fullTitle = title === 'Gunns in America'
+  ? 'Gunns in America'
+  : `${title} · Gunns in America`;
+
+const path = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <meta property="og:title"       content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image"       content={new URL(ogImage, Astro.site)} />
+  <meta property="og:type"        content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="icon" href="/favicon.ico" />
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="/"><span>Gunns</span> in America</a>
+  <ul class="nav-links">
+    <li><a href="/"         class:list={[{ active: path === '/' }]}>Home</a></li>
+    <li><a href="/articles" class:list={[{ active: path.startsWith('/articles') }]}>Articles</a></li>
+    <li><a href="/journal"  class:list={[{ active: path.startsWith('/journal') }]}>Journal</a></li>
+    <li><a href="/gallery"  class:list={[{ active: path.startsWith('/gallery') }]}>Gallery</a></li>
+    <li><a href="/database">Database</a></li>
+  </ul>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<slot />
+
+<footer>
+  <div class="footer-brand">Gunns in America · GunnsinAmerica.org</div>
+  <p>A family history spanning 1635 to the present · Companion to the book</p>
+  <p style="margin-top:0.35rem">©2026 All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
+
+<style is:global>
+  /* ── Tokens (your exact values) ───────────────────── */
+  :root {
+    --ink:        #1c1814;
+    --ink-light:  #4a3f35;
+    --paper:      #f5f0e8;
+    --paper-dark: #e8e0d0;
+    --rule:       #c8baa0;
+    --accent:     #7a3b1e;
+    --accent2:    #3b5c3e;
+    --gold:       #b08840;
+    --white:      #fdfaf4;
+
+    --serif: 'Playfair Display', Georgia, serif;
+    --body:  'Libre Baskerville', Georgia, serif;
+    --sans:  'Raleway', sans-serif;
+
+    --max:      740px;
+    --max-wide: 1160px;
+    --nav-h:    64px;
+  }
+
+  /* ── Reset ─────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html  { scroll-behavior: smooth; }
+  img   { display: block; max-width: 100%; }
+  a     { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  body {
+    background:  var(--paper);
+    color:       var(--ink);
+    font-family: var(--body);
+    font-size:   18px;
+    line-height: 1.8;
+    min-height:  100vh;
+    display:     flex;
+    flex-direction: column;
+  }
+
+  /* ── Nav ────────────────────────────────────────────── */
+  nav {
+    position:        sticky;
+    top:             0;
+    z-index:         100;
+    background:      var(--ink);
+    height:          var(--nav-h);
+    display:         flex;
+    align-items:     center;
+    justify-content: space-between;
+    padding:         0 2rem;
+    border-bottom:   3px solid var(--gold);
+  }
+
+  .nav-brand {
+    font-family:     var(--serif);
+    font-size:       1.25rem;
+    color:           var(--paper);
+    letter-spacing:  0.04em;
+    text-decoration: none;
+  }
+  .nav-brand span { color: var(--gold); }
+  .nav-brand:hover { text-decoration: none; }
+
+  .nav-links {
+    display:     flex;
+    gap:         2rem;
+    list-style:  none;
+  }
+  .nav-links a {
+    font-family:     var(--sans);
+    font-size:       0.78rem;
+    font-weight:     600;
+    letter-spacing:  0.12em;
+    text-transform:  uppercase;
+    color:           var(--paper-dark);
+    transition:      color 0.2s;
+  }
+  .nav-links a:hover,
+  .nav-links a.active {
+    color:           var(--gold);
+    text-decoration: none;
+  }
+
+  .nav-toggle {
+    display:        none;
+    flex-direction: column;
+    gap:            5px;
+    background:     none;
+    border:         none;
+    cursor:         pointer;
+    padding:        4px;
+  }
+  .nav-toggle span {
+    display:    block;
+    width:      22px;
+    height:     2px;
+    background: var(--paper);
+  }
+
+  /* ── Footer ─────────────────────────────────────────── */
+  footer {
+    background:  var(--ink);
+    color:       var(--rule);
+    text-align:  center;
+    padding:     2.5rem 2rem;
+    border-top:  3px solid var(--gold);
+    margin-top:  auto;
+  }
+
+  .footer-brand {
+    font-family:   var(--serif);
+    font-size:     1.1rem;
+    color:         var(--paper);
+    margin-bottom: 0.5rem;
+  }
+
+  footer p {
+    font-family:    var(--sans);
+    font-size:      0.72rem;
+    letter-spacing: 0.08em;
+    opacity:        0.6;
+  }
+
+  /* ── Mobile nav ─────────────────────────────────────── */
+  @media (max-width: 640px) {
+    .nav-links {
+      display:        none;
+      position:       absolute;
+      top:            var(--nav-h);
+      left:           0; right: 0;
+      background:     var(--ink);
+      flex-direction: column;
+      gap:            0;
+      border-bottom:  2px solid var(--gold);
+    }
+    .nav-links.open { display: flex; }
+    .nav-links li a {
+      display:  block;
+      padding:  0.9rem 2rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .nav-toggle { display: flex; }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector('.nav-toggle');
+  const links  = document.querySelector('.nav-links');
+  toggle?.addEventListener('click', () => {
+    const open = links?.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+</script>

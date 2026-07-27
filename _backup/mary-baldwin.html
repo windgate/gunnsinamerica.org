@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Article Title · Gunns in America</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --ink:        #1c1814;
+      --ink-light:  #4a3f35;
+      --paper:      #f5f0e8;
+      --paper-dark: #e8e0d0;
+      --rule:       #c8baa0;
+      --accent:     #7a3b1e;
+      --accent2:    #3b5c3e;
+      --gold:       #b08840;
+      --white:      #fdfaf4;
+
+      --serif:  'Playfair Display', Georgia, serif;
+      --body:   'Libre Baskerville', Georgia, serif;
+      --sans:   'Raleway', sans-serif;
+
+      --max:        740px;   /* comfortable reading width */
+      --max-wide:   1160px;
+      --nav-h:      64px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 18px;
+      line-height: 1.8;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--ink);
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      border-bottom: 3px solid var(--gold);
+    }
+    .nav-brand {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      color: var(--paper);
+      letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+    .nav-brand span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--paper-dark);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); text-decoration: none; }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      max-width: var(--max-wide);
+      margin: 0 auto;
+      padding: 1rem 2rem 0;
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .breadcrumb a { color: var(--ink-light); }
+    .breadcrumb a:hover { color: var(--accent); }
+    .breadcrumb-sep { opacity: 0.4; }
+
+    /* ── ARTICLE HEADER ── */
+    .article-header {
+      max-width: var(--max);
+      margin: 2rem auto 0;
+      padding: 0 2rem;
+    }
+    .article-era {
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .article-era::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+      max-width: 60px;
+    }
+    .article-header h1 {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+    }
+    .article-subtitle {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--ink-light);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+    .article-meta {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      padding: 1rem 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 2.5rem;
+    }
+    .meta-item {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+    .meta-item strong {
+      display: block;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.1rem;
+    }
+
+    /* ── LEAD IMAGE ── */
+    .article-lead-image {
+      max-width: var(--max-wide);
+      margin: 0 auto 3rem;
+      padding: 0 2rem;
+    }
+    .article-lead-image img {
+      width: 100%;
+      max-height: 480px;
+      object-fit: cover;
+    }
+    .article-lead-image figcaption {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+      color: var(--ink-light);
+      padding: 0.6rem 0 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    /* ── ARTICLE BODY ── */
+    .article-body {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 2rem 4rem;
+    }
+
+    .article-body p { margin-bottom: 1.5rem; }
+
+    .article-body h2 {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 2.5rem 0 1rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--rule);
+    }
+    .article-body h3 {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--ink);
+      margin: 2rem 0 0.75rem;
+    }
+
+    /* Pull quote */
+    .article-body blockquote {
+      margin: 2.5rem 0;
+      padding: 1.5rem 2rem;
+      border-left: 4px solid var(--gold);
+      background: var(--paper-dark);
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--ink);
+      line-height: 1.6;
+    }
+    .article-body blockquote cite {
+      display: block;
+      margin-top: 0.75rem;
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-style: normal;
+      color: var(--ink-light);
+    }
+
+    /* Inline image — float right */
+    .article-body figure.inline {
+      float: right;
+      margin: 0 0 1.5rem 2rem;
+      max-width: 280px;
+      clear: right;
+    }
+    .article-body figure.inline img {
+      border: 1px solid var(--rule);
+    }
+    .article-body figure.inline figcaption {
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      letter-spacing: 0.05em;
+      color: var(--ink-light);
+      padding-top: 0.4rem;
+      line-height: 1.4;
+    }
+
+    /* Full-width image inside body */
+    .article-body figure.full {
+      margin: 2rem -2rem;
+    }
+    .article-body figure.full img { width: 100%; }
+    .article-body figure.full figcaption {
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      letter-spacing: 0.05em;
+      color: var(--ink-light);
+      padding: 0.4rem 2rem 0;
+    }
+
+    /* Related people callout */
+    .people-callout {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-top: 3px solid var(--accent2);
+      padding: 1.25rem 1.5rem;
+      margin: 2.5rem 0;
+    }
+    .people-callout h4 {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 0.75rem;
+    }
+    .people-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .people-list li {
+      font-size: 0.88rem;
+      color: var(--ink-light);
+      display: flex;
+      gap: 0.75rem;
+      align-items: baseline;
+    }
+    .people-list li strong {
+      color: var(--ink);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* Sources / footnotes */
+    .article-sources {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 2px solid var(--rule);
+    }
+    .article-sources h4 {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 0.75rem;
+    }
+    .article-sources ol {
+      padding-left: 1.25rem;
+      font-size: 0.82rem;
+      color: var(--ink-light);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    /* ── PREV/NEXT NAV ── */
+    .article-nav {
+      max-width: var(--max-wide);
+      margin: 0 auto;
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      border-top: 1px solid var(--rule);
+    }
+    .article-nav-link {
+      padding: 1.25rem;
+      background: var(--white);
+      border: 1px solid var(--rule);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .article-nav-link:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 16px rgba(28,24,20,0.08);
+      text-decoration: none;
+    }
+    .article-nav-link .nav-dir {
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 0.35rem;
+    }
+    .article-nav-link .nav-title {
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+    .article-nav-link.next { text-align: right; }
+
+    /* ── BACK TO INDEX ── */
+    .back-bar {
+      background: var(--paper-dark);
+      border-top: 1px solid var(--rule);
+      padding: 1.25rem 2rem;
+      text-align: center;
+    }
+    .back-bar a {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: var(--rule);
+      text-align: center;
+      padding: 2.5rem 2rem;
+      border-top: 3px solid var(--gold);
+    }
+    .footer-brand {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--paper);
+      margin-bottom: 0.5rem;
+    }
+    footer p {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      opacity: 0.6;
+    }
+
+    @media (max-width: 600px) {
+      .article-body figure.inline { float: none; max-width: 100%; margin: 1.5rem 0; }
+      .article-nav { grid-template-columns: 1fr; }
+      .article-nav-link.next { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="../index.html"><span>Gunns</span> in America</a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../articles/index.html">Articles</a></li>
+    <li><a href="../gallery/index.html">Gallery</a></li>
+  </ul>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="../index.html">Home</a>
+  <span class="breadcrumb-sep">›</span>
+  <a href="../articles/index.html">Articles</a>
+  <span class="breadcrumb-sep">›</span>
+  <span>Colonial Era</span>  <!-- ← change per article -->
+</div>
+
+<!-- ARTICLE HEADER -->
+<header class="article-header">
+  <div class="article-era">Colonial Era · 1635</div>  <!-- ← change -->
+
+  <h1>Jasper Gunn Arrives in New England</h1>  <!-- ← change -->
+
+  <p class="article-subtitle">
+    A young man leaves England for an uncertain shore — what brought him, what he found,
+    and how he put down roots that would hold for centuries.
+  </p>  <!-- ← change -->
+
+  <div class="article-meta">
+    <div class="meta-item">
+      <strong>Era</strong>
+      Colonial
+    </div>
+    <div class="meta-item">
+      <strong>Date Range</strong>
+      1635 – 1660
+    </div>
+    <div class="meta-item">
+      <strong>Key Figure</strong>
+      Jasper Gunn
+    </div>
+    <div class="meta-item">
+      <strong>Location</strong>
+      Massachusetts Bay Colony
+    </div>
+  </div>
+</header>
+
+<!-- OPTIONAL LEAD IMAGE — remove section if no image -->
+<figure class="article-lead-image">
+  <img src="../images/articles/colonial-new-england.jpg"
+       alt="Colonial New England harbor, circa 1635" />
+  <figcaption>
+    A period illustration of the Massachusetts Bay Colony. — Source: [Your source here]
+  </figcaption>
+</figure>
+
+<!-- ARTICLE BODY -->
+<article class="article-body">
+
+  <p>
+    In the spring of 1635, a young man named Jasper Gunn boarded a ship in England and set sail for the Massachusetts Bay Colony. He was among the thousands who crossed the Atlantic during the Great Migration — that decade-long flood of Puritan settlers who would lay the foundations of New England society. What drove him, precisely, we cannot say with certainty. What we know is that he arrived, that he stayed, and that his descendants would carry the Gunn name across American history for nearly four centuries.
+  </p>
+
+  <!-- PEOPLE CALLOUT — list family members mentioned -->
+  <div class="people-callout">
+    <h4>Family Members in This Story</h4>
+    <ul class="people-list">
+      <li><strong>Jasper Gunn</strong> — Progenitor; arrived New England 1635</li>
+      <li><strong>[ Wife's name ]</strong> — Married Jasper, circa [year]</li>
+      <li><strong>[ Child's name ]</strong> — First generation born in the colonies</li>
+    </ul>
+  </div>
+
+  <h2>The World He Left Behind</h2>
+
+  <p>
+    England in the 1630s was a country under pressure. Archbishop Laud's campaign to enforce Anglican conformity had made life uncomfortable — and sometimes dangerous — for those with Puritan sympathies. Add to that the economic strain of the period, the lure of land in the New World, and the pull of a community already forming across the ocean, and the decision to emigrate becomes easier to understand, if no less momentous.
+  </p>
+
+  <!-- INLINE IMAGE — floats right in text -->
+  <figure class="inline">
+    <img src="../images/articles/jasper-gunn-document.jpg"
+         alt="Ship manifest or land record mentioning Jasper Gunn" />
+    <figcaption>
+      A land record mentioning Jasper Gunn, [date].<br>
+      [Source / archive]
+    </figcaption>
+  </figure>
+
+  <p>
+    [Continue your article text here. This paragraph sits alongside the floated image above. Write as much as you need — the image will clear naturally when the text surpasses it.]
+  </p>
+
+  <p>
+    [Add more paragraphs as needed. The layout handles long-form text comfortably.]
+  </p>
+
+  <h2>Arrival and Settlement</h2>
+
+  <p>
+    [Describe where Jasper settled, the community he joined, his neighbors, his church, his land grant if known.]
+  </p>
+
+  <!-- PULL QUOTE — use for letters, documents, or memorable lines -->
+  <blockquote>
+    "[ A quote from a period document, letter, or record, if you have one. Otherwise a thematic line that sets the tone. ]"
+    <cite>— Source, date</cite>
+  </blockquote>
+
+  <p>
+    [Continue narrative after the pull quote.]
+  </p>
+
+  <h2>The Family He Built</h2>
+
+  <p>
+    [Describe Jasper's marriage, children, and the beginning of the American Gunn line.]
+  </p>
+
+  <!-- FULL-WIDTH IMAGE — remove if not needed -->
+  <figure class="full">
+    <img src="../images/articles/colonial-homestead.jpg"
+         alt="Colonial homestead, New England" />
+    <figcaption>
+      Caption for this full-width image. — Source
+    </figcaption>
+  </figure>
+
+  <h3>What Came Next</h3>
+
+  <p>
+    [Bridge to the next generation — a natural handoff to the next era or article.]
+  </p>
+
+  <!-- SOURCES -->
+  <div class="article-sources">
+    <h4>Sources &amp; Notes</h4>
+    <ol>
+      <li>[Primary source one — archive, document, census record, etc.]</li>
+      <li>[Secondary source — book, article, genealogical database]</li>
+      <li>[Additional reference]</li>
+    </ol>
+  </div>
+
+</article>
+
+<!-- PREV / NEXT ARTICLE NAV -->
+<nav class="article-nav" aria-label="Article navigation">
+  <a class="article-nav-link prev" href="previous-article.html">
+    <div class="nav-dir">← Previous</div>
+    <div class="nav-title">[ Title of previous article ]</div>
+  </a>
+  <a class="article-nav-link next" href="next-article.html">
+    <div class="nav-dir">Next →</div>
+    <div class="nav-title">[ Title of next article ]</div>
+  </a>
+</nav>
+
+<!-- BACK TO INDEX -->
+<div class="back-bar">
+  <a href="../articles/index.html">← Back to All Articles</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Gunns in America · GunnsinAmerica.org</div>
+  <p>A family history spanning 1635 to the present · Companion to the book</p>
+</footer>
+
+</body>
+</html>

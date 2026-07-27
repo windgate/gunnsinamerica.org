@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Family Gallery · Gunns in America</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink:        #1c1814;
+      --ink-light:  #4a3f35;
+      --paper:      #f5f0e8;
+      --paper-dark: #e8e0d0;
+      --rule:       #c8baa0;
+      --accent:     #7a3b1e;
+      --accent2:    #3b5c3e;
+      --gold:       #b08840;
+      --white:      #fdfaf4;
+      --serif:      'Playfair Display', Georgia, serif;
+      --body:       'Libre Baskerville', Georgia, serif;
+      --sans:       'Raleway', sans-serif;
+      --max:        1160px;
+      --nav-h:      64px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.75; }
+    img { display: block; max-width: 100%; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--ink); height: var(--nav-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; border-bottom: 3px solid var(--gold);
+    }
+    .nav-brand { font-family: var(--serif); font-size: 1.25rem; color: var(--paper); letter-spacing: 0.04em; }
+    .nav-brand span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-family: var(--sans); font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--paper-dark); transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); text-decoration: none; }
+
+    .page-header {
+      background: var(--ink); color: var(--paper);
+      padding: 3.5rem 2rem 3rem; text-align: center;
+      border-bottom: 3px solid var(--gold);
+    }
+    .page-header h1 { font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 700; margin-bottom: 0.5rem; }
+    .page-header p { font-family: var(--serif); font-style: italic; color: var(--rule); font-size: 1rem; }
+
+    .section { max-width: var(--max); margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+
+    /* Controls */
+    .controls {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      align-items: flex-start; margin-bottom: 2rem;
+      padding-bottom: 1.5rem; border-bottom: 1px solid var(--rule);
+    }
+    .search-wrap { flex: 1; min-width: 220px; position: relative; }
+    .search-wrap input {
+      width: 100%;
+      font-family: var(--body); font-size: 0.9rem;
+      padding: 0.55rem 1rem 0.55rem 2.5rem;
+      border: 1px solid var(--rule); background: var(--white);
+      color: var(--ink); outline: none;
+    }
+    .search-wrap input:focus { border-color: var(--accent); }
+    .search-icon {
+      position: absolute; left: 0.75rem; top: 50%;
+      transform: translateY(-50%); font-size: 0.85rem; opacity: 0.4;
+    }
+    .filter-group { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .filter-btn {
+      font-family: var(--sans); font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.4rem 0.85rem; border: 1px solid var(--rule);
+      background: transparent; color: var(--ink-light); cursor: pointer; transition: all 0.15s;
+    }
+    .filter-btn:hover, .filter-btn.active { background: var(--accent); border-color: var(--accent); color: var(--white); }
+
+    .results-count {
+      font-family: var(--sans); font-size: 0.7rem;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--ink-light); margin-bottom: 1.5rem;
+    }
+
+    /* Gallery grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .gallery-card {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      overflow: hidden;
+      cursor: pointer;
+      transition: box-shadow 0.2s, transform 0.2s;
+      animation: fadeIn 0.3s ease both;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    .gallery-card:hover { box-shadow: 0 8px 28px rgba(28,24,20,0.15); transform: translateY(-3px); }
+
+    /* The image container — fixed aspect ratio */
+    .gallery-thumb {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      background: var(--paper-dark);
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .gallery-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;          /* fills the box, crops if needed */
+      object-position: top center; /* bias toward faces */
+      transition: transform 0.3s ease;
+    }
+    .gallery-card:hover .gallery-thumb img { transform: scale(1.04); }
+
+    /* Placeholder when no image */
+    .gallery-thumb .no-image {
+      font-family: var(--serif);
+      font-size: 2.8rem;
+      font-style: italic;
+      color: var(--rule);
+      user-select: none;
+    }
+
+    /* Era badge overlaid on thumb */
+    .era-badge {
+      position: absolute; bottom: 0.5rem; left: 0.5rem;
+      font-family: var(--sans); font-size: 0.58rem;
+      font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.2rem 0.5rem;
+      background: rgba(28,24,20,0.75); color: var(--gold);
+      backdrop-filter: blur(2px);
+    }
+
+    .gallery-caption { padding: 0.8rem 0.9rem; }
+    .gallery-name { font-family: var(--serif); font-size: 0.95rem; font-weight: 600; color: var(--ink); margin-bottom: 0.2rem; line-height: 1.3; }
+    .gallery-relation { font-family: var(--sans); font-size: 0.65rem; letter-spacing: 0.04em; color: var(--ink-light); line-height: 1.4; }
+
+    /* Empty state */
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center; padding: 4rem 2rem;
+      font-family: var(--serif); font-style: italic;
+      color: var(--ink-light); font-size: 1.1rem;
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none; position: fixed; inset: 0;
+      background: rgba(20,16,12,0.95); z-index: 200;
+      align-items: center; justify-content: center; padding: 1.5rem;
+    }
+    .lightbox.open { display: flex; }
+
+    .lb-inner {
+      background: var(--white); max-width: 780px; width: 100%;
+      max-height: 90vh; overflow-y: auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      position: relative;
+    }
+
+    .lb-img-panel {
+      background: var(--paper-dark);
+      display: flex; align-items: center; justify-content: center;
+      min-height: 360px; overflow: hidden;
+    }
+    .lb-img-panel img {
+      width: 100%; height: 100%;
+      object-fit: contain;         /* show the full image, no crop */
+      max-height: 520px;
+    }
+    .lb-img-panel .no-image {
+      font-family: var(--serif); font-size: 4rem;
+      font-style: italic; color: var(--rule);
+    }
+
+    .lb-info { padding: 2rem; display: flex; flex-direction: column; gap: 0.75rem; }
+    .lb-era {
+      font-family: var(--sans); font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent);
+    }
+    .lb-name { font-family: var(--serif); font-size: 1.6rem; font-weight: 700; color: var(--ink); line-height: 1.2; }
+    .lb-relation { font-family: var(--sans); font-size: 0.75rem; letter-spacing: 0.06em; color: var(--ink-light); }
+    .lb-divider { height: 1px; background: var(--rule); }
+    .lb-desc { font-size: 0.9rem; color: var(--ink-light); line-height: 1.7; }
+    .lb-date { font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--rule); margin-top: auto; }
+
+    .lb-close {
+      position: fixed; top: 1.25rem; right: 1.25rem;
+      background: rgba(28,24,20,0.8); border: 1px solid rgba(200,186,160,0.3);
+      color: var(--paper); font-size: 1.1rem;
+      width: 38px; height: 38px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s; z-index: 201;
+    }
+    .lb-close:hover { background: var(--accent); }
+
+    /* Lightbox prev/next */
+    .lb-prev, .lb-next {
+      position: fixed; top: 50%; transform: translateY(-50%);
+      background: rgba(28,24,20,0.7); border: 1px solid rgba(200,186,160,0.2);
+      color: var(--paper); font-size: 1.2rem;
+      width: 44px; height: 44px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s; z-index: 201;
+    }
+    .lb-prev { left: 1rem; }
+    .lb-next { right: 1rem; }
+    .lb-prev:hover, .lb-next:hover { background: var(--accent); }
+
+    footer {
+      background: var(--ink); color: var(--rule);
+      text-align: center; padding: 2.5rem 2rem;
+      border-top: 3px solid var(--gold);
+    }
+    .footer-brand { font-family: var(--serif); font-size: 1.1rem; color: var(--paper); margin-bottom: 0.5rem; }
+    footer p { font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.08em; opacity: 0.6; }
+
+    @media (max-width: 640px) {
+      .lb-inner { grid-template-columns: 1fr; }
+      .lb-img-panel { min-height: 240px; }
+      .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="../index.html" style="text-decoration:none"><span>Gunns</span> in America</a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../articles/index.html">Articles</a></li>
+    <li><a href="index.html" class="active">Gallery</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <h1>Family Gallery</h1>
+  <p>Photographs, portraits, and documents — every face in the Gunn line</p>
+</div>
+
+<div class="section">
+  <div class="controls">
+    <div class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="gallery-search" placeholder="Search by name or relationship…" oninput="filterGallery()" />
+    </div>
+    <div class="filter-group" id="era-filters">
+      <button class="filter-btn active" data-era="All">All Eras</button>
+      <button class="filter-btn" data-era="Colonial">Colonial</button>
+      <button class="filter-btn" data-era="Revolutionary">Revolutionary</button>
+      <button class="filter-btn" data-era="War of 1812">War of 1812</button>
+      <button class="filter-btn" data-era="Frontier">Frontier</button>
+      <button class="filter-btn" data-era="Civil War">Civil War</button>
+      <button class="filter-btn" data-era="Modern">Modern</button>
+    </div>
+  </div>
+
+  <div class="results-count" id="results-count"></div>
+  <div class="gallery-grid" id="gallery-grid"></div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" onclick="closeLightbox()">✕</button>
+  <button class="lb-prev" onclick="shiftLightbox(-1)">‹</button>
+  <button class="lb-next" onclick="shiftLightbox(1)">›</button>
+  <div class="lb-inner" onclick="event.stopPropagation()">
+    <div class="lb-img-panel" id="lb-img-panel">
+      <span class="no-image">G</span>
+    </div>
+    <div class="lb-info">
+      <div class="lb-era"    id="lb-era"></div>
+      <div class="lb-name"   id="lb-name"></div>
+      <div class="lb-relation" id="lb-relation"></div>
+      <div class="lb-divider"></div>
+      <div class="lb-desc"   id="lb-desc"></div>
+      <div class="lb-date"   id="lb-date"></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-brand">Gunns in America · GunnsinAmerica.org</div>
+  <p>A family history spanning 1635 to the present · Companion to the book</p>
+</footer>
+
+<script>
+/*
+  ════════════════════════════════════════════════════════
+  GALLERY DATA
+  ════════════════════════════════════════════════════════
+  Each entry:
+    name      — display name
+    era       — one of: Colonial | Revolutionary | War of 1812 | Frontier | Civil War | Modern
+    relation  — short relationship to Jasper Gunn
+    desc      — longer description for lightbox
+    date      — approximate date of photo/document (optional)
+    img       — path to image file relative to this page
+                e.g. "../images/gallery/nina-belle-pyle.jpg"
+                Leave as null or "" if no image yet — shows initial placeholder
+  ════════════════════════════════════════════════════════
+*/
+const GALLERY = [
+  {
+    name:     'Jasper Gunn',
+    era:      'Colonial',
+    relation: 'Progenitor · Arrived New England 1635',
+    desc:     'No known portrait survives. Jasper arrived in the Massachusetts Bay Colony in 1635, the founding link of the American Gunn line.',
+    date:     'c. 1635',
+    img:      null,
+  },
+  {
+    name:     'Mary (Gunn) Smith',
+    era:      'Colonial',
+    relation: 'Daughter of Jasper Gunn',
+    desc:     'Married into the Smith family of Connecticut, circa 1660. First generation of the Gunn line born in the New World.',
+    date:     'c. 1660',
+    img:      null,
+  },
+  {
+    name:     'Thomas Gunn',
+    era:      'Revolutionary',
+    relation: 'Great-grandson of Jasper · Militia, 1776',
+    desc:     'Believed to have served in the Connecticut militia during the Revolutionary War. Details from family records and pension documents.',
+    date:     '1776',
+    img:      null,
+  },
+  {
+    name:     'Eliza Gunn',
+    era:      'Revolutionary',
+    relation: '3rd generation · Wife of Thomas Gunn',
+    desc:     'Managed the family farm and household during Thomas\'s military service, 1775–1783.',
+    date:     'c. 1780',
+    img:      null,
+  },
+  {
+    name:     'Capt. James Gunn',
+    era:      'War of 1812',
+    relation: '4th generation · U.S. Army, 1812',
+    desc:     'Captain in the New York Volunteers during the War of 1812. Service records held at the National Archives.',
+    date:     '1812–1815',
+    img:      null,
+  },
+  {
+    name:     'Hannah Gunn',
+    era:      'Frontier',
+    relation: '5th generation · Migrated to Ohio, 1831',
+    desc:     'Part of the great westward migration of the 1830s. Settled in Licking County, Ohio, with her husband and four children.',
+    date:     'c. 1831',
+    img:      null,
+  },
+  {
+    name:     'Ezra Gunn',
+    era:      'Frontier',
+    relation: '5th generation · Farmer, Licking County Ohio',
+    desc:     'Established a homestead in Licking County, Ohio. Land deed recorded 1833. Farmed until his death circa 1872.',
+    date:     'c. 1850',
+    img:      null,
+  },
+  {
+    name:     'Pvt. William Gunn',
+    era:      'Civil War',
+    relation: '6th generation · Union Army, 62nd Ohio Infantry',
+    desc:     'Enlisted 1862. Served at Chickamauga and in Sherman\'s Atlanta Campaign. Mustered out 1865. Returned to Ohio farming.',
+    date:     '1862–1865',
+    img:      null,
+  },
+  {
+    name:     'Sarah Gunn',
+    era:      'Civil War',
+    relation: '6th generation · Wife of William Gunn',
+    desc:     'Kept the family farm running and raised four children during William\'s three years of service.',
+    date:     'c. 1863',
+    img:      null,
+  },
+  {
+    name:     'George Gunn',
+    era:      'Modern',
+    relation: '7th generation · Born 1871, Ohio',
+    desc:     'Farmer and local official in central Ohio. Married 1895. Father of four. Last male Gunn in the direct line.',
+    date:     'c. 1900',
+    img:      null,
+  },
+  {
+    name:     'Nina Belle Pyle',
+    era:      'Modern',
+    relation: 'Last Gunn descendant · Grandmother',
+    desc:     'Born a Gunn, married into the Pyle family. Living memory of a family line stretching back to 1635. The story ends — and continues — with her.',
+    date:     'c. 1910–1920',
+    img:      '../images/gallery/nina-belle-pyle.jpg',   /* ← swap in real path */
+  },
+  {
+    name:     'The Pyle Family',
+    era:      'Modern',
+    relation: 'Nina\'s family · Group photograph',
+    desc:     'Family photograph, approximate date 1910–1920. Nina Belle Pyle and her family, representing the final chapter of the Gunn line.',
+    date:     'c. 1915',
+    img:      '../images/gallery/pyle-family.jpg',        /* ← swap in real path */
+  },
+];
+
+/* ── Era accent colors ── */
+const ERA_COLORS = {
+  'Colonial':      '#7a3b1e',
+  'Revolutionary': '#3b5c3e',
+  'War of 1812':   '#4a6080',
+  'Frontier':      '#7a6030',
+  'Civil War':     '#6b3a3a',
+  'Modern':        '#4a4060',
+};
+
+/* ── State ── */
+let currentEra      = 'All';
+let filteredIndices = [];   /* indices into GALLERY of currently visible cards */
+let activeLbIndex   = 0;   /* index into filteredIndices for lightbox */
+
+/* ── Filters ── */
+document.querySelectorAll('#era-filters .filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    currentEra = btn.dataset.era;
+    document.querySelectorAll('#era-filters .filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterGallery();
+  });
+});
+
+function filterGallery() {
+  const q = (document.getElementById('gallery-search').value || '').toLowerCase().trim();
+
+  filteredIndices = GALLERY
+    .map((g, i) => i)
+    .filter(i => {
+      const g = GALLERY[i];
+      const matchEra  = currentEra === 'All' || g.era === currentEra;
+      const matchText = !q || g.name.toLowerCase().includes(q) || g.relation.toLowerCase().includes(q) || (g.desc||'').toLowerCase().includes(q);
+      return matchEra && matchText;
+    });
+
+  document.getElementById('results-count').textContent =
+    filteredIndices.length + ' image' + (filteredIndices.length !== 1 ? 's' : '');
+
+  const grid = document.getElementById('gallery-grid');
+
+  if (filteredIndices.length === 0) {
+    grid.innerHTML = '<div class="empty-state">No images match your search.</div>';
+    return;
+  }
+
+  grid.innerHTML = filteredIndices.map((gi, pos) => {
+    const g = GALLERY[gi];
+    const hasImg = g.img && g.img.trim() !== '';
+    const color  = ERA_COLORS[g.era] || '#888';
+    return `
+      <div class="gallery-card" onclick="openLightbox(${pos})" style="animation-delay:${pos * 0.03}s">
+        <div class="gallery-thumb">
+          ${hasImg
+            ? `<img src="${g.img}" alt="${g.name}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'no-image\\'>${g.name[0]}</span>'">`
+            : `<span class="no-image">${g.name[0]}</span>`
+          }
+          <span class="era-badge" style="color:${color}">${g.era}</span>
+        </div>
+        <div class="gallery-caption">
+          <div class="gallery-name">${g.name}</div>
+          <div class="gallery-relation">${g.relation}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+/* ── Lightbox ── */
+function openLightbox(pos) {
+  activeLbIndex = pos;
+  renderLightbox();
+  document.getElementById('lightbox').classList.add('open');
+  document.addEventListener('keydown', lbKeyHandler);
+}
+
+function renderLightbox() {
+  const gi = filteredIndices[activeLbIndex];
+  const g  = GALLERY[gi];
+  const hasImg = g.img && g.img.trim() !== '';
+
+  document.getElementById('lb-era').textContent      = g.era;
+  document.getElementById('lb-name').textContent     = g.name;
+  document.getElementById('lb-relation').textContent = g.relation;
+  document.getElementById('lb-desc').textContent     = g.desc || '';
+  document.getElementById('lb-date').textContent     = g.date ? 'Approx. ' + g.date : '';
+
+  const panel = document.getElementById('lb-img-panel');
+  if (hasImg) {
+    panel.innerHTML = `<img src="${g.img}" alt="${g.name}" onerror="this.outerHTML='<span class=\\'no-image\\'>${g.name[0]}</span>'">`;
+  } else {
+    panel.innerHTML = `<span class="no-image">${g.name[0]}</span>`;
+  }
+}
+
+function shiftLightbox(dir) {
+  activeLbIndex = (activeLbIndex + dir + filteredIndices.length) % filteredIndices.length;
+  renderLightbox();
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.removeEventListener('keydown', lbKeyHandler);
+}
+
+function lbKeyHandler(e) {
+  if (e.key === 'Escape')      closeLightbox();
+  if (e.key === 'ArrowRight')  shiftLightbox(1);
+  if (e.key === 'ArrowLeft')   shiftLightbox(-1);
+}
+
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLightbox();
+});
+
+/* ── Init ── */
+filterGallery();
+</script>
+</body>
+</html>
