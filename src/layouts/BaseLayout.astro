@@ -42,10 +42,11 @@ const path = Astro.url.pathname;
   <a class="nav-brand" href="/"><span>Gunns</span> in America</a>
   <ul class="nav-links">
     <li><a href="/"         class:list={[{ active: path === '/' }]}>Home</a></li>
+    <li><a href="/people"   class:list={[{ active: path.startsWith('/people') }]}>People</a></li>
     <li><a href="/articles" class:list={[{ active: path.startsWith('/articles') }]}>Articles</a></li>
     <li><a href="/journal"  class:list={[{ active: path.startsWith('/journal') }]}>Journal</a></li>
     <li><a href="/gallery"  class:list={[{ active: path.startsWith('/gallery') }]}>Gallery</a></li>
-    <li><a href="/database">Database</a></li>
+    <li><a href="/database" class:list={[{ active: path.startsWith('/database') }]}>Database</a></li>
   </ul>
   <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
     <span></span><span></span><span></span>

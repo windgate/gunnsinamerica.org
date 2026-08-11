@@ -1,0 +1,336 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, getEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const people = await getCollection('people');
+  return people.map(person => ({
+    params: { slug: person.slug },
+    props:  { person },
+  }));
+}
+
+const { person } = Astro.props;
+const { Content } = await person.render();
+const d = person.data;
+
+// Resolve relation references (reference('people')) into linkable entries.
+// Each ref is { collection: 'people', slug: '...' }; getEntry returns the full entry.
+const resolve = async (refs) =>
+  refs ? await Promise.all(refs.map(ref => getEntry(ref))) : [];
+
+const parents  = await resolve(d.parents);
+const spouse   = await resolve(d.spouse);
+const children = await resolve(d.children);
+const hasFamily = parents.length + spouse.length + children.length > 0;
+---
+
+<BaseLayout title={d.title} description={d.epithet ?? [d.birth, d.death].filter(Boolean).join(' – ')}>
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep">›</span>
+    <a href="/people">People</a>
+    <span class="sep">›</span>
+    <span>{d.title}</span>
+  </div>
+
+  <!-- Person header -->
+  <header class="article-header">
+    {d.era && <div class="article-era">{d.eraLabel ?? d.era}</div>}
+    <h1>{d.title}</h1>
+    {d.epithet && <p class="article-subtitle">{d.epithet}</p>}
+    <div class="article-meta">
+      {d.birth      && <div class="meta-item"><strong>Born</strong>{d.birth}</div>}
+      {d.death      && <div class="meta-item"><strong>Died</strong>{d.death}</div>}
+      {d.birthplace && <div class="meta-item"><strong>Birthplace</strong>{d.birthplace}</div>}
+      {d.deathplace && <div class="meta-item"><strong>Deathplace</strong>{d.deathplace}</div>}
+    </div>
+  </header>
+
+  <!-- Portrait / lead image (optional) -->
+  {d.leadImage && (
+    <figure class="article-lead-image">
+      <img src={d.leadImage} alt={d.leadImageAlt ?? d.title} />
+      {d.leadImageCaption && <figcaption>{d.leadImageCaption}</figcaption>}
+    </figure>
+  )}
+
+  <!-- Biography body -->
+  <article class="article-body">
+
+    <!-- Family relations callout (optional; renders only if references exist) -->
+    {hasFamily && (
+      <div class="people-callout">
+        <h4>Family</h4>
+        <ul class="people-list">
+          {parents.map(p  => (
+            <li><strong>Parent</strong><a href={`/people/${p.slug}`}>{p.data.title}</a></li>
+          ))}
+          {spouse.map(p   => (
+            <li><strong>Spouse</strong><a href={`/people/${p.slug}`}>{p.data.title}</a></li>
+          ))}
+          {children.map(p => (
+            <li><strong>Child</strong><a href={`/people/${p.slug}`}>{p.data.title}</a></li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    <!-- Markdown body renders here -->
+    <Content />
+
+    <!-- Sources (optional) -->
+    {d.sources && d.sources.length > 0 && (
+      <div class="article-sources">
+        <h4>Sources &amp; Notes</h4>
+        <ol>
+          {d.sources.map(s => <li set:html={s} />)}
+        </ol>
+      </div>
+    )}
+
+  </article>
+
+  <!-- Back bar -->
+  <div class="back-bar">
+    <a href="/people">← Back to All People</a>
+  </div>
+
+</BaseLayout>
+
+<style>
+  /* Breadcrumb */
+  .breadcrumb {
+    max-width:      var(--max-wide);
+    margin:         0 auto;
+    padding:        1rem 2rem 0;
+    font-family:    var(--sans);
+    font-size:      0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color:          var(--ink-light);
+    display:        flex;
+    gap:            0.5rem;
+    align-items:    center;
+  }
+  .breadcrumb a { color: var(--ink-light); }
+  .breadcrumb a:hover { color: var(--accent); text-decoration: none; }
+  .sep { opacity: 0.4; }
+
+  /* Person header */
+  .article-header {
+    max-width: var(--max);
+    margin:    2rem auto 0;
+    padding:   0 2rem;
+  }
+  .article-era {
+    font-family:    var(--sans);
+    font-size:      0.68rem;
+    font-weight:    600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color:          var(--accent);
+    margin-bottom:  0.75rem;
+    display:        flex;
+    align-items:    center;
+    gap:            0.75rem;
+  }
+  .article-era::after {
+    content:    '';
+    flex:       1;
+    height:     1px;
+    background: var(--rule);
+    max-width:  60px;
+  }
+  .article-header h1 {
+    font-family:   var(--serif);
+    font-size:     clamp(1.8rem, 4vw, 2.8rem);
+    font-weight:   700;
+    line-height:   1.2;
+    color:         var(--ink);
+    margin-bottom: 0.75rem;
+  }
+  .article-subtitle {
+    font-family:   var(--serif);
+    font-size:     1.1rem;
+    font-style:    italic;
+    color:         var(--ink-light);
+    margin-bottom: 1.5rem;
+    line-height:   1.5;
+  }
+  .article-meta {
+    display:       flex;
+    gap:           2rem;
+    flex-wrap:     wrap;
+    padding:       1rem 0;
+    border-top:    1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 2.5rem;
+  }
+  .meta-item {
+    font-family:    var(--sans);
+    font-size:      0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color:          var(--ink-light);
+  }
+  .meta-item strong {
+    display:       block;
+    font-weight:   600;
+    color:         var(--ink);
+    margin-bottom: 0.1rem;
+  }
+
+  /* Lead image */
+  .article-lead-image {
+    max-width: var(--max-wide);
+    margin:    0 auto 3rem;
+    padding:   0 2rem;
+  }
+  .article-lead-image img {
+    width:      100%;
+    max-height: 480px;
+    object-fit: cover;
+  }
+  .article-lead-image figcaption {
+    font-family:    var(--sans);
+    font-size:      0.72rem;
+    letter-spacing: 0.05em;
+    color:          var(--ink-light);
+    padding:        0.6rem 0 0;
+    border-bottom:  1px solid var(--rule);
+  }
+
+  /* Body */
+  .article-body {
+    max-width: var(--max);
+    margin:    0 auto;
+    padding:   0 2rem 4rem;
+  }
+  .article-body :global(p) { margin-bottom: 1.5rem; }
+  .article-body :global(h2) {
+    font-family:   var(--serif);
+    font-size:     1.5rem;
+    font-weight:   700;
+    color:         var(--ink);
+    margin:        2.5rem 0 1rem;
+    padding-top:   0.5rem;
+    border-top:    1px solid var(--rule);
+  }
+  .article-body :global(h3) {
+    font-family:   var(--serif);
+    font-size:     1.15rem;
+    font-style:    italic;
+    color:         var(--ink);
+    margin:        2rem 0 0.75rem;
+  }
+  .article-body :global(blockquote) {
+    margin:      2.5rem 0;
+    padding:     1.5rem 2rem;
+    border-left: 4px solid var(--gold);
+    background:  var(--paper-dark);
+    font-family: var(--serif);
+    font-size:   1.15rem;
+    font-style:  italic;
+    color:       var(--ink);
+    line-height: 1.6;
+  }
+  .article-body :global(figure.inline) {
+    float: right; margin: 0 0 1.5rem 2rem; max-width: 280px; clear: right;
+  }
+  .article-body :global(figure.inline img) { border: 1px solid var(--rule); }
+  .article-body :global(figure.full) { margin: 2rem -2rem; }
+  .article-body :global(figure.full img) { width: 100%; }
+
+  /* Family relations callout (adapted from the article people-callout) */
+  .people-callout {
+    background:  var(--white);
+    border:      1px solid var(--rule);
+    border-top:  3px solid var(--accent2);
+    padding:     1.25rem 1.5rem;
+    margin:      0 0 2.5rem;
+  }
+  .people-callout h4 {
+    font-family:    var(--sans);
+    font-size:      0.65rem;
+    font-weight:    600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color:          var(--accent2);
+    margin-bottom:  0.75rem;
+  }
+  .people-list {
+    list-style:     none;
+    display:        flex;
+    flex-direction: column;
+    gap:            0.5rem;
+  }
+  .people-list li {
+    font-size:   0.88rem;
+    display:     flex;
+    gap:         0.75rem;
+    align-items: baseline;
+  }
+  .people-list li strong {
+    font-family:    var(--sans);
+    font-size:      0.6rem;
+    font-weight:    600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color:          var(--ink-light);
+    white-space:    nowrap;
+    min-width:      3.5rem;
+  }
+  .people-list li a {
+    color:       var(--ink);
+    font-weight: 700;
+  }
+  .people-list li a:hover { color: var(--accent); }
+
+  /* Sources */
+  .article-sources {
+    margin-top:  3rem;
+    padding-top: 1.5rem;
+    border-top:  2px solid var(--rule);
+  }
+  .article-sources h4 {
+    font-family:    var(--sans);
+    font-size:      0.65rem;
+    font-weight:    600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color:          var(--ink-light);
+    margin-bottom:  0.75rem;
+  }
+  .article-sources ol {
+    padding-left:   1.25rem;
+    font-size:      0.82rem;
+    color:          var(--ink-light);
+    line-height:    1.6;
+    display:        flex;
+    flex-direction: column;
+    gap:            0.4rem;
+  }
+
+  /* Back bar */
+  .back-bar {
+    background:  var(--paper-dark);
+    border-top:  1px solid var(--rule);
+    padding:     1.25rem 2rem;
+    text-align:  center;
+  }
+  .back-bar a {
+    font-family:    var(--sans);
+    font-size:      0.72rem;
+    font-weight:    600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color:          var(--accent);
+  }
+
+  @media (max-width: 600px) {
+    .article-body :global(figure.inline) { float: none; max-width: 100%; margin: 1.5rem 0; }
+  }
+</style>

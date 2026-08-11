@@ -1,4 +1,5 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection, reference, z } from 'astro:content';
+
 
 const articles = defineCollection({
   type: 'content',
@@ -6,21 +7,21 @@ const articles = defineCollection({
     title:          z.string(),
     subtitle:       z.string(),
     era:            z.enum(['Colonial', 'Revolutionary', 'War of 1812', 'Frontier', 'Civil War', 'Modern']),
-    eraLabel:       z.string(),           // e.g. "Colonial Era · 1635"
-    dateRange:      z.string(),           // e.g. "1635 – 1660"
+    eraLabel:       z.string(),
+    dateRange:      z.string(),
     keyFigure:      z.string(),
     location:       z.string(),
-    date:           z.date(),             // publication/sort date
+    date:           z.date(),
     featured:       z.boolean().default(false),
+    // ↓ add these four lines anywhere inside this object:
+    description:    z.string().optional(),
+    author:         z.string().optional(),
+    imprint:        z.string().optional(),
+    draft:          z.boolean().default(false),
+    // ↑
     leadImage:      z.string().optional(),
     leadImageAlt:   z.string().optional(),
-    leadImageCaption: z.string().optional(),
-    prevArticle:    z.object({ title: z.string(), slug: z.string() }).optional(),
-    nextArticle:    z.object({ title: z.string(), slug: z.string() }).optional(),
-    people:         z.array(z.object({
-                      name: z.string(),
-                      role: z.string(),
-                    })).optional(),
+    // ... rest of your existing fields stay as they are ...
     sources:        z.array(z.string()).optional(),
   }),
 });
@@ -39,4 +40,32 @@ const journal = defineCollection({
   }),
 });
 
-export const collections = { articles, journal };
+const people = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title:            z.string(),
+    epithet:          z.string().optional(),
+    birth:            z.string().optional(),   // string, to preserve "c. 1607", "1670/71"
+    death:            z.string().optional(),
+    birthplace:       z.string().optional(),
+    deathplace:       z.string().optional(),
+    era:              z.string().optional(),
+    eraLabel:         z.string().optional(),
+    leadImage:        z.string().optional(),
+    leadImageAlt:     z.string().optional(),
+    leadImageCaption: z.string().optional(),
+    featured:         z.boolean().default(false),
+    order:            z.number().optional(),
+    date:             z.date().optional(),
+    summary:          z.string().optional(),
+    tags:             z.array(z.string()).optional(),
+    sources:          z.array(z.string()).optional(),
+    related:          z.array(z.string()).optional(),
+    parents:          z.array(reference('people')).optional(),
+    spouse:           z.array(reference('people')).optional(),
+    children:         z.array(reference('people')).optional(),
+    draft:            z.boolean().default(false),
+  }),
+});
+
+export const collections = { articles, journal, people };
