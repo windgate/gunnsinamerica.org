@@ -68,4 +68,19 @@ const people = defineCollection({
   }),
 });
 
-export const collections = { articles, journal, people };
+const contributions = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title:         z.string().optional(),
+    contributor:   z.string(),
+    relationship:  z.string().optional(),
+    date:          z.date(),
+    excerpt:       z.string().optional(),
+    relatedPerson: reference('people').optional(),
+    featured:      z.boolean().default(false),
+    order:         z.number().optional(),
+    draft:         z.boolean().default(false),
+  }),
+});
+
+export const collections = { articles, journal, people, contributions };

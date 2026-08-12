@@ -10,7 +10,7 @@ location: "Milford, Connecticut Colony"
 featured: false
 order: 2
 date: 2026-07-28
-summary: "An examination of the Galenic medical tradition Jasper Gunn practiced in early New England — its theory of the four humors, its common treatments, and the physician's place within a Puritan frontier community."
+
 tags:
   - "Jasper Gunn"
   - "Physician"
