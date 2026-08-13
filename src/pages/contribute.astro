@@ -1,0 +1,87 @@
+---
+// src/pages/contribute.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Share Your Recollections"
+  description="Contribute a memory, a story, or a relative's own words to the Gunns in America family archive."
+>
+  <section class="contribute">
+    <div class="contribute-inner">
+      <div class="c-eyebrow">A Living Archive</div>
+      <h1>Share Your Recollections</h1>
+      <p class="c-lead">
+        This archive grows through the family itself. If you carry a memory, a story handed
+        down, or a relative's own writing — a letter, a diary, a memoir — you can add it here.
+        Every contribution is read before it's published, and credited as you ask.
+      </p>
+
+      <form name="contributions" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/contribute-thanks">
+        <input type="hidden" name="form-name" value="contributions" />
+        <p class="hidden-field"><label>Leave this empty: <input name="bot-field" /></label></p>
+
+        <div class="field">
+          <label for="name">Your name</label>
+          <input id="name" type="text" name="name" autocomplete="name" required />
+        </div>
+
+        <div class="field">
+          <label for="email">Email <span class="opt">(so I can reach you — never published)</span></label>
+          <input id="email" type="email" name="email" autocomplete="email" required />
+        </div>
+
+        <div class="field">
+          <label for="relationship">Your connection to the family <span class="opt">(optional)</span></label>
+          <input id="relationship" type="text" name="relationship" placeholder="e.g. Great-granddaughter of Jobamah Gunn; family researcher" />
+        </div>
+
+        <div class="field">
+          <label for="title">A title for your recollection <span class="opt">(optional)</span></label>
+          <input id="title" type="text" name="title" placeholder="e.g. Sunday dinners at the Milford house" />
+        </div>
+
+        <div class="field">
+          <label for="story">Your recollection</label>
+          <textarea id="story" name="story" rows="8" required></textarea>
+        </div>
+
+        <div class="field checkbox">
+          <label><input type="checkbox" name="has-materials" value="yes" /> I have documents, letters, or photographs I'd be willing to share.</label>
+        </div>
+
+        <div class="field checkbox">
+          <label><input type="checkbox" name="consent" value="yes" required /> I give permission for my contribution to be published on GunnsinAmerica.org, credited as I've indicated above.</label>
+        </div>
+
+        <button type="submit" class="c-btn">Submit your recollection</button>
+      </form>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contribute { max-width: var(--max); margin: 0 auto; padding: clamp(2.5rem, 5vw, 4rem) 2rem; }
+  .c-eyebrow { font-family: var(--sans); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent2); margin-bottom: 0.75rem; }
+  .contribute h1 { font-family: var(--serif); font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; color: var(--ink); margin-bottom: 1rem; }
+  .c-lead { font-size: 1rem; color: var(--ink-light); line-height: 1.8; margin-bottom: 2.5rem; max-width: 54ch; }
+
+  .field { margin-bottom: 1.5rem; }
+  .field label { display: block; font-family: var(--sans); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 0.4rem; }
+  .field label .opt { color: var(--rule); font-weight: 400; text-transform: none; letter-spacing: 0; }
+  .field input[type="text"], .field input[type="email"], .field textarea {
+    width: 100%; font-family: var(--body); font-size: 0.95rem; padding: 0.65rem 0.8rem;
+    border: 1px solid var(--rule); background: var(--white); color: var(--ink); line-height: 1.6;
+  }
+  .field input:focus, .field textarea:focus { outline: 2px solid var(--accent2); outline-offset: 1px; border-color: var(--accent2); }
+  .field.checkbox label { display: flex; gap: 0.6rem; align-items: flex-start; text-transform: none; letter-spacing: 0; font-weight: 400; font-family: var(--body); font-size: 0.9rem; color: var(--ink-light); line-height: 1.5; }
+  .field.checkbox input { margin-top: 0.3rem; flex-shrink: 0; }
+  .hidden-field { display: none; }
+
+  .c-btn {
+    font-family: var(--sans); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--ink); background: var(--gold);
+    padding: 0.9rem 1.75rem; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s;
+  }
+  .c-btn:hover { background: #c69a4c; transform: translateY(-1px); }
+</style>

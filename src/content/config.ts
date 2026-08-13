@@ -19,8 +19,21 @@ const articles = defineCollection({
     imprint:        z.string().optional(),
     draft:          z.boolean().default(false),
     // ↑
-    leadImage:      z.string().optional(),
-    leadImageAlt:   z.string().optional(),
+   leadImage:        z.string().optional(),
+    leadImageAlt:     z.string().optional(),
+    leadImageCaption: z.string().optional(),
+    people: z.array(z.object({
+      name: z.string(),
+      role: z.string(),
+    })).optional(),
+    prevArticle: z.object({
+      title: z.string(),
+      slug:  z.string(),
+    }).optional(),
+    nextArticle: z.object({
+      title: z.string(),
+      slug:  z.string(),
+    }).optional(),
     // ... rest of your existing fields stay as they are ...
     sources:        z.array(z.string()).optional(),
   }),

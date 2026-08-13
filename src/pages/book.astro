@@ -1,0 +1,212 @@
+---
+// src/pages/book.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="The Book"
+  description="The Gunns in America — a 400-year American story told through one family line. In preparation from Wepawaug Press. Join the list for updates."
+>
+
+  <section class="book-hero">
+    <div class="book-hero-inner">
+      <div class="bh-cover">
+        <img src="/images/book-cover.jpg" alt="The Gunns in America — book cover" />
+      </div>
+      <div class="bh-text">
+        <div class="bh-eyebrow">From Wepawaug Press · In preparation</div>
+        <h1>The Gunns in America</h1>
+        <p class="bh-tagline">A 400-Year American Story Told Through One Family Line</p>
+        <p class="bh-lead">
+          In 1635, Jasper Gunn sailed from England aboard the <em>Defence</em> and put down
+          roots in colonial New England. Nearly four centuries later, his descendants had
+          lived through every chapter of the American story. This book follows that single
+          family line from the Great Migration to the present — one family as a lens on four
+          hundred years of American life.
+        </p>
+
+        <div class="signup">
+          <h2>Be the first to know</h2>
+          <p class="signup-note">
+            The book is in preparation now. Join the list and I'll write when it's available —
+            no spam, just word that it's out.
+          </p>
+
+          <form name="book-updates" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/book-thanks">
+            <input type="hidden" name="form-name" value="book-updates" />
+            <p class="hidden-field"><label>Leave this empty: <input name="bot-field" /></label></p>
+
+            <div class="field">
+              <label for="name">Name <span class="opt">(optional)</span></label>
+              <input id="name" type="text" name="name" autocomplete="name" />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" type="email" name="email" autocomplete="email" required />
+            </div>
+            <button type="submit" class="book-btn">Notify me</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="book-about">
+    <div class="about-inner">
+      <h2>About the book</h2>
+      <p>
+        <em>The Gunns in America</em> traces the family across the Colonial period, the
+        Revolution, westward expansion, the Civil War, and into the modern era. It is built
+        on primary records — parish registers, passenger lists, town and probate records —
+        and on the standard scholarship of the Great Migration, and it is written for readers
+        of American history, not only for the family.
+      </p>
+      <p>
+        Where the record is uncertain, the book says so. Names, dates, and identities are
+        given as the documents establish them, with tradition and inference kept clearly
+        apart from fact — the same standard that governs this companion site.
+      </p>
+
+      <h2>Wepawaug Press</h2>
+      <p>
+        <em>The Gunns in America</em> is published under Wepawaug Press. This site,
+        GunnsinAmerica.org, is its companion — holding the longer articles, the individual
+        biographies, the family recollections, and the documents that could not fit between
+        two covers.
+      </p>
+
+      <p class="back"><a href="/">← Back to home</a></p>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .book-hero {
+    background:    var(--paper-dark);
+    border-bottom: 1px solid var(--rule);
+  }
+  .book-hero-inner {
+    max-width:  var(--max-wide);
+    margin:     0 auto;
+    padding:    clamp(2.5rem, 5vw, 4.5rem) 2rem;
+    display:    grid;
+    grid-template-columns: 40% 60%;
+    gap:        3rem;
+    align-items: start;
+  }
+  .bh-cover img {
+    width:  100%;
+    filter: drop-shadow(0 20px 34px rgba(28, 24, 20, 0.3));
+  }
+  .bh-eyebrow {
+    font-family:    var(--sans);
+    font-size:      0.7rem;
+    font-weight:    600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color:          var(--accent);
+    margin-bottom:  1rem;
+  }
+  .bh-text h1 {
+    font-family:   var(--serif);
+    font-size:     clamp(2rem, 5vw, 3rem);
+    font-weight:   700;
+    line-height:   1.1;
+    color:         var(--ink);
+    margin-bottom: 0.6rem;
+  }
+  .bh-tagline {
+    font-family:   var(--serif);
+    font-size:     1.2rem;
+    font-style:    italic;
+    color:         var(--accent);
+    margin-bottom: 1.5rem;
+    line-height:   1.4;
+  }
+  .bh-lead {
+    font-size:     1rem;
+    color:         var(--ink-light);
+    line-height:   1.85;
+    margin-bottom: 2.5rem;
+  }
+
+  /* Signup */
+  .signup {
+    background:  var(--white);
+    border:      1px solid var(--rule);
+    border-top:  3px solid var(--gold);
+    padding:     1.75rem;
+  }
+  .signup h2 {
+    font-family:   var(--serif);
+    font-size:     1.35rem;
+    font-weight:   700;
+    color:         var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  .signup-note {
+    font-size:     0.9rem;
+    color:         var(--ink-light);
+    line-height:   1.65;
+    margin-bottom: 1.5rem;
+  }
+  .field { margin-bottom: 1rem; }
+  .field label {
+    display:        block;
+    font-family:    var(--sans);
+    font-size:      0.7rem;
+    font-weight:    600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color:          var(--ink-light);
+    margin-bottom:  0.4rem;
+  }
+  .field label .opt { color: var(--rule); font-weight: 400; }
+  .field input {
+    width:       100%;
+    font-family: var(--body);
+    font-size:   0.95rem;
+    padding:     0.65rem 0.8rem;
+    border:      1px solid var(--rule);
+    background:  var(--paper);
+    color:       var(--ink);
+  }
+  .field input:focus { outline: 2px solid var(--gold); outline-offset: 1px; border-color: var(--gold); }
+  .hidden-field { display: none; }
+  .book-btn {
+    font-family:    var(--sans);
+    font-size:      0.72rem;
+    font-weight:    600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color:          var(--ink);
+    background:     var(--gold);
+    padding:        0.85rem 1.6rem;
+    border:         none;
+    cursor:         pointer;
+    transition:     background 0.2s, transform 0.15s;
+  }
+  .book-btn:hover { background: #c69a4c; transform: translateY(-1px); }
+
+  /* About */
+  .book-about { max-width: var(--max); margin: 0 auto; padding: clamp(2.5rem, 5vw, 4rem) 2rem; }
+  .book-about h2 {
+    font-family:   var(--serif);
+    font-size:     1.5rem;
+    font-weight:   700;
+    color:         var(--ink);
+    margin:        2rem 0 0.75rem;
+    padding-top:   1rem;
+    border-top:    1px solid var(--rule);
+  }
+  .book-about h2:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+  .book-about p { margin-bottom: 1.25rem; color: var(--ink-light); line-height: 1.85; }
+  .back { margin-top: 2rem; }
+  .back a { font-family: var(--sans); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+
+  @media (max-width: 760px) {
+    .book-hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .bh-cover { max-width: 320px; margin: 0 auto; }
+  }
+</style>

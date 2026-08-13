@@ -1,0 +1,110 @@
+---
+// src/components/BookTeaser.astro
+// Homepage book-promotion band. Replaces the about-strip.
+// Requires the cover at: public/images/book-cover.jpg
+---
+
+<section class="book-band">
+  <div class="book-inner">
+    <div class="book-cover">
+      <img src="/images/book-cover-0826.jpg" alt="The Gunns in America — book cover" />
+    </div>
+    <div class="book-text">
+      <div class="book-eyebrow">From Wepawaug Press · In preparation</div>
+      <h2>The Gunns in America</h2>
+      <p class="book-tagline">A 400-Year American Story Told Through One Family Line</p>
+      <p class="book-desc">
+        The book at the heart of this project: from Jasper Gunn's arrival in 1635 to the
+        present day, one family followed as a lens on four centuries of American life.
+        This site is its companion — the book is the story it was built around.
+      </p>
+      <div class="book-cta">
+        <a href="/book" class="book-btn">Learn more &amp; join the list</a>
+        <span class="book-note">Be the first to know when it's available</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .book-band {
+    background:    var(--paper-dark);
+    border-top:    3px solid var(--gold);
+    border-bottom: 1px solid var(--rule);
+  }
+  .book-inner {
+    max-width:  var(--max-wide);
+    margin:     0 auto;
+    padding:    3.5rem 2rem;
+    display:    grid;
+    grid-template-columns: 44% 56%;
+    gap:        3rem;
+    align-items: center;
+  }
+  .book-cover img {
+    width:  100%;
+    filter: drop-shadow(0 18px 30px rgba(28, 24, 20, 0.28));
+  }
+  .book-text { max-width: 32rem; }
+  .book-eyebrow {
+    font-family:    var(--sans);
+    font-size:      0.7rem;
+    font-weight:    600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color:          var(--accent);
+    margin-bottom:  1rem;
+    display:        flex;
+    align-items:    center;
+    gap:            0.75rem;
+  }
+  .book-eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--rule); max-width: 80px; }
+  .book-text h2 {
+    font-family:   var(--serif);
+    font-size:     clamp(1.9rem, 4vw, 2.7rem);
+    font-weight:   700;
+    line-height:   1.12;
+    color:         var(--ink);
+    margin-bottom: 0.6rem;
+  }
+  .book-tagline {
+    font-family:   var(--serif);
+    font-size:     1.1rem;
+    font-style:    italic;
+    color:         var(--accent);
+    margin-bottom: 1.5rem;
+    line-height:   1.4;
+  }
+  .book-desc {
+    font-size:     0.95rem;
+    color:         var(--ink-light);
+    line-height:   1.8;
+    margin-bottom: 1.75rem;
+  }
+  .book-cta { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+  .book-btn {
+    font-family:    var(--sans);
+    font-size:      0.72rem;
+    font-weight:    600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color:          var(--ink);
+    background:     var(--gold);
+    padding:        0.9rem 1.6rem;
+    text-decoration: none;
+    transition:     background 0.2s, transform 0.15s;
+  }
+  .book-btn:hover { background: #c69a4c; transform: translateY(-1px); text-decoration: none; }
+  .book-note {
+    font-family:    var(--sans);
+    font-size:      0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color:          var(--ink-light);
+  }
+
+  @media (max-width: 760px) {
+    .book-inner { grid-template-columns: 1fr; gap: 2rem; padding: 2.75rem 1.5rem; }
+    .book-cover { max-width: 340px; margin: 0 auto; }
+  }
+</style>

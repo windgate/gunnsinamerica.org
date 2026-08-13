@@ -162,14 +162,15 @@ declare module 'astro:content' {
   collection: "articles";
   data: InferEntrySchema<"articles">
 } & { render(): Render[".md"] };
-"nathaniel-gunn-1640.md": {
-	id: "nathaniel-gunn-1640.md";
-  slug: "nathaniel-gunn-1640";
-  body: string;
-  collection: "articles";
-  data: InferEntrySchema<"articles">
-} & { render(): Render[".md"] };
 };
+"contributions": Record<string, {
+  id: string;
+  slug: string;
+  body: string;
+  collection: "contributions";
+  data: InferEntrySchema<"contributions">;
+  render(): Render[".md"];
+}>;
 "journal": {
 "defence-arrival-1635.md": {
 	id: "defence-arrival-1635.md";

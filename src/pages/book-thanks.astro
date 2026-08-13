@@ -1,0 +1,52 @@
+---
+// src/pages/book-thanks.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="You're on the list" description="Thank you for signing up for updates on The Gunns in America.">
+  <section class="thanks">
+    <div class="thanks-inner">
+      <div class="thanks-eyebrow">The Gunns in America</div>
+      <h1>You're on the list.</h1>
+      <p>
+        Thank you. When <em>The Gunns in America</em> is ready, you'll be among the first
+        to hear. In the meantime, there's plenty to explore.
+      </p>
+      <div class="thanks-links">
+        <a href="/people">Browse the people</a>
+        <a href="/articles">Read the articles</a>
+        <a href="/">Back to home</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .thanks { max-width: var(--max); margin: 0 auto; padding: clamp(3rem, 8vw, 6rem) 2rem; text-align: center; }
+  .thanks-eyebrow {
+    font-family:    var(--sans);
+    font-size:      0.7rem;
+    font-weight:    600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color:          var(--gold);
+    margin-bottom:  1rem;
+  }
+  .thanks h1 {
+    font-family:   var(--serif);
+    font-size:     clamp(2rem, 5vw, 3rem);
+    font-weight:   700;
+    color:         var(--ink);
+    margin-bottom: 1.25rem;
+  }
+  .thanks p { font-size: 1.05rem; color: var(--ink-light); line-height: 1.85; max-width: 44ch; margin: 0 auto 2.5rem; }
+  .thanks-links { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+  .thanks-links a {
+    font-family:    var(--sans);
+    font-size:      0.72rem;
+    font-weight:    600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color:          var(--accent);
+  }
+</style>

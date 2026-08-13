@@ -1,0 +1,71 @@
+---
+// src/components/FamilyRecollections.astro
+// Homepage "Family Recollections" band. Reads the `contributions` collection,
+// shows up to 3 recent entries, or an invitation when none exist yet.
+import { getCollection } from 'astro:content';
+
+const recollections = (await getCollection('contributions', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+---
+
+<section class="recollections">
+  <div class="rec-inner">
+    <div class="rec-panel">
+      <div class="rec-eyebrow">A Living Archive</div>
+      <h2>Family<br>Recollections</h2>
+      <p class="rec-mission">The Gunn family in its own voices — memories, stories, and firsthand accounts, contributed by descendants and kin and kept here for the ones who come after.</p>
+      <a href="/contribute" class="rec-btn">Share Your Recollections</a>
+    </div>
+
+    {recollections.length > 0 ? (
+      <div class="rec-feed">
+        {recollections.map(r => (
+          <article class="rec-teaser">
+            <h3>{r.data.title ?? r.data.contributor}</h3>
+            {r.data.relationship && <div class="rec-rel">{r.data.relationship}</div>}
+            {r.data.excerpt && <p>{r.data.excerpt}</p>}
+            <a class="rec-more" href={`/contributions/${r.slug}`}>Read more →</a>
+          </article>
+        ))}
+      </div>
+    ) : (
+      <div class="rec-feed invite">
+        <p class="invite-lead">This is where the family speaks.</p>
+        <p class="invite-sub">No recollections have been added yet. If you carry a memory, a story, or a relative's own words, you can be the first to set it down here.</p>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .recollections { background: var(--white); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .rec-inner { max-width: var(--max-wide); margin: 0 auto; display: grid; grid-template-columns: 40% 60%; align-items: stretch; }
+
+  .rec-panel { background: var(--accent2); color: var(--paper); padding: 3.5rem 2.5rem; display: flex; flex-direction: column; justify-content: center; }
+  .rec-eyebrow { font-family: var(--sans); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+  .rec-eyebrow::after { content: ''; flex: 1; height: 1px; background: rgba(176,136,64,0.4); max-width: 70px; }
+  .rec-panel h2 { font-family: var(--serif); font-size: clamp(1.9rem, 3.5vw, 2.6rem); font-weight: 700; line-height: 1.15; color: var(--white); margin-bottom: 1.25rem; }
+  .rec-mission { font-size: 0.95rem; line-height: 1.75; color: rgba(245,240,232,0.82); margin-bottom: 2rem; max-width: 34ch; }
+  .rec-btn { align-self: flex-start; font-family: var(--sans); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); background: var(--gold); padding: 0.85rem 1.5rem; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+  .rec-btn:hover { background: #c69a4c; transform: translateY(-1px); text-decoration: none; }
+
+  .rec-feed { padding: 3.5rem 2.5rem; display: flex; flex-direction: column; justify-content: center; }
+  .rec-teaser { padding: 1.4rem 0; border-bottom: 1px solid var(--rule); }
+  .rec-teaser:first-child { padding-top: 0; }
+  .rec-teaser:last-child { border-bottom: none; padding-bottom: 0; }
+  .rec-teaser h3 { font-family: var(--serif); font-size: 1.15rem; font-weight: 700; line-height: 1.25; color: var(--ink); margin-bottom: 0.2rem; }
+  .rec-rel { font-family: var(--sans); font-size: 0.63rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2); margin-bottom: 0.6rem; }
+  .rec-teaser p { font-size: 0.9rem; color: var(--ink-light); line-height: 1.65; margin-bottom: 0.5rem; }
+  .rec-more { font-family: var(--sans); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+
+  .rec-feed.invite { justify-content: center; }
+  .invite-lead { font-family: var(--serif); font-size: 1.5rem; font-style: italic; color: var(--ink); line-height: 1.35; margin-bottom: 0.75rem; }
+  .invite-sub { font-size: 0.95rem; color: var(--ink-light); line-height: 1.7; max-width: 42ch; }
+
+  @media (max-width: 720px) {
+    .rec-inner { grid-template-columns: 1fr; }
+    .rec-panel { padding: 2.75rem 1.75rem; }
+    .rec-feed { padding: 2.25rem 1.75rem; }
+  }
+</style>
