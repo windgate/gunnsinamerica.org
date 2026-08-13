@@ -1,0 +1,321 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('voices');
+  return entries.map(entry => ({
+    params: { slug: entry.slug },
+    props:  { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const d = entry.data;
+
+const TYPE_LABELS: Record<string, string> = {
+  memoir:  'Memoir',
+  diary:   'Diary',
+  fiction: 'Fiction',
+  letter:  'Letter',
+  essay:   'Essay',
+  poem:    'Poem',
+  other:   'Writing',
+};
+---
+
+<BaseLayout title={d.title} description={d.excerpt}>
+
+  <div class="voice-page">
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">›</span>
+      <a href="/voices">Voices</a>
+      <span class="sep">›</span>
+      <span>{d.author}</span>
+    </nav>
+
+    <!-- Header -->
+    <header class="voice-header">
+      <div class="voice-label">
+        <span class="type-tag">{TYPE_LABELS[d.type] ?? d.type}</span>
+        <span class="era-tag">{d.era}</span>
+      </div>
+
+      <h1>{d.title}</h1>
+
+      <div class="voice-byline">
+        <span class="byline-by">By</span>
+        {d.authorSlug
+          ? <a href={`/people/${d.authorSlug}`}>{d.author}</a>
+          : <span>{d.author}</span>
+        }
+        {d.composed && <span class="byline-composed">· {d.composed}</span>}
+      </div>
+
+      <!-- Editor's note -->
+      {d.editorNote && (
+        <div class="editor-note">
+          <span class="editor-note-label">Editor's Note</span>
+          <p>{d.editorNote}</p>
+        </div>
+      )}
+
+      <!-- Source -->
+      {d.source && (
+        <p class="voice-source">
+          Source: {d.sourceUrl
+            ? <a href={d.sourceUrl} target="_blank" rel="noopener noreferrer">{d.source}</a>
+            : d.source
+          }
+          {d.rights === 'public-domain' && <span class="rights-badge">Public Domain</span>}
+        </p>
+      )}
+
+      <!-- Audio player -->
+      {d.audioUrl && (
+        <div class="audio-player">
+          <p class="audio-label">
+            ♪ Narrated by {d.audioReader ?? 'a family member'}
+          </p>
+          <audio controls src={d.audioUrl}>
+            Your browser does not support audio playback.
+          </audio>
+        </div>
+      )}
+
+      <!-- PDF download -->
+      {d.pdfUrl && (
+        <a class="pdf-link" href={d.pdfUrl} download>
+          ↓ Download PDF
+        </a>
+      )}
+    </header>
+
+    <!-- The text -->
+    <div class="voice-text">
+      <Content />
+    </div>
+
+    <!-- Back -->
+    <div class="back-bar">
+      <a href="/voices">← Back to Voices</a>
+    </div>
+
+  </div>
+
+</BaseLayout>
+
+<style>
+  .voice-page {
+    max-width: var(--max);
+    margin:    0 auto;
+    padding:   0 2rem clamp(3rem, 6vw, 5rem);
+  }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    padding:        1.25rem 0;
+    font-family:    var(--sans);
+    font-size:      0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color:          var(--ink-light);
+    display:        flex;
+    gap:            0.5rem;
+    align-items:    center;
+    border-bottom:  1px solid var(--rule);
+    margin-bottom:  2rem;
+  }
+  .breadcrumb a { color: var(--ink-light); }
+  .breadcrumb a:hover { color: var(--accent); text-decoration: none; }
+  .sep { opacity: 0.4; }
+
+  /* Header */
+  .voice-header {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid var(--rule);
+  }
+
+  .voice-label {
+    display:       flex;
+    gap:           0.75rem;
+    align-items:   center;
+    margin-bottom: 1rem;
+  }
+  .type-tag {
+    font-family:    var(--sans);
+    font-size:      0.62rem;
+    font-weight:    600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color:          var(--accent2);
+    border:         1px solid var(--accent2);
+    padding:        2px 8px;
+  }
+  .era-tag {
+    font-family:    var(--sans);
+    font-size:      0.62rem;
+    font-weight:    600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color:          var(--accent);
+  }
+
+  .voice-header h1 {
+    font-family:   var(--serif);
+    font-size:     clamp(1.8rem, 4vw, 2.8rem);
+    font-weight:   700;
+    line-height:   1.2;
+    margin-bottom: 0.75rem;
+  }
+
+  .voice-byline {
+    font-family:   var(--sans);
+    font-size:     0.82rem;
+    letter-spacing: 0.06em;
+    color:         var(--ink-light);
+    margin-bottom: 1.25rem;
+    display:       flex;
+    gap:           0.4rem;
+    align-items:   baseline;
+  }
+  .byline-by { text-transform: uppercase; font-size: 0.68rem; }
+  .voice-byline a { color: var(--accent); font-weight: 600; }
+  .byline-composed { font-style: italic; }
+
+  /* Editor's note */
+  .editor-note {
+    background:  var(--paper-dark);
+    border-left: 3px solid var(--accent2);
+    padding:     1rem 1.25rem;
+    margin:      1.5rem 0;
+  }
+  .editor-note-label {
+    font-family:    var(--sans);
+    font-size:      0.62rem;
+    font-weight:    600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color:          var(--accent2);
+    display:        block;
+    margin-bottom:  0.4rem;
+  }
+  .editor-note p {
+    font-size:   0.88rem;
+    color:       var(--ink-light);
+    line-height: 1.65;
+    font-style:  italic;
+  }
+
+  .voice-source {
+    font-family:   var(--sans);
+    font-size:     0.75rem;
+    color:         var(--ink-light);
+    margin-bottom: 1rem;
+    display:       flex;
+    gap:           0.5rem;
+    align-items:   center;
+    flex-wrap:     wrap;
+  }
+  .rights-badge {
+    font-size:      0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border:         1px solid var(--rule);
+    padding:        1px 6px;
+    color:          var(--ink-light);
+  }
+
+  /* Audio */
+  .audio-player {
+    margin:        1.25rem 0;
+    padding:       1rem 1.25rem;
+    background:    var(--white);
+    border:        1px solid var(--rule);
+  }
+  .audio-label {
+    font-family:   var(--sans);
+    font-size:     0.72rem;
+    color:         var(--ink-light);
+    margin-bottom: 0.5rem;
+  }
+  audio { width: 100%; }
+
+  /* PDF */
+  .pdf-link {
+    display:        inline-block;
+    font-family:    var(--sans);
+    font-size:      0.72rem;
+    font-weight:    600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color:          var(--accent);
+    border:         1px solid var(--accent);
+    padding:        0.4rem 1rem;
+    margin-top:     0.5rem;
+    transition:     background 0.15s, color 0.15s;
+  }
+  .pdf-link:hover {
+    background:      var(--accent);
+    color:           var(--white);
+    text-decoration: none;
+  }
+
+  /* The text itself */
+  .voice-text {
+    font-size:   1.05rem;
+    line-height: 1.85;
+    color:       var(--ink);
+    max-width:   660px;
+  }
+  .voice-text :global(p)  { margin-bottom: 1.5rem; }
+  .voice-text :global(h2) {
+    font-family:   var(--serif);
+    font-size:     1.4rem;
+    font-weight:   700;
+    margin:        2.5rem 0 0.75rem;
+    padding-top:   0.5rem;
+    border-top:    1px solid var(--rule);
+  }
+  .voice-text :global(h3) {
+    font-family: var(--serif);
+    font-size:   1.1rem;
+    font-style:  italic;
+    margin:      2rem 0 0.5rem;
+  }
+  .voice-text :global(blockquote) {
+    border-left: 4px solid var(--gold);
+    background:  var(--paper-dark);
+    padding:     1.25rem 1.5rem;
+    margin:      2rem 0;
+    font-style:  italic;
+    color:       var(--ink-light);
+  }
+  .voice-text :global(em)     { font-style: italic; }
+  .voice-text :global(strong) { font-weight: 700; }
+  .voice-text :global(hr) {
+    border:     none;
+    border-top: 1px solid var(--rule);
+    margin:     2.5rem 0;
+  }
+
+  /* Back bar */
+  .back-bar {
+    margin-top:  3rem;
+    padding-top: 1.5rem;
+    border-top:  1px solid var(--rule);
+  }
+  .back-bar a {
+    font-family:    var(--sans);
+    font-size:      0.72rem;
+    font-weight:    600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color:          var(--accent);
+  }
+</style>
