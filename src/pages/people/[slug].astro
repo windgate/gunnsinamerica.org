@@ -27,6 +27,7 @@ const resolve = async (slugs: string[] | undefined) =>
 const parents  = await resolve(d.parents);
 const spouse   = await resolve(d.spouse);
 const children = await resolve(d.children);
+const hasFamily = parents.length + spouse.length + children.length > 0;
 ---
 
 <BaseLayout title={d.title} description={d.epithet ?? [d.birth, d.death].filter(Boolean).join(' – ')}>
