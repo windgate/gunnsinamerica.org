@@ -16,13 +16,17 @@ const d = person.data;
 
 // Resolve relation references (reference('people')) into linkable entries.
 // Each ref is { collection: 'people', slug: '...' }; getEntry returns the full entry.
-const resolve = async (refs) =>
-  refs ? await Promise.all(refs.map(ref => getEntry(ref))) : [];
-
+const resolve = async (slugs: string[] | undefined) =>
+  slugs
+    ? (await Promise.all(
+        slugs
+          .filter(s => typeof s === 'string' && s.trim() !== '')
+          .map(s => getEntry('people', s).catch(() => null))
+      )).filter(Boolean)
+    : [];
 const parents  = await resolve(d.parents);
 const spouse   = await resolve(d.spouse);
 const children = await resolve(d.children);
-const hasFamily = parents.length + spouse.length + children.length > 0;
 ---
 
 <BaseLayout title={d.title} description={d.epithet ?? [d.birth, d.death].filter(Boolean).join(' – ')}>

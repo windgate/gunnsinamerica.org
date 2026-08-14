@@ -146,21 +146,21 @@ declare module 'astro:content' {
   slug: "christian-mary-or-anne";
   body: string;
   collection: "articles";
-  data: any
+  data: InferEntrySchema<"articles">
 } & { render(): Render[".md"] };
 "colonial-medicine.md": {
 	id: "colonial-medicine.md";
   slug: "colonial-medicine";
   body: string;
   collection: "articles";
-  data: any
+  data: InferEntrySchema<"articles">
 } & { render(): Render[".md"] };
 "jasper-gunn-arrives.md": {
 	id: "jasper-gunn-arrives.md";
   slug: "jasper-gunn-arrives";
   body: string;
   collection: "articles";
-  data: any
+  data: InferEntrySchema<"articles">
 } & { render(): Render[".md"] };
 };
 "journal": {
@@ -169,14 +169,14 @@ declare module 'astro:content' {
   slug: "defence-arrival-1635";
   body: string;
   collection: "journal";
-  data: any
+  data: InferEntrySchema<"journal">
 } & { render(): Render[".md"] };
 "first-people-entries.md": {
 	id: "first-people-entries.md";
   slug: "first-people-entries";
   body: string;
   collection: "journal";
-  data: any
+  data: InferEntrySchema<"journal">
 } & { render(): Render[".md"] };
 };
 "people": {
@@ -185,21 +185,21 @@ declare module 'astro:content' {
   slug: "christian-gunn";
   body: string;
   collection: "people";
-  data: any
+  data: InferEntrySchema<"people">
 } & { render(): Render[".md"] };
 "jasper-gunn.md": {
 	id: "jasper-gunn.md";
   slug: "jasper-gunn";
   body: string;
   collection: "people";
-  data: any
+  data: InferEntrySchema<"people">
 } & { render(): Render[".md"] };
 "jobamah-gunn-biography.md": {
 	id: "jobamah-gunn-biography.md";
   slug: "jobamah-gunn-biography";
   body: string;
   collection: "people";
-  data: any
+  data: InferEntrySchema<"people">
 } & { render(): Render[".md"] };
 };
 "voices": {
@@ -208,7 +208,7 @@ declare module 'astro:content' {
   slug: "a-little-wayfarer";
   body: string;
   collection: "voices";
-  data: any
+  data: InferEntrySchema<"voices">
 } & { render(): Render[".md"] };
 };
 
@@ -225,5 +225,5 @@ declare module 'astro:content' {
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
 
-	export type ContentConfig = never;
+	export type ContentConfig = typeof import("../../src/content/config.js");
 }
