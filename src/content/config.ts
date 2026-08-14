@@ -67,9 +67,6 @@ const journal = defineCollection({
     }).optional(),
   }),
 });
-
-export const collections = { articles, people, journal, voices };
-
 // ── voices ───────────────────────────────────────────────
 // Primary sources in family members' own words.
 // Memoirs, diaries, letters, published fiction, essays.
@@ -94,3 +91,6 @@ const voices = defineCollection({
     editorNote:   z.string().optional(),
   }),
 });
+
+export const collections = { articles, people, journal, voices };
+
