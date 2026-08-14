@@ -40,18 +40,31 @@ const path = Astro.url.pathname;
 
 <nav>
   <a class="nav-brand" href="/"><span>Gunns</span> in America</a>
-  <ul class="nav-links">
-    <li><a href="/"         class:list={[{ active: path === '/' }]}>Home</a></li>
-    <li><a href="/people"   class:list={[{ active: path.startsWith('/people') }]}>People</a></li>
-    <li><a href="/articles" class:list={[{ active: path.startsWith('/articles') }]}>Articles</a></li>
-    <li><a href="/journal"  class:list={[{ active: path.startsWith('/journal') }]}>Journal</a></li>
-    <li><a href="/voices" class:list={[{ active: path.startsWith('/voices') }]}>Voices</a></li>
-    <li><a href="/gallery"  class:list={[{ active: path.startsWith('/gallery') }]}>Gallery</a></li>
-    <li><a href="/database" class:list={[{ active: path.startsWith('/database') }]}>Database</a></li>
-  </ul>
-  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
+  <!-- Primary nav -->
+<ul class="nav-links">
+  <li><a href="/"         class:list={[{ active: path === '/' }]}>Home</a></li>
+  <li><a href="/articles" class:list={[{ active: path.startsWith('/articles') }]}>Articles</a></li>
+  <li><a href="/people"   class:list={[{ active: path.startsWith('/people') }]}>People</a></li>
+  <li><a href="/voices"   class:list={[{ active: path.startsWith('/voices') }]}>Voices</a></li>
+  <li><a href="/gallery"  class:list={[{ active: path.startsWith('/gallery') }]}>Gallery</a></li>
+
+  <!-- More dropdown -->
+  <li class="nav-more">
+    <button class="more-btn" aria-haspopup="true" aria-expanded="false">
+      More <span class="more-arrow">▾</span>
+    </button>
+    <ul class="more-dropdown">
+      <li><a href="/journal"       class:list={[{ active: path.startsWith('/journal') }]}>Journal</a></li>
+      <li><a href="/contribute"    class:list={[{ active: path.startsWith('/contribute') }]}>Recollections</a></li>
+      <li><a href="/database"      class:list={[{ active: path.startsWith('/database') }]}>Database</a></li>
+      <li><a href="/book"          class:list={[{ active: path.startsWith('/book') }]}>Book</a></li>
+    </ul>
+  </li>
+</ul>
+
+<button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+  <span></span><span></span><span></span>
+</button>
 </nav>
 
 <slot />
@@ -129,25 +142,130 @@ const path = Astro.url.pathname;
   .nav-brand span { color: var(--gold); }
   .nav-brand:hover { text-decoration: none; }
 
+/* ── Primary nav ─────────────────────────────────────── */
+.nav-links {
+  display:    flex;
+  gap:        1.75rem;
+  list-style: none;
+  align-items: center;
+}
+.nav-links a {
+  font-family:     var(--sans);
+  font-size:       0.78rem;
+  font-weight:     600;
+  letter-spacing:  0.12em;
+  text-transform:  uppercase;
+  color:           var(--paper-dark);
+  transition:      color 0.2s;
+}
+.nav-links a:hover,
+.nav-links a.active { color: var(--gold); text-decoration: none; }
+
+/* ── More dropdown ───────────────────────────────────── */
+.nav-more { position: relative; }
+
+.more-btn {
+  font-family:    var(--sans);
+  font-size:      0.78rem;
+  font-weight:    600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color:          var(--paper-dark);
+  background:     none;
+  border:         none;
+  cursor:         pointer;
+  display:        flex;
+  align-items:    center;
+  gap:            0.3rem;
+  padding:        0;
+  transition:     color 0.2s;
+}
+.more-btn:hover { color: var(--gold); }
+.more-arrow { font-size: 0.6rem; transition: transform 0.2s; }
+.nav-more.open .more-arrow { transform: rotate(180deg); }
+
+.more-dropdown {
+  display:        none;
+  position:       absolute;
+  top:            calc(100% + 0.75rem);
+  right:          0;
+  background:     var(--ink);
+  border-top:     2px solid var(--gold);
+  border-bottom:  1px solid rgba(255,255,255,0.1);
+  list-style:     none;
+  min-width:      160px;
+  z-index:        200;
+  box-shadow:     0 8px 24px rgba(0,0,0,0.3);
+}
+.nav-more.open .more-dropdown { display: block; }
+
+.more-dropdown li a {
+  display:        block;
+  padding:        0.7rem 1.25rem;
+  font-family:    var(--sans);
+  font-size:      0.72rem;
+  font-weight:    600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color:          var(--paper-dark);
+  border-bottom:  1px solid rgba(255,255,255,0.07);
+  transition:     color 0.15s, background 0.15s;
+}
+.more-dropdown li:last-child a { border-bottom: none; }
+.more-dropdown li a:hover,
+.more-dropdown li a.active {
+  color:      var(--gold);
+  background: rgba(255,255,255,0.05);
+  text-decoration: none;
+}
+
+/* ── Mobile nav ──────────────────────────────────────── */
+.nav-toggle {
+  display:        none;
+  flex-direction: column;
+  gap:            5px;
+  background:     none;
+  border:         none;
+  cursor:         pointer;
+  padding:        4px;
+}
+.nav-toggle span {
+  display:    block;
+  width:      22px;
+  height:     2px;
+  background: var(--paper);
+}
+
+@media (max-width: 768px) {
   .nav-links {
-    display:     flex;
-    gap:         2rem;
-    list-style:  none;
+    display:        none;
+    position:       absolute;
+    top:            var(--nav-h);
+    left:           0; right: 0;
+    background:     var(--ink);
+    flex-direction: column;
+    gap:            0;
+    border-bottom:  2px solid var(--gold);
+    z-index:        200;
   }
-  .nav-links a {
-    font-family:     var(--sans);
-    font-size:       0.78rem;
-    font-weight:     600;
-    letter-spacing:  0.12em;
-    text-transform:  uppercase;
-    color:           var(--paper-dark);
-    transition:      color 0.2s;
+  .nav-links.open { display: flex; }
+  .nav-links > li > a,
+  .more-btn {
+    display:  block;
+    padding:  0.9rem 2rem;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    width: 100%;
+    text-align: left;
   }
-  .nav-links a:hover,
-  .nav-links a.active {
-    color:           var(--gold);
-    text-decoration: none;
+  .more-dropdown {
+    position: static;
+    border-top: none;
+    box-shadow: none;
   }
+  .nav-more.open .more-dropdown { display: block; }
+  .more-dropdown li a { padding-left: 3rem; }
+  .nav-toggle { display: flex; }
+}
 
   .nav-toggle {
     display:        none;
@@ -212,10 +330,34 @@ const path = Astro.url.pathname;
 </style>
 
 <script>
+  // Mobile nav toggle
   const toggle = document.querySelector('.nav-toggle');
   const links  = document.querySelector('.nav-links');
   toggle?.addEventListener('click', () => {
     const open = links?.classList.toggle('open');
     toggle.setAttribute('aria-expanded', String(open));
+  });
+
+  // More dropdown toggle
+  const moreBtn = document.querySelector('.more-btn');
+  const moreNav = document.querySelector('.nav-more');
+  moreBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const open = moreNav?.classList.toggle('open');
+    moreBtn.setAttribute('aria-expanded', String(open));
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', () => {
+    moreNav?.classList.remove('open');
+    moreBtn?.setAttribute('aria-expanded', 'false');
+  });
+
+  // Close mobile nav when a link is clicked
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => {
+      links?.classList.remove('open');
+      toggle?.setAttribute('aria-expanded', 'false');
+    });
   });
 </script>
