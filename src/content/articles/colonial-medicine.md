@@ -7,7 +7,7 @@ eraLabel: "Colonial America"
 dateRange: "1607–1670/71"
 keyFigure: "Jasper Gunn"
 location: "Milford, Connecticut Colony"
-featured: false
+featured: true
 order: 2
 date: 2026-07-28
 
