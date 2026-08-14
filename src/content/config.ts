@@ -47,8 +47,31 @@ const articles = defineCollection({
 // e.g. nathaniel-gunn-1637.md, samuel-baldwin-gunn-1642.md
 // Exceptions (no year): jasper-gunn.md, christian-gunn.md
 const people = defineCollection({
-  type:   'content',
-  schema: articleSchema,
+  type: 'content',
+  schema: z.object({
+    title:            z.string(),
+    epithet:          z.string().optional(),
+    birth:            z.string().optional(),
+    death:            z.string().optional(),
+    birthplace:       z.string().optional(),
+    deathplace:       z.string().optional(),
+    era:              z.string().optional(),
+    eraLabel:         z.string().optional(),
+    leadImage:        z.string().optional(),
+    leadImageAlt:     z.string().optional(),
+    leadImageCaption: z.string().optional(),
+    featured:         z.boolean().default(false),
+    order:            z.number().optional(),
+    date:             z.date().optional(),
+    summary:          z.string().optional(),
+    tags:             z.array(z.string()).optional(),
+    sources:          z.array(z.string()).optional(),
+    related:          z.array(z.string()).optional(),
+    spouse:           z.array(z.string()).optional(),
+    parents:          z.array(z.string()).optional(),
+    children:         z.array(z.string()).optional(),
+    draft:            z.boolean().default(false),
+  }),
 });
 
 // ── journal ──────────────────────────────────────────────
