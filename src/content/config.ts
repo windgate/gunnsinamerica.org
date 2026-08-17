@@ -101,7 +101,7 @@ const voices = defineCollection({
     authorSlug:   z.string().optional(),
     date:         z.date(),
     composed:     z.string().optional(),
-    type:         z.enum(['memoir', 'diary', 'fiction', 'letter', 'essay', 'poem', 'other']),
+    type:         z.enum(['memoir', 'diary', 'fiction', 'letter', 'essay', 'poem', 'obituary', 'newspaper', 'other']),
     source:       z.string().optional(),
     sourceUrl:    z.string().optional(),
     rights:       z.enum(['public-domain', 'family-permission', 'rights-pending', 'all-rights-reserved']),
