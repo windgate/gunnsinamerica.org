@@ -30,90 +30,99 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
 
 <BaseLayout title={d.title} description={d.epithet ?? [d.birth, d.death].filter(Boolean).join(' – ')}>
 
-  <!-- Breadcrumb -->
-  <div class="breadcrumb">
-    <a href="/">Home</a>
-    <span class="sep">›</span>
-    <a href="/people">People</a>
-    <span class="sep">›</span>
-    <span>{d.title}</span>
-  </div>
+  <div class="person-page">
 
-  <!-- Person header -->
-  <header class="article-header">
-    {d.era && <div class="article-era">{d.eraLabel ?? d.era}</div>}
-    <h1>{d.title}</h1>
-    {d.epithet && <p class="article-subtitle">{d.epithet}</p>}
-    <div class="article-meta">
-      {d.birth      && <div class="meta-item"><strong>Born</strong>{d.birth}</div>}
-      {d.death      && <div class="meta-item"><strong>Died</strong>{d.death}</div>}
-      {d.birthplace && <div class="meta-item"><strong>Birthplace</strong>{d.birthplace}</div>}
-      {d.deathplace && <div class="meta-item"><strong>Deathplace</strong>{d.deathplace}</div>}
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">›</span>
+      <a href="/people">People</a>
+      <span class="sep">›</span>
+      <span>{d.title}</span>
     </div>
-  </header>
 
-  <!-- Portrait / lead image (optional) -->
-  {d.leadImage && (
-    <figure class="article-lead-image">
-      <img src={d.leadImage} alt={d.leadImageAlt ?? d.title} />
-      {d.leadImageCaption && <figcaption>{d.leadImageCaption}</figcaption>}
-    </figure>
-  )}
-
-  <!-- Table of Contents (auto-generated for articles with 4+ headings) -->
-  <nav class="toc" id="toc" aria-label="Table of contents" hidden>
-    <div class="toc-label">Contents</div>
-    <ol class="toc-list" id="toc-list"></ol>
-  </nav>
-
-  <!-- Biography body -->
-  <article class="article-body" id="article-body">
-
-    <!-- Family relations callout -->
-    {hasFamily && (
-      <div class="people-callout">
-        <h4>Family</h4>
-        <ul class="people-list">
-          {parents.map(p  => (
-            <li><strong>Parent</strong><a href={`/people/${p.slug}`}>{p.data.title}</a></li>
-          ))}
-          {spouse.map(p   => (
-            <li><strong>Spouse</strong><a href={`/people/${p.slug}`}>{p.data.title}</a></li>
-          ))}
-          {children.map(p => (
-            <li><strong>Child</strong><a href={`/people/${p.slug}`}>{p.data.title}</a></li>
-          ))}
-        </ul>
+    <!-- Person header -->
+    <header class="person-header">
+      {d.era && <div class="person-era">{d.eraLabel ?? d.era}</div>}
+      <h1>{d.title}</h1>
+      {d.epithet && <p class="person-epithet">{d.epithet}</p>}
+      <div class="person-meta">
+        {d.birth      && <div class="meta-item"><strong>Born</strong>{d.birth}</div>}
+        {d.death      && <div class="meta-item"><strong>Died</strong>{d.death}</div>}
+        {d.birthplace && <div class="meta-item"><strong>Birthplace</strong>{d.birthplace}</div>}
+        {d.deathplace && <div class="meta-item"><strong>Deathplace</strong>{d.deathplace}</div>}
       </div>
+    </header>
+
+    <!-- Portrait / lead image (optional) -->
+    {d.leadImage && (
+      <figure class="lead-image">
+        <img src={d.leadImage} alt={d.leadImageAlt ?? d.title} />
+        {d.leadImageCaption && <figcaption>{d.leadImageCaption}</figcaption>}
+      </figure>
     )}
 
-    <Content />
+    <!-- Table of Contents — built by JS, shown only when 4+ h2 headings exist -->
+    <nav class="toc" id="toc" aria-label="Table of contents" hidden>
+      <p class="toc-label">Contents</p>
+      <ol class="toc-list" id="toc-list"></ol>
+    </nav>
 
-    <!-- Sources -->
-    {d.sources && d.sources.length > 0 && (
-      <div class="article-sources">
-        <h4>Sources &amp; Notes</h4>
-        <ol>
-          {d.sources.map(s => <li set:html={s} />)}
-        </ol>
-      </div>
-    )}
+    <!-- Biography body -->
+    <div class="person-body" id="person-body">
 
-  </article>
+      <!-- Family relations callout -->
+      {hasFamily && (
+        <div class="family-callout">
+          <h4>Family</h4>
+          <ul class="family-list">
+            {parents.map(p  => (
+              <li><strong>Parent</strong><a href={`/people/${p.slug}`}>{p.data.title}</a></li>
+            ))}
+            {spouse.map(p   => (
+              <li><strong>Spouse</strong><a href={`/people/${p.slug}`}>{p.data.title}</a></li>
+            ))}
+            {children.map(p => (
+              <li><strong>Child</strong><a href={`/people/${p.slug}`}>{p.data.title}</a></li>
+            ))}
+          </ul>
+        </div>
+      )}
 
-  <!-- Back bar -->
-  <div class="back-bar">
-    <a href="/people">← Back to All People</a>
+      <Content />
+
+      <!-- Sources -->
+      {d.sources && d.sources.length > 0 && (
+        <div class="sources">
+          <h4>Sources &amp; Notes</h4>
+          <ol>
+            {d.sources.map(s => <li set:html={s} />)}
+          </ol>
+        </div>
+      )}
+
+    </div>
+
+    <!-- Back bar -->
+    <div class="back-bar">
+      <a href="/people">← Back to All People</a>
+    </div>
+
   </div>
 
 </BaseLayout>
 
 <style>
-  /* Breadcrumb */
+  /* ── Page wrapper ────────────────────────────────────── */
+  .person-page {
+    max-width: var(--max);
+    margin:    0 auto;
+    padding:   0 2rem 4rem;
+  }
+
+  /* ── Breadcrumb ──────────────────────────────────────── */
   .breadcrumb {
-    max-width:      var(--max-wide);
-    margin:         0 auto;
-    padding:        1rem 2rem 0;
+    padding:        1rem 0;
     font-family:    var(--sans);
     font-size:      0.7rem;
     letter-spacing: 0.1em;
@@ -122,18 +131,17 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
     display:        flex;
     gap:            0.5rem;
     align-items:    center;
+    border-bottom:  1px solid var(--rule);
+    margin-bottom:  2rem;
   }
   .breadcrumb a { color: var(--ink-light); }
   .breadcrumb a:hover { color: var(--accent); text-decoration: none; }
   .sep { opacity: 0.4; }
 
-  /* Person header */
-  .article-header {
-    max-width: var(--max);
-    margin:    2rem auto 0;
-    padding:   0 2rem;
-  }
-  .article-era {
+  /* ── Person header ───────────────────────────────────── */
+  .person-header { margin-bottom: 2rem; }
+
+  .person-era {
     font-family:    var(--sans);
     font-size:      0.68rem;
     font-weight:    600;
@@ -145,14 +153,15 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
     align-items:    center;
     gap:            0.75rem;
   }
-  .article-era::after {
+  .person-era::after {
     content:    '';
     flex:       1;
     height:     1px;
     background: var(--rule);
     max-width:  60px;
   }
-  .article-header h1 {
+
+  .person-header h1 {
     font-family:   var(--serif);
     font-size:     clamp(1.8rem, 4vw, 2.8rem);
     font-weight:   700;
@@ -160,7 +169,8 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
     color:         var(--ink);
     margin-bottom: 0.75rem;
   }
-  .article-subtitle {
+
+  .person-epithet {
     font-family:   var(--serif);
     font-size:     1.1rem;
     font-style:    italic;
@@ -168,14 +178,14 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
     margin-bottom: 1.5rem;
     line-height:   1.5;
   }
-  .article-meta {
+
+  .person-meta {
     display:       flex;
     gap:           2rem;
     flex-wrap:     wrap;
     padding:       1rem 0;
     border-top:    1px solid var(--rule);
     border-bottom: 1px solid var(--rule);
-    margin-bottom: 2.5rem;
   }
   .meta-item {
     font-family:    var(--sans);
@@ -191,18 +201,14 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
     margin-bottom: 0.1rem;
   }
 
-  /* Lead image */
-  .article-lead-image {
-    max-width: var(--max-wide);
-    margin:    0 auto 3rem;
-    padding:   0 2rem;
-  }
-  .article-lead-image img {
+  /* ── Lead image ──────────────────────────────────────── */
+  .lead-image { margin: 2rem 0; }
+  .lead-image img {
     width:      100%;
     max-height: 480px;
     object-fit: cover;
   }
-  .article-lead-image figcaption {
+  .lead-image figcaption {
     font-family:    var(--sans);
     font-size:      0.72rem;
     letter-spacing: 0.05em;
@@ -211,80 +217,71 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
     border-bottom:  1px solid var(--rule);
   }
 
- /* ── Table of Contents ───────────────────────────────── */
-.toc {
-  max-width:    var(--max);
-  margin:       0 auto 2.5rem;
-  padding:      0 2rem;
-}
-.toc[hidden] { display: none; }
-
-.toc-label {
-  font-family:    var(--sans);
-  font-size:      0.65rem;
-  font-weight:    600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color:          var(--ink-light);
-  margin-bottom:  0.6rem;
-}
-
-.toc-list {
-  background:  var(--white);
-  border:      1px solid var(--rule);
-  border-left: 3px solid var(--gold);
-  padding:     1rem 1.5rem 1rem 2.5rem;
-  list-style:  decimal;
-  columns:     2;
-  column-gap:  2rem;
-}
-
-.toc-list li {
-  font-family:   var(--body);
-  font-size:     0.88rem;
-  line-height:   1.5;
-  margin-bottom: 0.3rem;
-  break-inside:  avoid;
-}
-
-.toc-list a {
-  color:           var(--ink);
-  text-decoration: none;
-}
-.toc-list a:hover { color: var(--accent); }
-
-@media (max-width: 540px) {
-  .toc-list { columns: 1; }
-}
-}
-
-  /* Body */
-.article-body {
-  max-width:  var(--max);
-  margin:     2rem auto;
-  padding:    0 2rem 4rem;
-  clear:      both;
-}
-  .article-body :global(p) { margin-bottom: 1.5rem; }
-  .article-body :global(h2) {
-    font-family:   var(--serif);
-    font-size:     1.5rem;
-    font-weight:   700;
-    color:         var(--ink);
-    margin:        2.5rem 0 1rem;
-    padding-top:   0.5rem;
-    border-top:    1px solid var(--rule);
-    scroll-margin-top: 80px;
+  /* ── Table of Contents ───────────────────────────────── */
+  .toc {
+    margin:        2rem 0;
+    padding:       1.25rem 1.5rem;
+    background:    var(--white);
+    border:        1px solid var(--rule);
+    border-left:   3px solid var(--gold);
   }
-  .article-body :global(h3) {
-    font-family:   var(--serif);
-    font-size:     1.15rem;
-    font-style:    italic;
-    color:         var(--ink);
-    margin:        2rem 0 0.75rem;
-    scroll-margin-top: 80px;
+  .toc[hidden] { display: none; }
+
+  .toc-label {
+    font-family:    var(--sans);
+    font-size:      0.65rem;
+    font-weight:    600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color:          var(--ink-light);
+    margin-bottom:  0.75rem;
   }
-  .article-body :global(blockquote) {
+
+  .toc-list {
+    list-style:     decimal;
+    padding-left:   1.25rem;
+    columns:        2;
+    column-gap:     2rem;
+  }
+  .toc-list li {
+    font-family:  var(--body);
+    font-size:    0.88rem;
+    line-height:  1.5;
+    padding:      0.15rem 0;
+    break-inside: avoid;
+  }
+  .toc-list a { color: var(--accent); text-decoration: none; }
+  .toc-list a:hover { text-decoration: underline; }
+
+  @media (max-width: 500px) {
+    .toc-list { columns: 1; }
+  }
+
+  /* ── Body ────────────────────────────────────────────── */
+  .person-body { margin-top: 2rem; }
+
+  .person-body :global(p)  { margin-bottom: 1.5rem; font-size: 1rem; line-height: 1.8; }
+
+  .person-body :global(h2) {
+    font-family:       var(--serif);
+    font-size:         1.5rem;
+    font-weight:       700;
+    color:             var(--ink);
+    margin:            2.5rem 0 1rem;
+    padding-top:       0.5rem;
+    border-top:        1px solid var(--rule);
+    scroll-margin-top: 5rem;
+  }
+  .person-body :global(h3) {
+    font-family:       var(--serif);
+    font-size:         1.15rem;
+    font-style:        italic;
+    color:             var(--ink);
+    margin:            2rem 0 0.75rem;
+    scroll-margin-top: 5rem;
+  }
+
+  .person-body :global(blockquote) {
     margin:      2.5rem 0;
     padding:     1.5rem 2rem;
     border-left: 4px solid var(--gold);
@@ -295,22 +292,26 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
     color:       var(--ink);
     line-height: 1.6;
   }
-  .article-body :global(figure.inline) {
-    float: right; margin: 0 0 1.5rem 2rem; max-width: 280px; clear: right;
-  }
-  .article-body :global(figure.inline img) { border: 1px solid var(--rule); }
-  .article-body :global(figure.full) { margin: 2rem -2rem; }
-  .article-body :global(figure.full img) { width: 100%; }
 
-  /* Family relations callout */
-  .people-callout {
+  .person-body :global(figure.inline) {
+    float:     right;
+    margin:    0 0 1.5rem 2rem;
+    max-width: 280px;
+    clear:     right;
+  }
+  .person-body :global(figure.inline img) { border: 1px solid var(--rule); }
+  .person-body :global(figure.full)       { margin: 2rem -2rem; }
+  .person-body :global(figure.full img)   { width: 100%; }
+
+  /* ── Family callout ──────────────────────────────────── */
+  .family-callout {
     background:  var(--white);
     border:      1px solid var(--rule);
     border-top:  3px solid var(--accent2);
     padding:     1.25rem 1.5rem;
     margin:      0 0 2.5rem;
   }
-  .people-callout h4 {
+  .family-callout h4 {
     font-family:    var(--sans);
     font-size:      0.65rem;
     font-weight:    600;
@@ -319,19 +320,19 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
     color:          var(--accent2);
     margin-bottom:  0.75rem;
   }
-  .people-list {
+  .family-list {
     list-style:     none;
     display:        flex;
     flex-direction: column;
     gap:            0.5rem;
   }
-  .people-list li {
+  .family-list li {
     font-size:   0.88rem;
     display:     flex;
     gap:         0.75rem;
     align-items: baseline;
   }
-  .people-list li strong {
+  .family-list li strong {
     font-family:    var(--sans);
     font-size:      0.6rem;
     font-weight:    600;
@@ -341,16 +342,16 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
     white-space:    nowrap;
     min-width:      3.5rem;
   }
-  .people-list li a { color: var(--ink); font-weight: 700; }
-  .people-list li a:hover { color: var(--accent); }
+  .family-list li a { color: var(--ink); font-weight: 700; }
+  .family-list li a:hover { color: var(--accent); }
 
-  /* Sources */
-  .article-sources {
+  /* ── Sources ─────────────────────────────────────────── */
+  .sources {
     margin-top:  3rem;
     padding-top: 1.5rem;
     border-top:  2px solid var(--rule);
   }
-  .article-sources h4 {
+  .sources h4 {
     font-family:    var(--sans);
     font-size:      0.65rem;
     font-weight:    600;
@@ -359,7 +360,7 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
     color:          var(--ink-light);
     margin-bottom:  0.75rem;
   }
-  .article-sources ol {
+  .sources ol {
     padding-left:   1.25rem;
     font-size:      0.82rem;
     color:          var(--ink-light);
@@ -369,11 +370,11 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
     gap:            0.4rem;
   }
 
-  /* Back bar */
+  /* ── Back bar ────────────────────────────────────────── */
   .back-bar {
-    background:  var(--paper-dark);
+    margin-top:  3rem;
+    padding-top: 1.5rem;
     border-top:  1px solid var(--rule);
-    padding:     1.25rem 2rem;
     text-align:  center;
   }
   .back-bar a {
@@ -386,29 +387,21 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
   }
 
   @media (max-width: 600px) {
-    .article-body :global(figure.inline) { float: none; max-width: 100%; margin: 1.5rem 0; }
+    .person-body :global(figure.inline) { float: none; max-width: 100%; margin: 1.5rem 0; }
   }
 </style>
 
 <script>
-  // Auto-generate table of contents from h2 headings
-  // Only renders if 4 or more h2 headings are found
   const MIN_HEADINGS = 4;
-
-  const body    = document.getElementById('article-body');
+  const body    = document.getElementById('person-body');
   const toc     = document.getElementById('toc');
   const tocList = document.getElementById('toc-list');
 
   if (body && toc && tocList) {
     const headings = Array.from(body.querySelectorAll('h2'));
-
     if (headings.length >= MIN_HEADINGS) {
       headings.forEach((h, i) => {
-        // Add an ID to each heading for anchor linking
-        if (!h.id) {
-          h.id = 'section-' + (i + 1);
-        }
-
+        if (!h.id) h.id = 'section-' + (i + 1);
         const li = document.createElement('li');
         const a  = document.createElement('a');
         a.href        = '#' + h.id;
@@ -416,8 +409,6 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
         li.appendChild(a);
         tocList.appendChild(li);
       });
-
-
       toc.removeAttribute('hidden');
     }
   }
