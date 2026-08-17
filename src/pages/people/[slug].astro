@@ -14,8 +14,6 @@ const { person } = Astro.props;
 const { Content } = await person.render();
 const d = person.data;
 
-// Resolve relation references (reference('people')) into linkable entries.
-// Each ref is { collection: 'people', slug: '...' }; getEntry returns the full entry.
 const resolve = async (slugs: string[] | undefined) =>
   slugs
     ? (await Promise.all(
@@ -62,10 +60,16 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
     </figure>
   )}
 
-  <!-- Biography body -->
-  <article class="article-body">
+  <!-- Table of Contents (auto-generated for articles with 4+ headings) -->
+  <nav class="toc" id="toc" aria-label="Table of contents" hidden>
+    <div class="toc-label">Contents</div>
+    <ol class="toc-list" id="toc-list"></ol>
+  </nav>
 
-    <!-- Family relations callout (optional; renders only if references exist) -->
+  <!-- Biography body -->
+  <article class="article-body" id="article-body">
+
+    <!-- Family relations callout -->
     {hasFamily && (
       <div class="people-callout">
         <h4>Family</h4>
@@ -83,10 +87,9 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
       </div>
     )}
 
-    <!-- Markdown body renders here -->
     <Content />
 
-    <!-- Sources (optional) -->
+    <!-- Sources -->
     {d.sources && d.sources.length > 0 && (
       <div class="article-sources">
         <h4>Sources &amp; Notes</h4>
@@ -208,6 +211,58 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
     border-bottom:  1px solid var(--rule);
   }
 
+  /* ── Table of Contents ───────────────────────────────── */
+  .toc {
+    max-width:     var(--max);
+    margin:        0 auto 0.5rem;
+    padding:       0 2rem;
+  }
+  .toc[hidden] { display: none; }
+
+  .toc-label {
+    font-family:    var(--sans);
+    font-size:      0.65rem;
+    font-weight:    600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color:          var(--ink-light);
+    margin-bottom:  0.6rem;
+  }
+
+  .toc-list {
+    background:   var(--white);
+    border:       1px solid var(--rule);
+    border-left:  3px solid var(--gold);
+    padding:      0.75rem 1rem 0.75rem 2rem;
+    list-style:   decimal;
+    display:      flex;
+    flex-direction: column;
+    gap:          0.3rem;
+    column-count: 1;
+  }
+
+  .toc-list li {
+    font-family: var(--body);
+    font-size:   0.88rem;
+    line-height: 1.4;
+  }
+
+  .toc-list a {
+    color:           var(--ink);
+    text-decoration: none;
+    transition:      color 0.15s;
+  }
+  .toc-list a:hover { color: var(--accent); }
+
+  /* Two columns on wider screens when there are many headings */
+  @media (min-width: 640px) {
+    .toc-list.toc-wide {
+      column-count: 2;
+      column-gap:   2rem;
+    }
+    .toc-list.toc-wide li { break-inside: avoid; }
+  }
+
   /* Body */
   .article-body {
     max-width: var(--max);
@@ -223,6 +278,7 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
     margin:        2.5rem 0 1rem;
     padding-top:   0.5rem;
     border-top:    1px solid var(--rule);
+    scroll-margin-top: 80px;
   }
   .article-body :global(h3) {
     font-family:   var(--serif);
@@ -230,6 +286,7 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
     font-style:    italic;
     color:         var(--ink);
     margin:        2rem 0 0.75rem;
+    scroll-margin-top: 80px;
   }
   .article-body :global(blockquote) {
     margin:      2.5rem 0;
@@ -249,7 +306,7 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
   .article-body :global(figure.full) { margin: 2rem -2rem; }
   .article-body :global(figure.full img) { width: 100%; }
 
-  /* Family relations callout (adapted from the article people-callout) */
+  /* Family relations callout */
   .people-callout {
     background:  var(--white);
     border:      1px solid var(--rule);
@@ -288,10 +345,7 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
     white-space:    nowrap;
     min-width:      3.5rem;
   }
-  .people-list li a {
-    color:       var(--ink);
-    font-weight: 700;
-  }
+  .people-list li a { color: var(--ink); font-weight: 700; }
   .people-list li a:hover { color: var(--accent); }
 
   /* Sources */
@@ -339,3 +393,40 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
     .article-body :global(figure.inline) { float: none; max-width: 100%; margin: 1.5rem 0; }
   }
 </style>
+
+<script>
+  // Auto-generate table of contents from h2 headings
+  // Only renders if 4 or more h2 headings are found
+  const MIN_HEADINGS = 4;
+
+  const body    = document.getElementById('article-body');
+  const toc     = document.getElementById('toc');
+  const tocList = document.getElementById('toc-list');
+
+  if (body && toc && tocList) {
+    const headings = Array.from(body.querySelectorAll('h2'));
+
+    if (headings.length >= MIN_HEADINGS) {
+      headings.forEach((h, i) => {
+        // Add an ID to each heading for anchor linking
+        if (!h.id) {
+          h.id = 'section-' + (i + 1);
+        }
+
+        const li = document.createElement('li');
+        const a  = document.createElement('a');
+        a.href        = '#' + h.id;
+        a.textContent = h.textContent ?? '';
+        li.appendChild(a);
+        tocList.appendChild(li);
+      });
+
+      // Use two-column layout if 7 or more headings
+      if (headings.length >= 7) {
+        tocList.classList.add('toc-wide');
+      }
+
+      toc.removeAttribute('hidden');
+    }
+  }
+</script>
