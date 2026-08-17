@@ -214,7 +214,7 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
   /* ── Table of Contents ───────────────────────────────── */
   .toc {
     max-width:     var(--max);
-    margin:        0 auto 0.5rem;
+    margin:        0 auto 2rem;
     padding:       0 2rem;
   }
   .toc[hidden] { display: none; }
@@ -229,17 +229,16 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
     margin-bottom:  0.6rem;
   }
 
-  .toc-list {
-    background:   var(--white);
-    border:       1px solid var(--rule);
-    border-left:  3px solid var(--gold);
-    padding:      0.75rem 1rem 0.75rem 2rem;
-    list-style:   decimal;
-    display:      flex;
-    flex-direction: column;
-    gap:          0.3rem;
-    column-count: 1;
-  }
+.toc-list {
+  background:     var(--white);
+  border:         1px solid var(--rule);
+  border-left:    3px solid var(--gold);
+  padding:        0.75rem 1rem 0.75rem 2rem;
+  list-style:     decimal;
+  display:        flex;
+  flex-direction: column;
+  gap:            0.3rem;
+}
 
   .toc-list li {
     font-family: var(--body);
@@ -256,12 +255,12 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
 
   /* Two columns on wider screens when there are many headings */
   @media (min-width: 640px) {
-    .toc-list.toc-wide {
-      column-count: 2;
-      column-gap:   2rem;
-    }
-    .toc-list.toc-wide li { break-inside: avoid; }
+  .toc-list.toc-wide {
+    display:               grid;
+    grid-template-columns: 1fr 1fr;
+    gap:                   0.3rem 2rem;
   }
+}
 
   /* Body */
   .article-body {
