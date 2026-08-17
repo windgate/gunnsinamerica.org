@@ -211,63 +211,60 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
     border-bottom:  1px solid var(--rule);
   }
 
-  /* ── Table of Contents ───────────────────────────────── */
-  .toc {
-    max-width:     var(--max);
-    margin:        0 auto 2rem;
-    padding:       0 2rem;
-  }
-  .toc[hidden] { display: none; }
+ /* ── Table of Contents ───────────────────────────────── */
+.toc {
+  max-width:    var(--max);
+  margin:       0 auto 2.5rem;
+  padding:      0 2rem;
+}
+.toc[hidden] { display: none; }
 
-  .toc-label {
-    font-family:    var(--sans);
-    font-size:      0.65rem;
-    font-weight:    600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color:          var(--ink-light);
-    margin-bottom:  0.6rem;
-  }
-
-.toc-list {
-  background:     var(--white);
-  border:         1px solid var(--rule);
-  border-left:    3px solid var(--gold);
-  padding:        0.75rem 1rem 0.75rem 2rem;
-  list-style:     decimal;
-  display:        flex;
-  flex-direction: column;
-  gap:            0.3rem;
+.toc-label {
+  font-family:    var(--sans);
+  font-size:      0.65rem;
+  font-weight:    600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color:          var(--ink-light);
+  margin-bottom:  0.6rem;
 }
 
-  .toc-list li {
-    font-family: var(--body);
-    font-size:   0.88rem;
-    line-height: 1.4;
-  }
+.toc-list {
+  background:  var(--white);
+  border:      1px solid var(--rule);
+  border-left: 3px solid var(--gold);
+  padding:     1rem 1.5rem 1rem 2.5rem;
+  list-style:  decimal;
+  columns:     2;
+  column-gap:  2rem;
+}
 
-  .toc-list a {
-    color:           var(--ink);
-    text-decoration: none;
-    transition:      color 0.15s;
-  }
-  .toc-list a:hover { color: var(--accent); }
+.toc-list li {
+  font-family:   var(--body);
+  font-size:     0.88rem;
+  line-height:   1.5;
+  margin-bottom: 0.3rem;
+  break-inside:  avoid;
+}
 
-  /* Two columns on wider screens when there are many headings */
-  @media (min-width: 640px) {
-  .toc-list.toc-wide {
-    display:               grid;
-    grid-template-columns: 1fr 1fr;
-    gap:                   0.3rem 2rem;
-  }
+.toc-list a {
+  color:           var(--ink);
+  text-decoration: none;
+}
+.toc-list a:hover { color: var(--accent); }
+
+@media (max-width: 540px) {
+  .toc-list { columns: 1; }
+}
 }
 
   /* Body */
-  .article-body {
-    max-width: var(--max);
-    margin:    0 auto;
-    padding:   0 2rem 4rem;
-  }
+.article-body {
+  max-width:  var(--max);
+  margin:     2rem auto;
+  padding:    0 2rem 4rem;
+  clear:      both;
+}
   .article-body :global(p) { margin-bottom: 1.5rem; }
   .article-body :global(h2) {
     font-family:   var(--serif);
@@ -420,10 +417,6 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
         tocList.appendChild(li);
       });
 
-      // Use two-column layout if 7 or more headings
-      if (headings.length >= 7) {
-        tocList.classList.add('toc-wide');
-      }
 
       toc.removeAttribute('hidden');
     }
