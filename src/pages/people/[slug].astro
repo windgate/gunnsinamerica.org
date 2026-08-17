@@ -240,8 +240,6 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
   .toc-list {
     list-style:     decimal;
     padding-left:   1.25rem;
-    columns:        2;
-    column-gap:     2rem;
   }
   .toc-list li {
     font-family:  var(--body);
@@ -253,9 +251,6 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
   .toc-list a { color: var(--accent); text-decoration: none; }
   .toc-list a:hover { text-decoration: underline; }
 
-  @media (max-width: 500px) {
-    .toc-list { columns: 1; }
-  }
 
   /* ── Body ────────────────────────────────────────────── */
   .person-body { margin-top: 2rem; }
