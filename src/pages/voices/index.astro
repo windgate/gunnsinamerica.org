@@ -6,13 +6,15 @@ const entries = (await getCollection('voices'))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const TYPE_LABELS: Record<string, string> = {
-  memoir:  'Memoir',
-  diary:   'Diary',
-  fiction: 'Fiction',
-  letter:  'Letter',
-  essay:   'Essay',
-  poem:    'Poem',
-  other:   'Writing',
+  memoir:    'Memoir',
+  diary:     'Diary',
+  fiction:   'Fiction',
+  letter:    'Letter',
+  essay:     'Essay',
+  poem:      'Poem',
+  obituary:  'Obituary',
+  newspaper: 'Newspaper',
+  other:     'Writing',
 };
 ---
 
