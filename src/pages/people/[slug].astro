@@ -26,6 +26,16 @@ const parents  = await resolve(d.parents);
 const spouse   = await resolve(d.spouse);
 const children = await resolve(d.children);
 const hasFamily = parents.length + spouse.length + children.length > 0;
+
+// Build TOC server-side by extracting ## headings from the raw markdown body
+// This avoids any JavaScript/layout collision
+const rawBody = person.body ?? '';
+const headingMatches = [...rawBody.matchAll(/^## (.+)$/gm)];
+const tocItems = headingMatches.map((m, i) => ({
+  text: m[1].trim(),
+  id:   'section-' + (i + 1),
+}));
+const showToc = tocItems.length >= 4;
 ---
 
 <BaseLayout title={d.title} description={d.epithet ?? [d.birth, d.death].filter(Boolean).join(' – ')}>
@@ -62,12 +72,21 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
       </figure>
     )}
 
-
+    <!-- Table of Contents (server-side, only renders when 4+ headings) -->
+    {showToc && (
+      <nav class="toc" aria-label="Table of contents">
+        <p class="toc-label">Contents</p>
+        <ol class="toc-list">
+          {tocItems.map(item => (
+            <li><a href={`#${item.id}`}>{item.text}</a></li>
+          ))}
+        </ol>
+      </nav>
+    )}
 
     <!-- Biography body -->
-    <div class="person-body" id="person-body">
+    <div class="person-body">
 
-      <!-- Family relations callout -->
       {hasFamily && (
         <div class="family-callout">
           <h4>Family</h4>
@@ -87,7 +106,6 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
 
       <Content />
 
-      <!-- Sources -->
       {d.sources && d.sources.length > 0 && (
         <div class="sources">
           <h4>Sources &amp; Notes</h4>
@@ -99,7 +117,6 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
 
     </div>
 
-    <!-- Back bar -->
     <div class="back-bar">
       <a href="/people">← Back to All People</a>
     </div>
@@ -109,14 +126,12 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
 </BaseLayout>
 
 <style>
-  /* ── Page wrapper ────────────────────────────────────── */
   .person-page {
     max-width: var(--max);
     margin:    0 auto;
     padding:   0 2rem 4rem;
   }
 
-  /* ── Breadcrumb ──────────────────────────────────────── */
   .breadcrumb {
     padding:        1rem 0;
     font-family:    var(--sans);
@@ -134,7 +149,6 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
   .breadcrumb a:hover { color: var(--accent); text-decoration: none; }
   .sep { opacity: 0.4; }
 
-  /* ── Person header ───────────────────────────────────── */
   .person-header { margin-bottom: 2rem; }
 
   .person-era {
@@ -176,15 +190,14 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
   }
 
   .person-meta {
-  display:       flex;
-  gap:           2rem;
-  flex-wrap:     wrap;
-  padding:       1rem 0;
-  border-top:    1px solid var(--rule);
-  border-bottom: 1px solid var(--rule);
-  margin-bottom: 1rem;
-  clear:         both;
-}
+    display:       flex;
+    gap:           2rem;
+    flex-wrap:     wrap;
+    padding:       1rem 0;
+    border-top:    1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 2rem;
+  }
   .meta-item {
     font-family:    var(--sans);
     font-size:      0.7rem;
@@ -199,7 +212,6 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
     margin-bottom: 0.1rem;
   }
 
-  /* ── Lead image ──────────────────────────────────────── */
   .lead-image { margin: 2rem 0; }
   .lead-image img {
     width:      100%;
@@ -215,9 +227,48 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
     border-bottom:  1px solid var(--rule);
   }
 
+  /* ── Table of Contents ───────────────────────────────── */
+  .toc {
+    margin:      2rem 0;
+    padding:     1.25rem 1.5rem;
+    background:  var(--white);
+    border:      1px solid var(--rule);
+    border-left: 3px solid var(--gold);
+  }
+
+  .toc-label {
+    font-family:    var(--sans);
+    font-size:      0.65rem;
+    font-weight:    600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color:          var(--ink-light);
+    margin-bottom:  0.75rem;
+  }
+
+  .toc-list {
+    list-style:   decimal;
+    padding-left: 1.5rem;
+    margin:       0;
+    display:      flex;
+    flex-direction: column;
+    gap:          0.25rem;
+  }
+
+  .toc-list li {
+    font-family: var(--body);
+    font-size:   0.88rem;
+    line-height: 1.5;
+  }
+
+  .toc-list a {
+    color:           var(--accent);
+    text-decoration: none;
+  }
+  .toc-list a:hover { text-decoration: underline; }
 
   /* ── Body ────────────────────────────────────────────── */
-  .person-body { margin-top: 2rem; }
+  .person-body { margin-top: 1rem; }
 
   .person-body :global(p)  { margin-bottom: 1.5rem; font-size: 1rem; line-height: 1.8; }
 
@@ -239,7 +290,6 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
     margin:            2rem 0 0.75rem;
     scroll-margin-top: 5rem;
   }
-
   .person-body :global(blockquote) {
     margin:      2.5rem 0;
     padding:     1.5rem 2rem;
@@ -251,7 +301,6 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
     color:       var(--ink);
     line-height: 1.6;
   }
-
   .person-body :global(figure.inline) {
     float:     right;
     margin:    0 0 1.5rem 2rem;
@@ -262,7 +311,6 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
   .person-body :global(figure.full)       { margin: 2rem -2rem; }
   .person-body :global(figure.full img)   { width: 100%; }
 
-  /* ── Family callout ──────────────────────────────────── */
   .family-callout {
     background:  var(--white);
     border:      1px solid var(--rule);
@@ -304,7 +352,6 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
   .family-list li a { color: var(--ink); font-weight: 700; }
   .family-list li a:hover { color: var(--accent); }
 
-  /* ── Sources ─────────────────────────────────────────── */
   .sources {
     margin-top:  3rem;
     padding-top: 1.5rem;
@@ -329,7 +376,6 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
     gap:            0.4rem;
   }
 
-  /* ── Back bar ────────────────────────────────────────── */
   .back-bar {
     margin-top:  3rem;
     padding-top: 1.5rem;
@@ -350,3 +396,10 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
   }
 </style>
 
+<script>
+  // Add IDs to h2 headings in the body to match the server-generated TOC links
+  const headings = document.querySelectorAll('.person-body h2');
+  headings.forEach((h, i) => {
+    h.id = 'section-' + (i + 1);
+  });
+</script>
