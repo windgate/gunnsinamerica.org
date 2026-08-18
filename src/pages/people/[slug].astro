@@ -74,15 +74,15 @@ const showToc = tocItems.length >= 4;
 
     <!-- Table of Contents (server-side, only renders when 4+ headings) -->
     {showToc && (
-      <nav class="toc" aria-label="Table of contents">
-        <p class="toc-label">Contents</p>
-        <ol class="toc-list">
-          {tocItems.map(item => (
-            <li><a href={`#${item.id}`}>{item.text}</a></li>
-          ))}
-        </ol>
-      </nav>
-    )}
+  <div class="toc">
+    <p class="toc-label">Contents</p>
+    <ol class="toc-list">
+      {tocItems.map(item => (
+        <li><a href={`#${item.id}`}>{item.text}</a></li>
+      ))}
+    </ol>
+  </div>
+)}
 
     <!-- Biography body -->
     <div class="person-body">
