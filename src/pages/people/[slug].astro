@@ -27,8 +27,7 @@ const spouse   = await resolve(d.spouse);
 const children = await resolve(d.children);
 const hasFamily = parents.length + spouse.length + children.length > 0;
 
-// Build TOC server-side by extracting ## headings from the raw markdown body
-// This avoids any JavaScript/layout collision
+// Build TOC server-side from ## headings in raw markdown
 const rawBody = person.body ?? '';
 const headingMatches = [...rawBody.matchAll(/^## (.+)$/gm)];
 const tocItems = headingMatches.map((m, i) => ({
@@ -51,7 +50,7 @@ const showToc = tocItems.length >= 4;
       <span>{d.title}</span>
     </div>
 
-    <!-- Person header -->
+    <!-- Person header — full width -->
     <header class="person-header">
       {d.era && <div class="person-era">{d.eraLabel ?? d.era}</div>}
       <h1>{d.title}</h1>
@@ -64,7 +63,7 @@ const showToc = tocItems.length >= 4;
       </div>
     </header>
 
-    <!-- Portrait / lead image (optional) -->
+    <!-- Portrait / lead image (optional) — full width -->
     {d.leadImage && (
       <figure class="lead-image">
         <img src={d.leadImage} alt={d.leadImageAlt ?? d.title} />
@@ -72,47 +71,54 @@ const showToc = tocItems.length >= 4;
       </figure>
     )}
 
-    <!-- Table of Contents (server-side, only renders when 4+ headings) -->
-    {showToc && (
-  <div class="toc">
-    <p class="toc-label">Contents</p>
-    <ol class="toc-list">
-      {tocItems.map(item => (
-        <li><a href={`#${item.id}`}>{item.text}</a></li>
-      ))}
-    </ol>
-  </div>
-)}
+    <!-- Two-column layout: body left, TOC right -->
+    <div class:list={['content-columns', { 'has-toc': showToc }]}>
 
-    <!-- Biography body -->
-    <div class="person-body">
+      <!-- Article body (left column) -->
+      <div class="person-body">
 
-      {hasFamily && (
-        <div class="family-callout">
-          <h4>Family</h4>
-          <ul class="family-list">
-            {parents.map(p  => (
-              <li><strong>Parent</strong><a href={`/people/${p.slug}`}>{p.data.title}</a></li>
-            ))}
-            {spouse.map(p   => (
-              <li><strong>Spouse</strong><a href={`/people/${p.slug}`}>{p.data.title}</a></li>
-            ))}
-            {children.map(p => (
-              <li><strong>Child</strong><a href={`/people/${p.slug}`}>{p.data.title}</a></li>
-            ))}
-          </ul>
-        </div>
-      )}
+        {hasFamily && (
+          <div class="family-callout">
+            <h4>Family</h4>
+            <ul class="family-list">
+              {parents.map(p  => (
+                <li><strong>Parent</strong><a href={`/people/${p.slug}`}>{p.data.title}</a></li>
+              ))}
+              {spouse.map(p   => (
+                <li><strong>Spouse</strong><a href={`/people/${p.slug}`}>{p.data.title}</a></li>
+              ))}
+              {children.map(p => (
+                <li><strong>Child</strong><a href={`/people/${p.slug}`}>{p.data.title}</a></li>
+              ))}
+            </ul>
+          </div>
+        )}
 
-      <Content />
+        <Content />
 
-      {d.sources && d.sources.length > 0 && (
-        <div class="sources">
-          <h4>Sources &amp; Notes</h4>
-          <ol>
-            {d.sources.map(s => <li set:html={s} />)}
-          </ol>
-        </div>
+        {d.sources && d.sources.length > 0 && (
+          <div class="sources">
+            <h4>Sources &amp; Notes</h4>
+            <ol>
+              {d.sources.map(s => <li set:html={s} />)}
+            </ol>
+          </div>
+        )}
+
+      </div>
+
+      <!-- Sticky TOC (right column, only when 4+ headings) -->
+      {showToc && (
+        <aside class="toc-sidebar">
+          <div class="toc">
+            <p class="toc-label">Contents</p>
+            <ol class="toc-list">
+              {tocItems.map(item => (
+                <li><a href={`#${item.id}`}>{item.text}</a></li>
+              ))}
+            </ol>
+          </div>
+        </aside>
       )}
 
     </div>
@@ -126,12 +132,14 @@ const showToc = tocItems.length >= 4;
 </BaseLayout>
 
 <style>
+  /* ── Page wrapper ────────────────────────────────────── */
   .person-page {
-    max-width: var(--max);
+    max-width: var(--max-wide);
     margin:    0 auto;
     padding:   0 2rem 4rem;
   }
 
+  /* ── Breadcrumb ──────────────────────────────────────── */
   .breadcrumb {
     padding:        1rem 0;
     font-family:    var(--sans);
@@ -149,7 +157,11 @@ const showToc = tocItems.length >= 4;
   .breadcrumb a:hover { color: var(--accent); text-decoration: none; }
   .sep { opacity: 0.4; }
 
-  .person-header { margin-bottom: 2rem; }
+  /* ── Person header ───────────────────────────────────── */
+  .person-header {
+    max-width:     var(--max);
+    margin-bottom: 2rem;
+  }
 
   .person-era {
     font-family:    var(--sans);
@@ -189,15 +201,14 @@ const showToc = tocItems.length >= 4;
     line-height:   1.5;
   }
 
-.person-meta {
-  display:       flex;
-  gap:           2rem;
-  flex-wrap:     wrap;
-  padding:       1rem 0;
-  border-top:    1px solid var(--rule);
-  border-bottom: 1px solid var(--rule);
-  margin-bottom: 3rem;
-}
+  .person-meta {
+    display:       flex;
+    gap:           2rem;
+    flex-wrap:     wrap;
+    padding:       1rem 0;
+    border-top:    1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
   .meta-item {
     font-family:    var(--sans);
     font-size:      0.7rem;
@@ -212,7 +223,8 @@ const showToc = tocItems.length >= 4;
     margin-bottom: 0.1rem;
   }
 
-  .lead-image { margin: 2rem 0; }
+  /* ── Lead image ──────────────────────────────────────── */
+  .lead-image { margin: 2rem 0; max-width: var(--max); }
   .lead-image img {
     width:      100%;
     max-height: 480px;
@@ -227,49 +239,25 @@ const showToc = tocItems.length >= 4;
     border-bottom:  1px solid var(--rule);
   }
 
-  /* ── Table of Contents ───────────────────────────────── */
-  .toc {
-    margin:      2rem 0;
-    padding:     1.25rem 1.5rem;
-    background:  var(--white);
-    border:      1px solid var(--rule);
-    border-left: 3px solid var(--gold);
+  /* ── Two-column layout ───────────────────────────────── */
+  .content-columns {
+    display:   block;
+    margin-top: 2rem;
   }
 
-  .toc-label {
-    font-family:    var(--sans);
-    font-size:      0.65rem;
-    font-weight:    600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color:          var(--ink-light);
-    margin-bottom:  0.75rem;
+  .content-columns.has-toc {
+    display:               grid;
+    grid-template-columns: 1fr 220px;
+    gap:                   3rem;
+    align-items:           start;
   }
 
-  .toc-list {
-  list-style-type: decimal;
-  margin:          0;
-  padding:         0 0 0 1.5rem;
-}
-
-.toc-list li {
-  font-family: var(--body);
-  font-size:   0.88rem;
-  line-height: 1.8;
-  color:       var(--ink);
-}
-
-.toc-list a {
-  color:           var(--accent);
-  text-decoration: none;
-}
-.toc-list a:hover { text-decoration: underline; }
-
-  /* ── Body ────────────────────────────────────────────── */
-  .person-body { margin-top: 1rem; }
-
-  .person-body :global(p)  { margin-bottom: 1.5rem; font-size: 1rem; line-height: 1.8; }
-
+  /* ── Article body ────────────────────────────────────── */
+  .person-body :global(p) {
+    margin-bottom: 1.5rem;
+    font-size:     1rem;
+    line-height:   1.8;
+  }
   .person-body :global(h2) {
     font-family:       var(--serif);
     font-size:         1.5rem;
@@ -302,13 +290,58 @@ const showToc = tocItems.length >= 4;
   .person-body :global(figure.inline) {
     float:     right;
     margin:    0 0 1.5rem 2rem;
-    max-width: 280px;
+    max-width: 240px;
     clear:     right;
   }
   .person-body :global(figure.inline img) { border: 1px solid var(--rule); }
-  .person-body :global(figure.full)       { margin: 2rem -2rem; }
+  .person-body :global(figure.full)       { margin: 2rem 0; }
   .person-body :global(figure.full img)   { width: 100%; }
 
+  /* ── Sticky TOC sidebar ──────────────────────────────── */
+  .toc-sidebar {
+    position: sticky;
+    top:      5rem;
+  }
+
+  .toc {
+    background:  var(--white);
+    border:      1px solid var(--rule);
+    border-left: 3px solid var(--gold);
+    padding:     1rem 1rem 1rem 1.25rem;
+  }
+
+  .toc-label {
+    font-family:    var(--sans);
+    font-size:      0.62rem;
+    font-weight:    600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color:          var(--ink-light);
+    margin-bottom:  0.6rem;
+  }
+
+  .toc-list {
+    list-style-type: decimal;
+    padding-left:    1.1rem;
+    margin:          0;
+  }
+
+  .toc-list li {
+    font-family:   var(--sans);
+    font-size:     0.75rem;
+    line-height:   1.4;
+    padding:       0.2rem 0;
+    color:         var(--ink);
+  }
+
+  .toc-list a {
+    color:           var(--ink-light);
+    text-decoration: none;
+    transition:      color 0.15s;
+  }
+  .toc-list a:hover { color: var(--accent); }
+
+  /* ── Family callout ──────────────────────────────────── */
   .family-callout {
     background:  var(--white);
     border:      1px solid var(--rule);
@@ -350,6 +383,7 @@ const showToc = tocItems.length >= 4;
   .family-list li a { color: var(--ink); font-weight: 700; }
   .family-list li a:hover { color: var(--accent); }
 
+  /* ── Sources ─────────────────────────────────────────── */
   .sources {
     margin-top:  3rem;
     padding-top: 1.5rem;
@@ -374,6 +408,7 @@ const showToc = tocItems.length >= 4;
     gap:            0.4rem;
   }
 
+  /* ── Back bar ────────────────────────────────────────── */
   .back-bar {
     margin-top:  3rem;
     padding-top: 1.5rem;
@@ -389,15 +424,26 @@ const showToc = tocItems.length >= 4;
     color:          var(--accent);
   }
 
-  @media (max-width: 600px) {
-    .person-body :global(figure.inline) { float: none; max-width: 100%; margin: 1.5rem 0; }
+  /* ── Responsive ──────────────────────────────────────── */
+  @media (max-width: 800px) {
+    .content-columns.has-toc {
+      grid-template-columns: 1fr;
+    }
+    .toc-sidebar {
+      position: static;
+      order:    -1;
+    }
+    .person-body :global(figure.inline) {
+      float:     none;
+      max-width: 100%;
+      margin:    1.5rem 0;
+    }
   }
 </style>
 
 <script>
-  // Add IDs to h2 headings in the body to match the server-generated TOC links
-  const headings = document.querySelectorAll('.person-body h2');
-  headings.forEach((h, i) => {
+  // Add IDs to rendered h2 headings to match TOC anchor links
+  document.querySelectorAll('.person-body h2').forEach((h, i) => {
     h.id = 'section-' + (i + 1);
   });
 </script>
