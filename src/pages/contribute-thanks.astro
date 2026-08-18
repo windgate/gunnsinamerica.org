@@ -1,0 +1,30 @@
+---
+// src/pages/contribute-thanks.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Thank you" description="Your recollection has been received.">
+  <section class="thanks">
+    <div class="thanks-inner">
+      <div class="thanks-eyebrow">Family Recollections</div>
+      <h1>Thank you.</h1>
+      <p>
+        Your recollection has been received. I read every contribution personally — if I have
+        a question, or once it's added to the archive, I'll be in touch at the email you gave.
+      </p>
+      <div class="thanks-links">
+        <a href="/people">Browse the people</a>
+        <a href="/">Back to home</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .thanks { max-width: var(--max); margin: 0 auto; padding: clamp(3rem, 8vw, 6rem) 2rem; text-align: center; }
+  .thanks-eyebrow { font-family: var(--sans); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent2); margin-bottom: 1rem; }
+  .thanks h1 { font-family: var(--serif); font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; color: var(--ink); margin-bottom: 1.25rem; }
+  .thanks p { font-size: 1.05rem; color: var(--ink-light); line-height: 1.85; max-width: 46ch; margin: 0 auto 2.5rem; }
+  .thanks-links { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+  .thanks-links a { font-family: var(--sans); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+</style>
