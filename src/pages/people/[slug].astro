@@ -62,12 +62,7 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
       </figure>
     )}
 
-    <!-- Table of Contents — built by JS, shown only when 4+ h2 headings exist -->
-     <div style="clear:both;display:block;width:100%">
-    <nav class="toc" id="toc" aria-label="Table of contents" hidden>
-      <p class="toc-label">Contents</p>
-      <ol class="toc-list" id="toc-list"></ol>
-    </nav>
+
 
     <!-- Biography body -->
     <div class="person-body" id="person-body">
@@ -220,51 +215,6 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
     border-bottom:  1px solid var(--rule);
   }
 
- /* ── Table of Contents ───────────────────────────────── */
-.toc {
-  display:       block;
-  width:         100%;
-  margin:        2rem 0;
-  padding:       1.25rem 1.5rem;
-  background:    var(--white);
-  border:        1px solid var(--rule);
-  border-left:   3px solid var(--gold);
-  box-sizing:    border-box;
-  position:      static;
-  float:         none;
-  clear:         both;
-}
-.toc[hidden] { display: none; }
-
-.toc-label {
-  font-family:    var(--sans);
-  font-size:      0.65rem;
-  font-weight:    600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color:          var(--ink-light);
-  margin-bottom:  0.75rem;
-}
-
-.toc-list {
-  list-style:   decimal;
-  padding-left: 1.5rem;
-  margin:       0;
-}
-
-.toc-list li {
-  font-family: var(--body);
-  font-size:   0.88rem;
-  line-height: 1.6;
-  padding:     0.1rem 0;
-  color:       var(--ink);
-}
-
-.toc-list a {
-  color:           var(--accent);
-  text-decoration: none;
-}
-.toc-list a:hover { text-decoration: underline; }
 
   /* ── Body ────────────────────────────────────────────── */
   .person-body { margin-top: 2rem; }
@@ -400,25 +350,3 @@ const hasFamily = parents.length + spouse.length + children.length > 0;
   }
 </style>
 
-<script>
-  const MIN_HEADINGS = 4;
-  const body    = document.getElementById('person-body');
-  const toc     = document.getElementById('toc');
-  const tocList = document.getElementById('toc-list');
-
-  if (body && toc && tocList) {
-    const headings = Array.from(body.querySelectorAll('h2'));
-    if (headings.length >= MIN_HEADINGS) {
-      headings.forEach((h, i) => {
-        if (!h.id) h.id = 'section-' + (i + 1);
-        const li = document.createElement('li');
-        const a  = document.createElement('a');
-        a.href        = '#' + h.id;
-        a.textContent = h.textContent ?? '';
-        li.appendChild(a);
-        tocList.appendChild(li);
-      });
-      toc.removeAttribute('hidden');
-    }
-  }
-</script>
