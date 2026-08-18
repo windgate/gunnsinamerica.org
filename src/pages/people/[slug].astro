@@ -247,25 +247,23 @@ const showToc = tocItems.length >= 4;
   }
 
   .toc-list {
-    list-style:   decimal;
-    padding-left: 1.5rem;
-    margin:       0;
-    display:      flex;
-    flex-direction: column;
-    gap:          0.25rem;
-  }
+  list-style-type: decimal;
+  margin:          0;
+  padding:         0 0 0 1.5rem;
+}
 
-  .toc-list li {
-    font-family: var(--body);
-    font-size:   0.88rem;
-    line-height: 1.5;
-  }
+.toc-list li {
+  font-family: var(--body);
+  font-size:   0.88rem;
+  line-height: 1.8;
+  color:       var(--ink);
+}
 
-  .toc-list a {
-    color:           var(--accent);
-    text-decoration: none;
-  }
-  .toc-list a:hover { text-decoration: underline; }
+.toc-list a {
+  color:           var(--accent);
+  text-decoration: none;
+}
+.toc-list a:hover { text-decoration: underline; }
 
   /* ── Body ────────────────────────────────────────────── */
   .person-body { margin-top: 1rem; }
