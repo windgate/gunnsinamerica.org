@@ -1,12 +1,14 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-// Gallery images are managed as a simple JSON data file for now.
-// Move to a content collection when the gallery grows.
-const eras = ['All', 'Colonial', 'Revolutionary', 'War of 1812', 'Frontier', 'Civil War', 'Modern'];
+const eras   = ['All', 'Colonial', 'Revolutionary', 'War of 1812', 'Frontier', 'Civil War', 'Modern'];
+const types  = ['All', 'Photographs', 'Documents', 'Artwork', 'Maps', 'Artifacts', 'Places', 'Other'];
 ---
 
-<BaseLayout title="Family Gallery" description="Portraits, photographs, and documents spanning four centuries of Gunn family history.">
+<BaseLayout
+  title="Family Gallery"
+  description="Photographs, documents, artwork, maps, and artifacts spanning four centuries of Gunn family history."
+>
 
   <div class="gallery-page">
 
@@ -14,32 +16,57 @@ const eras = ['All', 'Colonial', 'Revolutionary', 'War of 1812', 'Frontier', 'Ci
       <p class="eyebrow">Gunn Family History</p>
       <h1>Family Gallery</h1>
       <p class="page-desc">
-        Portraits, photographs, and documents spanning four centuries —
-        the faces behind the family history.
+        Photographs, documents, artwork, maps, and artifacts spanning
+        four centuries — the visual record of the Gunn family in America.
       </p>
     </header>
 
-    <div class="filter-bar" role="group" aria-label="Filter by era">
-      {eras.map(era => (
-        <button class:list={['filter-btn', { active: era === 'All' }]} data-era={era}>
-          {era}
-        </button>
-      ))}
+    <!-- Filter controls -->
+    <div class="filters">
+      <div class="filter-group">
+        <span class="filter-label">Era</span>
+        <div class="filter-bar" role="group" aria-label="Filter by era">
+          {eras.map(era => (
+            <button class:list={['filter-btn', { active: era === 'All' }]} data-era={era}>
+              {era}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Type</span>
+        <div class="filter-bar" role="group" aria-label="Filter by type">
+          {types.map(type => (
+            <button class:list={['filter-btn', 'type-btn', { active: type === 'All' }]} data-type={type}>
+              {type}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div class="filter-summary">
+        <span id="gallery-count">Loading…</span>
+        <button class="reset-btn" id="reset-btn">Reset filters</button>
+      </div>
     </div>
 
-    <!-- Gallery grid — images injected by JS from gallery-data.json -->
+    <!-- Gallery grid — populated by JS from gallery-data.json -->
     <div class="gallery-grid" id="gallery-grid">
-      <p class="empty" id="gallery-empty">
-        The gallery is being assembled. Photographs and documents will appear here
-        as they are digitized and catalogued.
+      <p class="empty" id="gallery-empty" style="display:none">
+        No items match the selected filters.
       </p>
     </div>
 
     <!-- Lightbox -->
-    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
-      <button class="lb-close" id="lb-close" aria-label="Close image">✕</button>
-      <img class="lb-img" id="lb-img" src="" alt="" />
-      <p class="lb-caption" id="lb-caption"></p>
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+      <button class="lb-close" id="lb-close" aria-label="Close">✕</button>
+      <div class="lb-inner">
+        <img class="lb-img" id="lb-img" src="" alt="" />
+        <div class="lb-meta">
+          <p class="lb-title" id="lb-title"></p>
+          <p class="lb-caption" id="lb-caption"></p>
+          <div class="lb-tags" id="lb-tags"></div>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -53,6 +80,7 @@ const eras = ['All', 'Colonial', 'Revolutionary', 'War of 1812', 'Frontier', 'Ci
     padding:   clamp(2rem, 5vw, 4rem) 2rem;
   }
 
+  /* Header */
   .page-header {
     border-bottom:  1px solid var(--rule);
     padding-bottom: 2rem;
@@ -76,23 +104,44 @@ const eras = ['All', 'Colonial', 'Revolutionary', 'War of 1812', 'Frontier', 'Ci
   .page-desc {
     font-size:   1rem;
     color:       var(--ink-light);
-    max-width:   500px;
+    max-width:   560px;
     line-height: 1.7;
   }
 
-  .filter-bar {
+  /* Filters */
+  .filters {
+    margin-bottom: 2rem;
     display:       flex;
-    flex-wrap:     wrap;
-    gap:           0.5rem;
-    margin-bottom: 2.5rem;
+    flex-direction: column;
+    gap:           0.75rem;
+  }
+  .filter-group {
+    display:     flex;
+    align-items: center;
+    gap:         1rem;
+    flex-wrap:   wrap;
+  }
+  .filter-label {
+    font-family:    var(--sans);
+    font-size:      0.65rem;
+    font-weight:    600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color:          var(--ink-light);
+    min-width:      3rem;
+  }
+  .filter-bar {
+    display:  flex;
+    gap:      0.4rem;
+    flex-wrap: wrap;
   }
   .filter-btn {
     font-family:    var(--sans);
-    font-size:      0.68rem;
+    font-size:      0.65rem;
     font-weight:    600;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    padding:        0.4rem 1rem;
+    padding:        0.3rem 0.75rem;
     border:         1px solid var(--rule);
     background:     transparent;
     color:          var(--ink-light);
@@ -100,139 +149,282 @@ const eras = ['All', 'Colonial', 'Revolutionary', 'War of 1812', 'Frontier', 'Ci
     transition:     all 0.15s;
   }
   .filter-btn:hover  { border-color: var(--accent); color: var(--ink); }
-  .filter-btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .filter-btn.active { background: var(--accent); border-color: var(--accent); color: var(--white); }
 
+  .filter-summary {
+    display:     flex;
+    align-items: center;
+    gap:         1.5rem;
+    padding-top: 0.25rem;
+  }
+  #gallery-count {
+    font-family:    var(--sans);
+    font-size:      0.72rem;
+    color:          var(--ink-light);
+    letter-spacing: 0.04em;
+  }
+  .reset-btn {
+    font-family:    var(--sans);
+    font-size:      0.65rem;
+    font-weight:    600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background:     none;
+    border:         none;
+    color:          var(--accent);
+    cursor:         pointer;
+    padding:        0;
+    text-decoration: underline;
+  }
+  .reset-btn:hover { color: var(--ink); }
+
+  /* Gallery grid */
   .gallery-grid {
-    display:               grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap:                   1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap:     1.5rem;
   }
 
-  /* Injected figure styles */
-  :global(.gallery-item)            { display: flex; flex-direction: column; gap: 0.5rem; }
-  :global(.gallery-item[hidden])    { display: none; }
-  :global(.gallery-thumb)           { background: none; border: 1px solid var(--rule); padding: 0; cursor: pointer; overflow: hidden; aspect-ratio: 3/4; }
-  :global(.gallery-thumb img)       { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
-  :global(.gallery-thumb:hover img) { transform: scale(1.04); }
-  :global(.gallery-item figcaption) { font-family: var(--sans); font-size: 0.72rem; color: var(--ink-light); line-height: 1.4; }
-  :global(.gallery-item .img-year)  { display: block; font-size: 0.65rem; color: var(--ink-light); opacity: 0.7; margin-top: 2px; }
+  /* Cards — injected by JS */
+  :global(.g-card)            { display: flex; flex-direction: column; gap: 0.5rem; cursor: pointer; }
+  :global(.g-card[hidden])    { display: none; }
+  :global(.g-thumb)           { background: var(--paper-dark); border: 1px solid var(--rule); overflow: hidden; aspect-ratio: 4/3; position: relative; }
+  :global(.g-thumb img)       { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+  :global(.g-card:hover .g-thumb img) { transform: scale(1.04); }
+  :global(.g-type-badge)      {
+    position: absolute; bottom: 0.5rem; left: 0.5rem;
+    font-family: var(--sans); font-size: 0.58rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    background: rgba(28,24,20,0.75); color: var(--paper);
+    padding: 2px 7px;
+  }
+  :global(.g-info)            { }
+  :global(.g-title)           { font-family: var(--serif); font-size: 0.9rem; font-weight: 700; color: var(--ink); line-height: 1.3; }
+  :global(.g-year)            { font-family: var(--sans); font-size: 0.68rem; color: var(--ink-light); margin-top: 2px; }
 
-  .empty { color: var(--ink-light); font-style: italic; grid-column: 1 / -1; padding: 2rem 0; }
+  .empty { color: var(--ink-light); font-style: italic; padding: 3rem 0; }
 
   /* Lightbox */
   .lightbox {
-    position:       fixed;
-    inset:          0;
-    background:     rgba(28,24,20,0.94);
-    display:        flex;
-    flex-direction: column;
-    align-items:    center;
+    display:         none;
+    position:        fixed;
+    inset:           0;
+    background:      rgba(28,24,20,0.93);
+    z-index:         200;
+    align-items:     center;
     justify-content: center;
-    z-index:        1000;
-    padding:        2rem;
-    gap:            1rem;
+    padding:         2rem;
+    gap:             2rem;
+    flex-direction:  column;
   }
-  .lightbox[hidden] { display: none; }
+  .lightbox.open { display: flex; }
 
   .lb-close {
     position:   absolute;
     top:        1.25rem;
     right:      1.5rem;
     background: none;
-    border:     none;
-    color:      var(--rule);
-    font-size:  1.5rem;
+    border:     1px solid rgba(245,240,232,0.3);
+    color:      var(--paper);
+    font-size:  1.2rem;
+    width:      36px; height: 36px;
     cursor:     pointer;
-    line-height: 1;
-    transition: color 0.15s;
+    display:    flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
   }
-  .lb-close:hover { color: var(--paper); }
+  .lb-close:hover { background: var(--accent); border-color: var(--accent); }
+
+  .lb-inner {
+    display:        flex;
+    flex-direction: column;
+    align-items:    center;
+    gap:            1.25rem;
+    max-width:      min(860px, 90vw);
+    width:          100%;
+  }
 
   .lb-img {
-    max-width:  min(840px, 90vw);
-    max-height: 78vh;
+    max-height: 70vh;
+    max-width:  100%;
     object-fit: contain;
-    border:     1px solid #555;
+    border:     1px solid rgba(255,255,255,0.15);
   }
 
+  .lb-meta { text-align: center; }
+
+  .lb-title {
+    font-family:   var(--serif);
+    font-size:     1.1rem;
+    color:         var(--paper);
+    margin-bottom: 0.35rem;
+  }
   .lb-caption {
+    font-family: var(--sans);
+    font-size:   0.75rem;
+    color:       var(--rule);
+    line-height: 1.5;
+    max-width:   600px;
+  }
+  .lb-tags {
+    display:    flex;
+    gap:        0.5rem;
+    justify-content: center;
+    margin-top: 0.5rem;
+    flex-wrap:  wrap;
+  }
+  :global(.lb-tag) {
     font-family:    var(--sans);
-    font-size:      0.75rem;
-    letter-spacing: 0.05em;
+    font-size:      0.62rem;
+    font-weight:    600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border:         1px solid rgba(200,186,160,0.4);
     color:          var(--rule);
-    text-align:     center;
-    max-width:      560px;
+    padding:        2px 8px;
+  }
+
+  @media (max-width: 600px) {
+    .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; }
+    .filter-group { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
   }
 </style>
 
 <script>
-  // Load gallery images from /gallery-data.json (place in public/)
-  // Format: [{ title, era, year, image, caption }]
-  async function loadGallery() {
-    const grid  = document.getElementById('gallery-grid')!;
-    const empty = document.getElementById('gallery-empty');
+  // ── Load gallery data ──────────────────────────────────
+  type GalleryItem = {
+    title:   string;
+    era:     string;
+    year?:   string;
+    image:   string;
+    caption?: string;
+    subject?: string;
+    type:    string;
+  };
 
+  let ALL: GalleryItem[] = [];
+  let activeEra  = 'All';
+  let activeType = 'All';
+
+  async function init() {
     try {
-      const res  = await fetch('/gallery-data.json');
-      if (!res.ok) return;                       // no data file yet — show empty state
-      const data: Array<{ title: string; era: string; year?: string; image: string; caption?: string }> = await res.json();
-      if (!data.length) return;
-
-      empty?.remove();
-
-      data.forEach(item => {
-        const fig = document.createElement('figure');
-        fig.className = 'gallery-item';
-        fig.dataset.era = item.era;
-        fig.innerHTML = `
-          <button class="gallery-thumb" data-src="${item.image}" data-caption="${item.caption ?? item.title}">
-            <img src="${item.image}" alt="${item.caption ?? item.title}" loading="lazy" />
-          </button>
-          <figcaption>
-            ${item.title}
-            ${item.year ? `<span class="img-year">${item.year}</span>` : ''}
-          </figcaption>`;
-        grid.appendChild(fig);
-      });
-
-      attachHandlers();
-    } catch (_) { /* no data file yet */ }
+      const res = await fetch('/gallery-data.json');
+      if (!res.ok) return;
+      ALL = await res.json();
+      render();
+    } catch (_) {
+      document.getElementById('gallery-count')!.textContent = '0 items';
+    }
   }
 
-  function attachHandlers() {
-    // Era filter
-    const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
-    const items   = document.querySelectorAll<HTMLElement>('.gallery-item');
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        buttons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const era = btn.dataset.era;
-        items.forEach(item => item.toggleAttribute('hidden', era !== 'All' && item.dataset.era !== era));
-      });
+  // ── Render filtered cards ──────────────────────────────
+  function render() {
+    const grid  = document.getElementById('gallery-grid')!;
+    const count = document.getElementById('gallery-count')!;
+    const empty = document.getElementById('gallery-empty')!;
+
+    const filtered = ALL.filter(item => {
+      const eraMatch  = activeEra  === 'All' || item.era  === activeEra;
+      const typeMatch = activeType === 'All' || item.type === activeType;
+      return eraMatch && typeMatch;
     });
 
-    // Lightbox
-    const lb      = document.getElementById('lightbox')!;
-    const lbImg   = document.getElementById('lb-img') as HTMLImageElement;
-    const lbCap   = document.getElementById('lb-caption')!;
-    const lbClose = document.getElementById('lb-close')!;
+    count.textContent = `${filtered.length} item${filtered.length !== 1 ? 's' : ''}`;
 
-    document.querySelectorAll<HTMLButtonElement>('.gallery-thumb').forEach(btn => {
-      btn.addEventListener('click', () => {
-        lbImg.src = btn.dataset.src ?? '';
-        lbImg.alt = btn.dataset.caption ?? '';
-        lbCap.textContent = btn.dataset.caption ?? '';
-        lb.removeAttribute('hidden');
-        document.body.style.overflow = 'hidden';
-      });
+    // Remove old cards (keep the empty message element)
+    grid.querySelectorAll('.g-card').forEach(c => c.remove());
+
+    if (filtered.length === 0) {
+      empty.style.display = 'block';
+      return;
+    }
+    empty.style.display = 'none';
+
+    filtered.forEach((item, i) => {
+      const card = document.createElement('div');
+      card.className   = 'g-card';
+      card.dataset.idx = String(ALL.indexOf(item));
+      card.innerHTML = `
+        <div class="g-thumb">
+          <img src="${esc(item.image)}" alt="${esc(item.title)}" loading="lazy" />
+          <span class="g-type-badge">${esc(item.type)}</span>
+        </div>
+        <div class="g-info">
+          <div class="g-title">${esc(item.title)}</div>
+          ${item.year ? `<div class="g-year">${esc(item.year)}</div>` : ''}
+        </div>`;
+      card.addEventListener('click', () => openLightbox(ALL.indexOf(item)));
+      grid.appendChild(card);
     });
-
-    const close = () => { lb.setAttribute('hidden', ''); lbImg.src = ''; document.body.style.overflow = ''; };
-    lbClose.addEventListener('click', close);
-    lb.addEventListener('click', e => { if (e.target === lb) close(); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
   }
 
-  loadGallery();
+  // ── Filter buttons ─────────────────────────────────────
+  document.querySelectorAll<HTMLButtonElement>('.filter-btn:not(.type-btn)').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn:not(.type-btn)').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeEra = btn.dataset.era ?? 'All';
+      render();
+    });
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('.type-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeType = btn.dataset.type ?? 'All';
+      render();
+    });
+  });
+
+  document.getElementById('reset-btn')?.addEventListener('click', () => {
+    activeEra  = 'All';
+    activeType = 'All';
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll<HTMLButtonElement>('.filter-btn').forEach(b => {
+      if (b.dataset.era === 'All' || b.dataset.type === 'All') b.classList.add('active');
+    });
+    render();
+  });
+
+  // ── Lightbox ───────────────────────────────────────────
+  const lb      = document.getElementById('lightbox')!;
+  const lbImg   = document.getElementById('lb-img') as HTMLImageElement;
+  const lbTitle = document.getElementById('lb-title')!;
+  const lbCap   = document.getElementById('lb-caption')!;
+  const lbTags  = document.getElementById('lb-tags')!;
+
+  function openLightbox(idx: number) {
+    const item = ALL[idx];
+    if (!item) return;
+    lbImg.src       = item.image;
+    lbImg.alt       = item.title;
+    lbTitle.textContent   = item.title;
+    lbCap.textContent     = item.caption ?? '';
+    lbTags.innerHTML = [
+      item.era  ? `<span class="lb-tag">${esc(item.era)}</span>`  : '',
+      item.type ? `<span class="lb-tag">${esc(item.type)}</span>` : '',
+      item.year ? `<span class="lb-tag">${esc(item.year)}</span>` : '',
+    ].join('');
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lb.classList.remove('open');
+    lbImg.src = '';
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('lb-close')?.addEventListener('click', closeLightbox);
+  lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+  // ── Utility ────────────────────────────────────────────
+  function esc(s: string) {
+    return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  init();
 </script>
