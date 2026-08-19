@@ -69,9 +69,25 @@ These exchanges reveal the breadth of Baker's historical project. She was collec
 
 ## Theodore Roosevelt and White House Preservation
 
-A surviving letter from President **Theodore Roosevelt dated December 5, 1908**, demonstrates how far Baker's role had expanded. Roosevelt wrote directly to her regarding a proposed presidential portrait and an architectural proposal involving the White House terraces, instructing her to convey his emphatic objections to adding a story over one of the terraces for a portrait gallery.
+A surviving letter from President **Theodore Roosevelt dated December 5, 1908**, demonstrates how far Baker's role had expanded.
 
-That same year she published **"The White House Collection of Presidential Ware"** in *The Century Magazine*. By 1908 she was doing something much broader than cataloging china — she had become an intermediary among the White House, journalists, architects, collectors, and preservation advocates.
+<figure class="inline">
+  <img src="/images/gallery/roosevelt-letter-1908-p1.jpg" alt="Letter from President Theodore Roosevelt to Mrs. Abby G. Baker, December 5, 1908" />
+  <figcaption>
+    Roosevelt to Mrs. Abby G. Baker,<br>
+    December 5, 1908. Page 1.<br>
+    <a href="/voices/roosevelt-letter-1908">Read the full letter →</a>
+  </figcaption>
+</figure>
+
+Roosevelt wrote directly to "Mrs. Abby G. Baker" at **219 Third Street, N.W., Washington**, regarding a proposed presidential portrait and an architectural proposal involving the White House terraces. The letter makes clear that Abby was communicating with Roosevelt's secretary, William Loeb, and with people involved in discussions of White House art and architecture.
+
+Roosevelt instructed her to convey his emphatic objections to a proposal to construct an additional story over one of the White House terraces for a portrait gallery — calling it a **"genuine architectural outrage"** and comparing it to cutting down the Calaveras grove of big trees to erect a country house. He asked her to show the letter directly to the parties involved.
+
+The exchange places Abby squarely within contemporary discussions about the preservation of the historic character of the White House. By 1908 she was doing something much broader than cataloging china. She had become an intermediary among the White House, journalists, architects, collectors, and preservation advocates.
+
+That same year she published **"The White House Collection of Presidential Ware"** in *The Century Magazine*, further demonstrating the evolution of her research into a sustained study of White House material history.
+
 
 ## Author and Civic Scholar
 
