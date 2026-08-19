@@ -8,7 +8,7 @@ deathplace: "Washington, D.C. (Garfield Hospital)"
 era: Modern
 eraLabel: "The Progressive Era · 1860–1923"
 date: 2026-08-14
-featured: false
+featured: true
 summary: "Abigail Florence Gunn Baker was a journalist, author, historian, and pioneering researcher of White House history whose more than twenty years of work helped establish the presidential china collection and the White House China Room."
 tags:
   - Gunn Family
@@ -31,6 +31,13 @@ sources:
   - "White House Historical Association, 'Hail to the Chief Curator'"
 ---
 
+<figure class="inline">
+  <img src="/images/people/abby-gunn-baker-portrait.jpg" alt="Abigail Florence Gunn Baker, c. 1880s" />
+  <figcaption>
+    Abigail Florence Gunn Baker<br>
+    (1860–1923). Engraved portrait, c. 1880s.
+  </figcaption>
+</figure>
 Abigail Florence "Abby" Gunn Baker (1860–1923) was a journalist, author, lecturer, civic historian, missionary leader, and one of the earliest systematic researchers of White House history. For more than twenty years she investigated the material history of the Executive Mansion, documented presidential china and furnishings, corresponded with former first ladies and presidential descendants, encouraged the preservation of historic objects, and helped shape the collection that eventually came to be displayed in the White House China Room.
 
 Her career reached well beyond presidential china. She wrote extensively for newspapers and magazines, coauthored a substantial study of New York municipal government, published historical research through the Columbia Historical Society, served in women's educational and missionary organizations, lectured across the country, and undertook wartime service during the First World War.
