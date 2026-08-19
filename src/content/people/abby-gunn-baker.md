@@ -34,7 +34,7 @@ sources:
 <figure class="inline">
   <img src="/images/people/abby-gunn-baker-portrait.jpg" alt="Abigail Florence Gunn Baker, c. 1880s" />
   <figcaption>
-    Abigail Florence Gunn Baker<br>
+    Abby Gunn Baker<br>
     (1860–1923). Engraved portrait, c. 1880s.
   </figcaption>
 </figure>
