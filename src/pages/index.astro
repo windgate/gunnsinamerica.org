@@ -4,7 +4,11 @@ import { getCollection } from 'astro:content';
 import FamilyRecollections from '../components/FamilyRecollections.astro';
 import BookTeaser from '../components/BookTeaser.astro';
 
-const featured = (await getCollection('articles', ({ data }) => data.featured))
+// Pull featured entries from BOTH the articles and voices collections.
+const featuredArticles = await getCollection('articles', ({ data }) => data.featured);
+const featuredVoices   = await getCollection('voices',   ({ data }) => data.featured);
+
+const featured = [...featuredArticles, ...featuredVoices]
   .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
 
 const timeline = [
@@ -23,9 +27,18 @@ const placeholders = [
   { era: 'Modern Era · Early 1900s', slug: 'nina-belle-pyle',     title: 'Nina Belle Pyle: The Last Gunn',                  excerpt: 'The story closes with a grandmother and her family — living memory of a line that stretches back almost four hundred years.' },
 ];
 
+// Normalize the two collections' differing field names into one card shape.
+// Articles use eraLabel/subtitle; voices use era/excerpt. The ?? fallbacks
+// let a single mapping serve both. The href is built from each entry's own
+// collection so voices cards link to /voices/… and articles to /articles/….
 const cards = featured.length > 0
-  ? featured.map(a => ({ era: a.data.eraLabel, slug: a.slug, title: a.data.title, excerpt: a.data.subtitle }))
-  : placeholders;
+  ? featured.map(entry => ({
+      era:     entry.data.eraLabel ?? entry.data.era,
+      title:   entry.data.title,
+      excerpt: entry.data.subtitle ?? entry.data.excerpt,
+      href:    `/${entry.collection}/${entry.slug}`,
+    }))
+  : placeholders.map(p => ({ ...p, href: `/articles/${p.slug}` }));
 ---
 
 <BaseLayout>
@@ -62,7 +75,7 @@ const cards = featured.length > 0
     </div>
     <div class="feature-grid">
       {cards.map(c => (
-        <a href={`/articles/${c.slug}`} class="feature-card">
+        <a href={c.href} class="feature-card">
           <div class="card-era">{c.era}</div>
           <h3>{c.title}</h3>
           <p>{c.excerpt}</p>

@@ -141,13 +141,6 @@ declare module 'astro:content' {
 
 	type ContentEntryMap = {
 		"articles": {
-"an-interesting-piano.md": {
-	id: "an-interesting-piano.md";
-  slug: "an-interesting-piano";
-  body: string;
-  collection: "articles";
-  data: any
-} & { render(): Render[".md"] };
 "christian-mary-or-anne.md": {
 	id: "christian-mary-or-anne.md";
   slug: "christian-mary-or-anne";
@@ -227,6 +220,13 @@ declare module 'astro:content' {
 "abby-gunn-baker-obituary-1923.md": {
 	id: "abby-gunn-baker-obituary-1923.md";
   slug: "abby-gunn-baker-obituary-1923";
+  body: string;
+  collection: "voices";
+  data: any
+} & { render(): Render[".md"] };
+"an-interesting-piano.md": {
+	id: "an-interesting-piano.md";
+  slug: "an-interesting-piano";
   body: string;
   collection: "voices";
   data: any
