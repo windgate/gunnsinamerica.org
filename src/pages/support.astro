@@ -1,0 +1,250 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Support This Research"
+  description="Gunns in America is an independent family history project. Your support helps sustain the research, archival work, and digital preservation that makes this site possible."
+>
+
+  <div class="support-page">
+
+    <header class="support-header">
+      <p class="eyebrow">Independent Research</p>
+      <h1>Support This Project</h1>
+      <p class="lead">
+        Gunns in America is an independent family history project — no institutional
+        backing, no grant funding, no advertising. Everything here is sustained by
+        one researcher's time and personal resources.
+      </p>
+    </header>
+
+    <div class="support-body">
+
+      <section class="support-section">
+        <h2>What This Project Is</h2>
+        <p>
+          This site is the companion to a book tracing the Gunn family from Jasper
+          Gunn's 1635 arrival aboard the <em>Defence</em> through four centuries of
+          American life. The research draws on primary sources — ship manifests,
+          probate records, church registers, census data, pension files, personal
+          correspondence, and family memoirs — assembled over years of archival work.
+        </p>
+        <p>
+          The site holds what the book cannot: a searchable database of more than
+          7,000 individuals, a growing gallery of photographs and documents, primary
+          sources in family members' own words, and the ongoing research journal that
+          records what is found, what remains uncertain, and what has been lost.
+        </p>
+      </section>
+
+      <section class="support-section">
+        <h2>What Support Makes Possible</h2>
+        <ul class="support-list">
+          <li>
+            <strong>Archival access</strong> — Many primary sources require paid
+            access to genealogical databases, digitized newspaper archives, and
+            document repositories.
+          </li>
+          <li>
+            <strong>Document acquisition</strong> — Obtaining certified copies of
+            records, ordering microfilm, and commissioning scans from archives
+            and historical societies.
+          </li>
+          <li>
+            <strong>Site maintenance</strong> — Hosting, domain registration, and
+            the technical infrastructure that keeps the site independent and durable.
+          </li>
+          <li>
+            <strong>Continued research</strong> — Time spent in libraries, archives,
+            and collections that cannot be reached remotely.
+          </li>
+        </ul>
+      </section>
+
+      <section class="support-section">
+        <h2>A Note on Independence</h2>
+        <p>
+          This project is deliberately independent. The site carries no advertising,
+          accepts no sponsored content, and is not affiliated with any institution.
+          That independence is a feature, not an oversight — it means the research
+          follows the evidence without commercial or institutional pressure.
+        </p>
+        <p>
+          Patron support is the only outside funding this project accepts. Every
+          contribution goes directly toward the research and the site.
+        </p>
+      </section>
+
+      <!-- Patreon CTA -->
+      <div class="patreon-cta">
+        <div class="patreon-inner">
+          <div class="patreon-text">
+            <h3>Support on Patreon</h3>
+            <p>
+              Patrons receive early access to new articles and biographies,
+              research notes before they appear in the Journal, and the
+              satisfaction of knowing this work continues.
+            </p>
+          </div>
+          <a
+            href="https://patreon.com/GunnsInAmerica"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="patreon-btn"
+          >
+            Become a Patron
+          </a>
+        </div>
+      </div>
+
+      <section class="support-section">
+        <h2>Other Ways to Help</h2>
+        <p>
+          Financial support is not the only way to contribute to this project.
+          Family members who carry memories, documents, photographs, or letters
+          are encouraged to share them through the
+          <a href="/contribute">Family Recollections</a> page.
+          Researchers who spot an error or have a source to suggest are welcome
+          to reach out directly.
+        </p>
+        <p>
+          The archive grows through the family itself.
+        </p>
+      </section>
+
+    </div>
+
+  </div>
+
+</BaseLayout>
+
+<style>
+  .support-page {
+    max-width: var(--max);
+    margin:    0 auto;
+    padding:   clamp(2rem, 5vw, 4rem) 2rem;
+  }
+
+  /* Header */
+  .support-header {
+    border-bottom:  1px solid var(--rule);
+    padding-bottom: 2.5rem;
+    margin-bottom:  3rem;
+  }
+  .eyebrow {
+    font-family:    var(--sans);
+    font-size:      0.68rem;
+    font-weight:    600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color:          var(--gold);
+    margin-bottom:  0.5rem;
+  }
+  .support-header h1 {
+    font-family:   var(--serif);
+    font-size:     clamp(2rem, 5vw, 3rem);
+    font-weight:   700;
+    margin-bottom: 1rem;
+  }
+  .lead {
+    font-size:   1.05rem;
+    color:       var(--ink-light);
+    line-height: 1.8;
+    max-width:   580px;
+  }
+
+  /* Body sections */
+  .support-body {
+    display:        flex;
+    flex-direction: column;
+    gap:            3rem;
+  }
+
+  .support-section h2 {
+    font-family:   var(--serif);
+    font-size:     1.4rem;
+    font-weight:   700;
+    color:         var(--ink);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .support-section p {
+    font-size:     1rem;
+    line-height:   1.8;
+    color:         var(--ink-light);
+    margin-bottom: 1rem;
+  }
+  .support-section p:last-child { margin-bottom: 0; }
+  .support-section a { color: var(--accent); }
+
+  /* Support list */
+  .support-list {
+    list-style: none;
+    padding:    0;
+    display:    flex;
+    flex-direction: column;
+    gap:        1rem;
+  }
+  .support-list li {
+    font-size:   1rem;
+    line-height: 1.75;
+    color:       var(--ink-light);
+    padding-left: 1.25rem;
+    border-left:  2px solid var(--rule);
+  }
+  .support-list li strong {
+    color:       var(--ink);
+    font-weight: 700;
+  }
+
+  /* Patreon CTA */
+  .patreon-cta {
+    background:  var(--white);
+    border:      1px solid var(--rule);
+    border-top:  3px solid var(--gold);
+    padding:     2rem 2.5rem;
+  }
+  .patreon-inner {
+    display:         flex;
+    align-items:     center;
+    justify-content: space-between;
+    gap:             2rem;
+    flex-wrap:       wrap;
+  }
+  .patreon-text h3 {
+    font-family:   var(--serif);
+    font-size:     1.25rem;
+    font-weight:   700;
+    color:         var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  .patreon-text p {
+    font-size:   0.95rem;
+    color:       var(--ink-light);
+    line-height: 1.7;
+    max-width:   460px;
+  }
+  .patreon-btn {
+    font-family:     var(--sans);
+    font-size:       0.78rem;
+    font-weight:     600;
+    letter-spacing:  0.1em;
+    text-transform:  uppercase;
+    text-decoration: none;
+    padding:         0.9rem 2rem;
+    background:      var(--accent);
+    color:           var(--white);
+    border:          none;
+    white-space:     nowrap;
+    flex-shrink:     0;
+    transition:      background 0.2s;
+  }
+  .patreon-btn:hover { background: var(--ink); text-decoration: none; }
+
+  @media (max-width: 560px) {
+    .patreon-inner { flex-direction: column; align-items: flex-start; }
+    .patreon-btn   { width: 100%; text-align: center; }
+  }
+</style>

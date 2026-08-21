@@ -76,6 +76,11 @@ const path = Astro.url.pathname;
   <div class="footer-brand">Gunns in America · GunnsinAmerica.org</div>
   <p>A family history spanning 1635 to the present · Companion to the book</p>
   <p style="margin-top:0.35rem">©2026 All Rights Reserved.</p>
+  <nav class="footer-nav" aria-label="Footer navigation">
+  <a href="/support">Support This Project</a>
+  <a href="/contribute">Share a Recollection</a>
+  <a href="/database">Family Database</a>
+</nav>
 </footer>
 
 </body>
@@ -330,6 +335,25 @@ const path = Astro.url.pathname;
     }
     .nav-toggle { display: flex; }
   }
+  .footer-nav {
+  display:   flex;
+  gap:       1.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  justify-content: center;
+}
+.footer-nav a {
+  font-family:    var(--sans);
+  font-size:      0.68rem;
+  font-weight:    600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color:          var(--rule);
+  text-decoration: none;
+  opacity:        0.7;
+  transition:     opacity 0.15s;
+}
+.footer-nav a:hover { opacity: 1; text-decoration: none; }
 </style>
 
 <script>
