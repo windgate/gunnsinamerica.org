@@ -61,5 +61,14 @@
     "caption": "AI-enhanced image of Frederick William Gunn from a black-and-white print.",
     "subject": "Person",
     "type": "Photographs"
+  },
+  {
+    "title": "Abby Gunn Baker, engraving",
+    "era": "Modern",
+    "year": "1890s",
+    "image": "/images/gallery/people/abby-gunn-baker-1890s.jpg",
+    "caption": "AI-generated steel-engraved image of Abby Gunn Baker, from the original daguerreotype.",
+    "subject": "Person",
+    "type": "Photographs"
   }
 ]
