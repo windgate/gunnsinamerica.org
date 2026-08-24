@@ -1,0 +1,539 @@
+---
+// src/pages/admin/gallery-intake.astro
+// Unlinked utility page — not in nav, not in sitemap, noindexed.
+// Still publicly fetchable by URL: this is obscurity, not authentication.
+// Requires a GitHub PAT (typed in by hand each session) with Contents
+// read/write on windgate/gunnsinamerica.org to do anything.
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Gallery Intake — Gunns in America</title>
+  <style is:global>
+    :root{
+      --ink:#231f20;
+      --gold:#b08d57;
+      --accent:#7a3b1e;
+      --accent2:#3b5c3e;
+      --paper:#faf7f0;
+      --serif:'Playfair Display', Georgia, serif;
+      --body:'Libre Baskerville', Georgia, serif;
+      --sans:'Raleway', sans-serif;
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      background:var(--paper);
+      color:var(--ink);
+      font-family:var(--body);
+      padding:2rem 1rem 4rem;
+    }
+    h1{font-family:var(--serif); font-size:1.8rem; margin-bottom:.25rem; text-align:center;}
+    .sub{font-family:var(--sans); color:#6b6b6b; margin-top:0; margin-bottom:2rem; font-size:.9rem; text-align:center;}
+    .note{
+      max-width:720px; margin:0 auto 1.5rem; font-family:var(--sans); font-size:.78rem;
+      color:#7a3b1e; background:#f6ece3; border:1px solid #e6d3bf; border-radius:6px; padding:.75rem 1rem;
+    }
+    .card{
+      background:#fff;
+      border:1px solid #e4ddd0;
+      border-radius:6px;
+      padding:1.5rem;
+      max-width:720px;
+      margin:0 auto 1.5rem;
+      box-shadow:0 1px 3px rgba(0,0,0,.05);
+    }
+    .card h2{
+      font-family:var(--sans);
+      text-transform:uppercase;
+      letter-spacing:.05em;
+      font-size:.85rem;
+      color:var(--accent);
+      margin-top:0;
+      border-bottom:1px solid #eee;
+      padding-bottom:.5rem;
+    }
+    label{
+      display:block;
+      font-family:var(--sans);
+      font-size:.75rem;
+      text-transform:uppercase;
+      letter-spacing:.03em;
+      color:#555;
+      margin:1rem 0 .3rem;
+    }
+    input[type=text], input[type=number], input[type=password], select, textarea{
+      width:100%;
+      padding:.5rem .6rem;
+      border:1px solid #ccc;
+      border-radius:4px;
+      font-family:var(--body);
+      font-size:.95rem;
+      background:#fff;
+    }
+    textarea{min-height:70px; resize:vertical;}
+    .row{display:flex; gap:1rem; flex-wrap:wrap;}
+    .row > div{flex:1; min-width:150px;}
+    .hint{font-size:.72rem; color:#888; margin-top:.3rem;}
+    button{
+      font-family:var(--sans);
+      text-transform:uppercase;
+      letter-spacing:.05em;
+      font-size:.8rem;
+      background:var(--accent);
+      color:#fff;
+      border:none;
+      padding:.65rem 1.3rem;
+      border-radius:4px;
+      cursor:pointer;
+      margin-top:1rem;
+      margin-right:.5rem;
+    }
+    button:disabled{background:#bbb; cursor:not-allowed;}
+    button.secondary{background:#fff; color:var(--accent); border:1px solid var(--accent);}
+    #preview{max-width:100%; max-height:260px; margin-top:.75rem; border-radius:4px; display:none; border:1px solid #ddd;}
+    pre{
+      background:#f4efe4;
+      padding:.75rem;
+      border-radius:4px;
+      font-size:.78rem;
+      overflow-x:auto;
+      white-space:pre-wrap;
+      word-break:break-word;
+    }
+    #log{
+      font-family:monospace;
+      font-size:.78rem;
+      background:#1e1e1e;
+      color:#c9f7c9;
+      padding:1rem;
+      border-radius:4px;
+      max-height:240px;
+      overflow-y:auto;
+    }
+    .log-error{color:#ff8a80;}
+    .log-ok{color:#a5d6a7;}
+    .badge{
+      display:inline-block;
+      font-family:var(--sans);
+      font-size:.65rem;
+      text-transform:uppercase;
+      background:var(--accent2);
+      color:#fff;
+      padding:.15rem .5rem;
+      border-radius:3px;
+      margin-left:.5rem;
+    }
+    a{color:var(--accent);}
+  </style>
+</head>
+<body>
+
+<h1>Gallery Intake</h1>
+<p class="sub">Upload an image and create its gallery-data.json entry in one step — Gunns in America</p>
+
+<div class="note">
+  This page runs entirely in your browser. Your GitHub token is kept only in this page's memory —
+  it is never written to disk, cookies, or localStorage, and disappears when you close or reload the tab.
+  This page is unlinked and noindexed, but it is not password-protected: anyone with the URL can open it,
+  though they still need their own valid token to change anything.
+</div>
+
+<div class="card">
+  <h2>1. Repository &amp; credentials</h2>
+  <div class="row">
+    <div>
+      <label>Owner</label>
+      <input type="text" id="owner" value="windgate">
+    </div>
+    <div>
+      <label>Repo</label>
+      <input type="text" id="repo" value="gunnsinamerica.org">
+    </div>
+    <div>
+      <label>Branch</label>
+      <input type="text" id="branch" value="main">
+    </div>
+  </div>
+  <label>GitHub Personal Access Token</label>
+  <input type="password" id="token" placeholder="Fine-grained PAT, Contents: read/write on this repo" autocomplete="off">
+</div>
+
+<div class="card">
+  <h2>2. Image</h2>
+  <label>Category / folder</label>
+  <select id="category">
+    <option value="people">People — public/images/gallery/people/</option>
+    <option value="documents">Documents — public/images/gallery/documents/</option>
+    <option value="maps">Maps — public/images/gallery/maps/</option>
+    <option value="artwork">Artwork — public/images/gallery/artwork/</option>
+    <option value="places">Places — public/images/gallery/places/</option>
+    <option value="artifacts">Artifacts — public/images/gallery/artifacts/</option>
+    <option value="other">Other — public/images/gallery/other/</option>
+  </select>
+
+  <label>Image file</label>
+  <input type="file" id="fileInput" accept="image/*">
+  <img id="preview" alt="preview">
+  <div class="hint" id="dims"></div>
+
+  <div class="row">
+    <div>
+      <label>Subject (for filename)</label>
+      <input type="text" id="subject" placeholder="jasper-gunn">
+    </div>
+    <div>
+      <label>Descriptor (for filename)</label>
+      <input type="text" id="descriptor" placeholder="portrait">
+    </div>
+    <div>
+      <label>Year (for filename &amp; entry)</label>
+      <input type="text" id="year" placeholder="1650 or c-1650">
+    </div>
+  </div>
+
+  <label>Generated filename <span class="badge">editable</span></label>
+  <input type="text" id="filename" placeholder="auto-generated">
+  <div class="hint">Always saved as .jpg — the image is re-compressed on upload (max 2400px, quality 0.85).</div>
+</div>
+
+<div class="card">
+  <h2>3. Gallery entry</h2>
+  <label>Title</label>
+  <input type="text" id="title" placeholder="Jasper Gunn, formal portrait">
+
+  <div class="row">
+    <div>
+      <label>Era</label>
+      <select id="era">
+        <option value="Colonial">Colonial</option>
+        <option value="Revolutionary">Revolutionary</option>
+        <option value="War of 1812">War of 1812</option>
+        <option value="Frontier">Frontier</option>
+        <option value="Civil War">Civil War</option>
+        <option value="Modern">Modern</option>
+      </select>
+    </div>
+    <div>
+      <label>Type <span class="badge">auto</span></label>
+      <select id="type">
+        <option value="Photographs">Photographs</option>
+        <option value="Documents">Documents</option>
+        <option value="Maps">Maps</option>
+        <option value="Artwork">Artwork</option>
+        <option value="Places">Places</option>
+        <option value="Artifacts">Artifacts</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+  </div>
+
+  <label>Subject (display — e.g. person or place name)</label>
+  <input type="text" id="subjectDisplay" placeholder="Jasper Gunn">
+
+  <label>Caption</label>
+  <textarea id="caption" placeholder="Short caption for the gallery view..."></textarea>
+
+  <button id="buildPreviewBtn">Build preview</button>
+</div>
+
+<div class="card" id="previewCard" style="display:none;">
+  <h2>4. Review before committing</h2>
+  <label>gallery-data.json entry (editable)</label>
+  <pre id="jsonPreview" contenteditable="true"></pre>
+  <label>Commit message</label>
+  <input type="text" id="commitMessage">
+  <button id="commitBtn">Commit to GitHub</button>
+  <button class="secondary" id="cancelBtn">Cancel</button>
+</div>
+
+<div class="card">
+  <h2>Log</h2>
+  <div id="log">Waiting…</div>
+</div>
+
+<script is:inline>
+(function(){
+  const $ = id => document.getElementById(id);
+  const CATEGORY_TYPE = {
+    people:'Photographs', documents:'Documents', maps:'Maps',
+    artwork:'Artwork', places:'Places', artifacts:'Artifacts', other:'Other'
+  };
+
+  let selectedFile = null;
+  let filenameDirty = false;
+
+  function log(msg, cls){
+    const el = $('log');
+    const line = document.createElement('div');
+    if (cls) line.className = cls;
+    const ts = new Date().toLocaleTimeString();
+    line.textContent = '[' + ts + '] ' + msg;
+    el.appendChild(line);
+    el.scrollTop = el.scrollHeight;
+  }
+
+  function slugify(str){
+    return (str || '')
+      .toString()
+      .toLowerCase()
+      .trim()
+      .replace(/[’‘]/g, "'")
+      .replace(/['"]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+
+  function straightenQuotes(str){
+    if (!str) return str;
+    return str
+      .replace(/[\u2018\u2019]/g, "'")
+      .replace(/[\u201C\u201D]/g, '"');
+  }
+
+  function updateFilename(){
+    if (filenameDirty) return;
+    const subject = slugify($('subject').value);
+    const descriptor = slugify($('descriptor').value);
+    const year = slugify($('year').value);
+    const parts = [subject, descriptor, year].filter(Boolean);
+    $('filename').value = parts.length ? parts.join('-') + '.jpg' : '';
+  }
+
+  ['subject','descriptor','year'].forEach(id => {
+    $(id).addEventListener('input', updateFilename);
+  });
+  $('filename').addEventListener('input', () => { filenameDirty = true; });
+
+  $('category').addEventListener('change', () => {
+    $('type').value = CATEGORY_TYPE[$('category').value] || 'Other';
+  });
+  $('type').value = CATEGORY_TYPE[$('category').value];
+
+  $('fileInput').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    selectedFile = file;
+    const url = URL.createObjectURL(file);
+    const img = $('preview');
+    img.src = url;
+    img.style.display = 'block';
+    img.onload = () => {
+      $('dims').textContent = file.name + ' — ' + img.naturalWidth + '×' + img.naturalHeight +
+        ' — ' + (file.size/1024/1024).toFixed(2) + ' MB (original)';
+    };
+  });
+
+  function resizeImage(file, maxDim, quality){
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = () => reject(new Error('Could not read file'));
+      reader.onload = () => {
+        const img = new Image();
+        img.onerror = () => reject(new Error('Could not decode image'));
+        img.onload = () => {
+          let { width, height } = img;
+          if (width > maxDim || height > maxDim) {
+            if (width >= height) {
+              height = Math.round(height * (maxDim / width));
+              width = maxDim;
+            } else {
+              width = Math.round(width * (maxDim / height));
+              height = maxDim;
+            }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, width, height);
+          ctx.drawImage(img, 0, 0, width, height);
+          const dataUrl = canvas.toDataURL('image/jpeg', quality);
+          resolve({ base64: dataUrl.split(',')[1], width, height });
+        };
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function utf8ToBase64(str){
+    const bytes = new TextEncoder().encode(str);
+    let binary = '';
+    bytes.forEach(b => binary += String.fromCharCode(b));
+    return btoa(binary);
+  }
+
+  function base64ToUtf8(b64){
+    const binary = atob(b64.replace(/\n/g, ''));
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    return new TextDecoder('utf-8').decode(bytes);
+  }
+
+  function ghHeaders(token){
+    return {
+      'Authorization': 'Bearer ' + token,
+      'Accept': 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28'
+    };
+  }
+
+  async function ghGetFile(owner, repo, path, branch, token){
+    const url = 'https://api.github.com/repos/' + owner + '/' + repo + '/contents/' + path + '?ref=' + encodeURIComponent(branch);
+    const res = await fetch(url, { headers: ghHeaders(token) });
+    if (res.status === 404) return null;
+    if (!res.ok) {
+      const body = await res.text();
+      throw new Error('GET ' + path + ' failed (' + res.status + '): ' + body);
+    }
+    return res.json();
+  }
+
+  async function ghPutFile(owner, repo, path, branch, token, base64Content, message, sha){
+    const url = 'https://api.github.com/repos/' + owner + '/' + repo + '/contents/' + path;
+    const body = { message, content: base64Content, branch };
+    if (sha) body.sha = sha;
+    const res = await fetch(url, {
+      method: 'PUT',
+      headers: Object.assign({ 'Content-Type': 'application/json' }, ghHeaders(token)),
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) {
+      const errBody = await res.text();
+      throw new Error('PUT ' + path + ' failed (' + res.status + '): ' + errBody);
+    }
+    return res.json();
+  }
+
+  function getConfig(){
+    return {
+      owner: $('owner').value.trim(),
+      repo: $('repo').value.trim(),
+      branch: $('branch').value.trim() || 'main',
+      token: $('token').value.trim()
+    };
+  }
+
+  function validateBeforePreview(){
+    const errs = [];
+    const cfg = getConfig();
+    if (!cfg.owner || !cfg.repo || !cfg.token) errs.push('owner, repo, and token are required');
+    if (!selectedFile) errs.push('choose an image file');
+    if (!$('filename').value.trim()) errs.push('filename is empty (fill in subject/descriptor/year, or type one manually)');
+    if (!$('title').value.trim()) errs.push('title is required');
+    if (!$('subjectDisplay').value.trim()) errs.push('display subject is required');
+    if (!$('caption').value.trim()) errs.push('caption is required');
+    return errs;
+  }
+
+  $('buildPreviewBtn').addEventListener('click', () => {
+    const errs = validateBeforePreview();
+    if (errs.length) {
+      log('Cannot build preview — ' + errs.join('; '), 'log-error');
+      return;
+    }
+    let filename = $('filename').value.trim();
+    if (!/\.jpe?g$/i.test(filename)) filename = filename.replace(/\.[a-z0-9]+$/i, '') + '.jpg';
+    $('filename').value = filename;
+
+    const category = $('category').value;
+    const entry = {
+      title: straightenQuotes($('title').value.trim()),
+      era: $('era').value,
+      year: straightenQuotes($('year').value.trim()),
+      image: '/images/gallery/' + category + '/' + filename,
+      caption: straightenQuotes($('caption').value.trim()),
+      subject: straightenQuotes($('subjectDisplay').value.trim()),
+      type: $('type').value
+    };
+    $('jsonPreview').textContent = JSON.stringify(entry, null, 2);
+    $('commitMessage').value = 'Add gallery image: ' + category + '/' + filename;
+    $('previewCard').style.display = 'block';
+    $('previewCard').scrollIntoView({ behavior: 'smooth' });
+    log('Preview built. Review the entry, then commit.');
+  });
+
+  $('cancelBtn').addEventListener('click', () => {
+    $('previewCard').style.display = 'none';
+  });
+
+  $('commitBtn').addEventListener('click', async () => {
+    const cfg = getConfig();
+    const commitBtn = $('commitBtn');
+    commitBtn.disabled = true;
+    try {
+      let entry;
+      try {
+        entry = JSON.parse($('jsonPreview').textContent);
+      } catch (e) {
+        throw new Error('The edited JSON entry is not valid JSON: ' + e.message);
+      }
+
+      const category = $('category').value;
+      const filename = $('filename').value.trim();
+      const imagePath = 'public/images/gallery/' + category + '/' + filename;
+      const dataPath = 'public/gallery-data.json';
+
+      log('Resizing image (max 2400px, quality 0.85)...');
+      const { base64, width, height } = await resizeImage(selectedFile, 2400, 0.85);
+      log('Resized to ' + width + '×' + height + '.', 'log-ok');
+
+      log('Checking whether ' + imagePath + ' already exists...');
+      const existingImage = await ghGetFile(cfg.owner, cfg.repo, imagePath, cfg.branch, cfg.token);
+      if (existingImage) log('File exists — will overwrite (sha found).');
+
+      log('Uploading image to ' + imagePath + '...');
+      await ghPutFile(
+        cfg.owner, cfg.repo, imagePath, cfg.branch, cfg.token,
+        base64, $('commitMessage').value.trim() || ('Add gallery image: ' + imagePath),
+        existingImage ? existingImage.sha : null
+      );
+      log('Image committed.', 'log-ok');
+
+      log('Fetching current gallery-data.json...');
+      const dataFile = await ghGetFile(cfg.owner, cfg.repo, dataPath, cfg.branch, cfg.token);
+      if (!dataFile) throw new Error(dataPath + ' was not found in the repo — check the path/branch.');
+
+      const currentJsonText = base64ToUtf8(dataFile.content);
+      let currentArray;
+      try {
+        currentArray = JSON.parse(currentJsonText);
+        if (!Array.isArray(currentArray)) throw new Error('gallery-data.json root is not an array');
+      } catch (e) {
+        throw new Error('Could not parse existing gallery-data.json: ' + e.message);
+      }
+
+      currentArray.push(entry);
+      const updatedJsonText = JSON.stringify(currentArray, null, 2) + '\n';
+      const updatedBase64 = utf8ToBase64(updatedJsonText);
+
+      log('Writing updated gallery-data.json (' + currentArray.length + ' entries)...');
+      await ghPutFile(
+        cfg.owner, cfg.repo, dataPath, cfg.branch, cfg.token,
+        updatedBase64,
+        'Add gallery entry: ' + entry.title,
+        dataFile.sha
+      );
+      log('gallery-data.json updated.', 'log-ok');
+
+      const imgUrl = 'https://github.com/' + cfg.owner + '/' + cfg.repo + '/blob/' + cfg.branch + '/' + imagePath;
+      const dataUrl = 'https://github.com/' + cfg.owner + '/' + cfg.repo + '/blob/' + cfg.branch + '/' + dataPath;
+      log('Done. Image: ' + imgUrl, 'log-ok');
+      log('Done. Data:  ' + dataUrl, 'log-ok');
+
+      $('previewCard').style.display = 'none';
+    } catch (err) {
+      log('ERROR: ' + err.message, 'log-error');
+    } finally {
+      commitBtn.disabled = false;
+    }
+  });
+})();
+</script>
+</body>
+</html>
