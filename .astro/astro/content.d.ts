@@ -201,9 +201,9 @@ declare module 'astro:content' {
   collection: "people";
   data: any
 } & { render(): Render[".md"] };
-"jobamah-gunn-biography.md": {
-	id: "jobamah-gunn-biography.md";
-  slug: "jobamah-gunn-biography";
+"jobamah-gunn-1637.md": {
+	id: "jobamah-gunn-1637.md";
+  slug: "jobamah-gunn-1637";
   body: string;
   collection: "people";
   data: any
@@ -227,6 +227,13 @@ declare module 'astro:content' {
 "an-interesting-piano.md": {
 	id: "an-interesting-piano.md";
   slug: "an-interesting-piano";
+  body: string;
+  collection: "voices";
+  data: any
+} & { render(): Render[".md"] };
+"lizzie-gunn-diary-1867.md": {
+	id: "lizzie-gunn-diary-1867.md";
+  slug: "lizzie-gunn-diary-1867";
   body: string;
   collection: "voices";
   data: any
