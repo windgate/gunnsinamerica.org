@@ -1,21 +1,21 @@
 [
   {
-    "title": "Roosevelt Letter to Abby Gunn Baker — Page 1",
+    "title": "Roosevelt Letter to Abby Gunn Baker \u2014 Page 1",
     "era": "Modern",
     "year": "December 5, 1908",
     "image": "/images/gallery/roosevelt-letter-1908-p1.jpg",
     "caption": "Letter from President Theodore Roosevelt to Mrs. Abby G. Baker, December 5, 1908. Page 1 of 2. Abby Gunn Baker Papers, White House Historical Association.",
     "subject": "Theodore Roosevelt; Abby Gunn Baker",
-    "type": "Document"
+    "type": "Documents"
   },
   {
-    "title": "Roosevelt Letter to Abby Gunn Baker — Page 2",
+    "title": "Roosevelt Letter to Abby Gunn Baker \u2014 Page 2",
     "era": "Modern",
     "year": "December 5, 1908",
     "image": "/images/gallery/roosevelt-letter-1908-p2.jpg",
     "caption": "Letter from President Theodore Roosevelt to Mrs. Abby G. Baker, December 5, 1908. Page 2 of 2, with Roosevelt's handwritten signature. Abby Gunn Baker Papers, White House Historical Association.",
     "subject": "Theodore Roosevelt; Abby Gunn Baker",
-    "type": "Document"
+    "type": "Documents"
   },
   {
     "title": "Frederick William Gunn, scan from publication",
@@ -57,9 +57,27 @@
     "title": "Abby Gunn Baker, engraving",
     "era": "Modern",
     "year": "1890s",
-    "image": "/images/gallery/people/abby-gunn-baker-portrait.jpg",
+    "image": "/images/gallery/people/abby-gunn-baker-engraving-1890s.jpg",
     "caption": "AI-generated steel-engraved image of Abby Gunn Baker, from the original daguerreotype.",
     "subject": "Person",
     "type": "Photographs"
+  },
+  {
+    "title": "Abby Gunn Baker, daguerreotype",
+    "era": "Modern",
+    "year": "1890s",
+    "image": "/images/gallery/people/abby-gunn-baker-1890s.jpg",
+    "caption": "Original daguerreotype print of Abby Gunn Baker",
+    "subject": "Person",
+    "type": "Photographs"
+  },
+  {
+    "title": "Abby Gunn Baker, Obituary from the Evening Star",
+    "era": "Modern",
+    "year": "1923",
+    "image": "/images/gallery/documents/abby-gunn-baker-obituary-1923.jpg",
+    "caption": "From the Evening Star in Washington, D.C. the obituary for Abby Gunn Baker.",
+    "subject": "Document",
+    "type": "Documents"
   }
 ]
