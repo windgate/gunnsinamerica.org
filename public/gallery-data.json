@@ -70,5 +70,14 @@
     "caption": "Original daguerreotype print of Abby Gunn Baker",
     "subject": "Person",
     "type": "Photographs"
+  },
+  {
+    "title": "Abby Gunn Baker, Obituary from the Evening Star",
+    "era": "Modern",
+    "year": "1923",
+    "image": "/images/gallery/documents/abby-gunn-baker-obituary-1923.jpg",
+    "caption": "From the Evening Star in Washington, D.C. the obituary for Abby Gunn Baker.",
+    "subject": "Document",
+    "type": "Documents"
   }
 ]
