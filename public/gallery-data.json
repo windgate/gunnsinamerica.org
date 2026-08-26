@@ -1,6 +1,6 @@
 [
   {
-    "title": "Roosevelt Letter to Abby Gunn Baker \u2014 Page 1",
+    "title": "Roosevelt Letter to Abby Gunn Baker — Page 1",
     "era": "Modern",
     "year": "December 5, 1908",
     "image": "/images/gallery/roosevelt-letter-1908-p1.jpg",
@@ -9,7 +9,7 @@
     "type": "Documents"
   },
   {
-    "title": "Roosevelt Letter to Abby Gunn Baker \u2014 Page 2",
+    "title": "Roosevelt Letter to Abby Gunn Baker — Page 2",
     "era": "Modern",
     "year": "December 5, 1908",
     "image": "/images/gallery/roosevelt-letter-1908-p2.jpg",
@@ -62,7 +62,7 @@
     "subject": "Person",
     "type": "Photographs"
   },
-   {
+  {
     "title": "Abby Gunn Baker, studio portrait",
     "era": "Modern",
     "year": "1885",
@@ -79,5 +79,14 @@
     "caption": "From the Evening Star in Washington, D.C. the obituary for Abby Gunn Baker.",
     "subject": "Document",
     "type": "Documents"
+  },
+  {
+    "title": "Dr. Rev. Elihu Gunn and Family, enhanced",
+    "era": "Civil War",
+    "year": "c1890",
+    "image": "/images/gallery/documents/rev-elihu-gunn-family-portrait-c1890.jpg",
+    "caption": "A portrait of Dr. Rev. Elihu Gunn and family. From left, back row: Will Baker, Ann Gunn, Ed Gunn, Gilbert Warn, Amy Gunn Warn, William Crowell Gunn, Loula Rice Gunn, Charles Elihu Gunn. Front row: Abby Gunn Baker, Amy Barret Gunn, Rev. Elihu Gunn, Ida Wilson Gunn.",
+    "subject": "Person",
+    "type": "Photographs"
   }
 ]
