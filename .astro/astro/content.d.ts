@@ -146,21 +146,21 @@ declare module 'astro:content' {
   slug: "christian-mary-or-anne";
   body: string;
   collection: "articles";
-  data: any
+  data: InferEntrySchema<"articles">
 } & { render(): Render[".md"] };
 "colonial-medicine.md": {
 	id: "colonial-medicine.md";
   slug: "colonial-medicine";
   body: string;
   collection: "articles";
-  data: any
+  data: InferEntrySchema<"articles">
 } & { render(): Render[".md"] };
 "jasper-gunn-arrives.md": {
 	id: "jasper-gunn-arrives.md";
   slug: "jasper-gunn-arrives";
   body: string;
   collection: "articles";
-  data: any
+  data: InferEntrySchema<"articles">
 } & { render(): Render[".md"] };
 };
 "journal": {
@@ -169,44 +169,51 @@ declare module 'astro:content' {
   slug: "defence-arrival-1635";
   body: string;
   collection: "journal";
-  data: any
+  data: InferEntrySchema<"journal">
 } & { render(): Render[".md"] };
 "first-people-entries.md": {
 	id: "first-people-entries.md";
   slug: "first-people-entries";
   body: string;
   collection: "journal";
-  data: any
+  data: InferEntrySchema<"journal">
 } & { render(): Render[".md"] };
 };
 "people": {
+"John Gunn (1707–1793)_ Deacon, Town Leader, and Revolutionary-Era Citizen.md": {
+	id: "John Gunn (1707–1793)_ Deacon, Town Leader, and Revolutionary-Era Citizen.md";
+  slug: "john-gunn-17071793_-deacon-town-leader-and-revolutionary-era-citizen";
+  body: string;
+  collection: "people";
+  data: InferEntrySchema<"people">
+} & { render(): Render[".md"] };
 "abby-gunn-baker.md": {
 	id: "abby-gunn-baker.md";
   slug: "abby-gunn-baker";
   body: string;
   collection: "people";
-  data: any
+  data: InferEntrySchema<"people">
 } & { render(): Render[".md"] };
 "christian-gunn.md": {
 	id: "christian-gunn.md";
   slug: "christian-gunn";
   body: string;
   collection: "people";
-  data: any
+  data: InferEntrySchema<"people">
 } & { render(): Render[".md"] };
 "jasper-gunn.md": {
 	id: "jasper-gunn.md";
   slug: "jasper-gunn";
   body: string;
   collection: "people";
-  data: any
+  data: InferEntrySchema<"people">
 } & { render(): Render[".md"] };
 "jobamah-gunn-1637.md": {
 	id: "jobamah-gunn-1637.md";
   slug: "jobamah-gunn-1637";
   body: string;
   collection: "people";
-  data: any
+  data: InferEntrySchema<"people">
 } & { render(): Render[".md"] };
 };
 "voices": {
@@ -215,35 +222,35 @@ declare module 'astro:content' {
   slug: "a-little-wayfarer";
   body: string;
   collection: "voices";
-  data: any
+  data: InferEntrySchema<"voices">
 } & { render(): Render[".md"] };
 "abby-gunn-baker-obituary-1923.md": {
 	id: "abby-gunn-baker-obituary-1923.md";
   slug: "abby-gunn-baker-obituary-1923";
   body: string;
   collection: "voices";
-  data: any
+  data: InferEntrySchema<"voices">
 } & { render(): Render[".md"] };
 "an-interesting-piano.md": {
 	id: "an-interesting-piano.md";
   slug: "an-interesting-piano";
   body: string;
   collection: "voices";
-  data: any
+  data: InferEntrySchema<"voices">
 } & { render(): Render[".md"] };
 "lizzie-gunn-diary-1867.md": {
 	id: "lizzie-gunn-diary-1867.md";
   slug: "lizzie-gunn-diary-1867";
   body: string;
   collection: "voices";
-  data: any
+  data: InferEntrySchema<"voices">
 } & { render(): Render[".md"] };
 "roosevelt-letter-1908.md": {
 	id: "roosevelt-letter-1908.md";
   slug: "roosevelt-letter-1908";
   body: string;
   collection: "voices";
-  data: any
+  data: InferEntrySchema<"voices">
 } & { render(): Render[".md"] };
 };
 
@@ -260,5 +267,5 @@ declare module 'astro:content' {
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
 
-	export type ContentConfig = never;
+	export type ContentConfig = typeof import("../../src/content/config.js");
 }
