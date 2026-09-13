@@ -201,6 +201,13 @@ declare module 'astro:content' {
   collection: "people";
   data: InferEntrySchema<"people">
 } & { render(): Render[".md"] };
+"frederick-william-gunn.md": {
+	id: "frederick-william-gunn.md";
+  slug: "frederick-william-gunn";
+  body: string;
+  collection: "people";
+  data: InferEntrySchema<"people">
+} & { render(): Render[".md"] };
 "jasper-gunn.md": {
 	id: "jasper-gunn.md";
   slug: "jasper-gunn";
@@ -211,6 +218,20 @@ declare module 'astro:content' {
 "jobamah-gunn-1637.md": {
 	id: "jobamah-gunn-1637.md";
   slug: "jobamah-gunn-1637";
+  body: string;
+  collection: "people";
+  data: InferEntrySchema<"people">
+} & { render(): Render[".md"] };
+"luther-gunn-1780.md": {
+	id: "luther-gunn-1780.md";
+  slug: "luther-gunn-1780";
+  body: string;
+  collection: "people";
+  data: InferEntrySchema<"people">
+} & { render(): Render[".md"] };
+"nathaniel-gunn-1640.md": {
+	id: "nathaniel-gunn-1640.md";
+  slug: "nathaniel-gunn-1640";
   body: string;
   collection: "people";
   data: InferEntrySchema<"people">

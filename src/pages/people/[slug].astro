@@ -63,14 +63,6 @@ const showToc = tocItems.length >= 4;
       </div>
     </header>
 
-    <!-- Portrait / lead image (optional) — full width -->
-    {d.leadImage && (
-      <figure class="lead-image">
-        <img src={d.leadImage} alt={d.leadImageAlt ?? d.title} />
-        {d.leadImageCaption && <figcaption>{d.leadImageCaption}</figcaption>}
-      </figure>
-    )}
-
     <!-- Two-column layout: body left, TOC right -->
     <div class:list={['content-columns', { 'has-toc': showToc }]}>
 
@@ -92,6 +84,14 @@ const showToc = tocItems.length >= 4;
               ))}
             </ul>
           </div>
+        )}
+
+        <!-- Portrait / lead image (optional) — small, right-floated, text wraps around it -->
+        {d.leadImage && (
+          <figure class="inline">
+            <img src={d.leadImage} alt={d.leadImageAlt ?? d.title} />
+            {d.leadImageCaption && <figcaption>{d.leadImageCaption}</figcaption>}
+          </figure>
         )}
 
         <Content />
@@ -223,22 +223,6 @@ const showToc = tocItems.length >= 4;
     margin-bottom: 0.1rem;
   }
 
-  /* ── Lead image ──────────────────────────────────────── */
-  .lead-image { margin: 2rem 0; max-width: var(--max); }
-  .lead-image img {
-    width:      100%;
-    max-height: 480px;
-    object-fit: cover;
-  }
-  .lead-image figcaption {
-    font-family:    var(--sans);
-    font-size:      0.72rem;
-    letter-spacing: 0.05em;
-    color:          var(--ink-light);
-    padding:        0.6rem 0 0;
-    border-bottom:  1px solid var(--rule);
-  }
-
   /* ── Two-column layout ───────────────────────────────── */
   .content-columns {
     display:   block;
@@ -293,7 +277,14 @@ const showToc = tocItems.length >= 4;
     max-width: 240px;
     clear:     right;
   }
-  .person-body :global(figure.inline img) { border: 1px solid var(--rule); }
+  .person-body :global(figure.inline img) { border: 1px solid var(--rule); width: 100%; display: block; }
+  .person-body :global(figure.inline figcaption) {
+    font-family: var(--sans);
+    font-size:   0.68rem;
+    color:       var(--ink-light);
+    padding-top: 0.4rem;
+    line-height: 1.4;
+  }
   .person-body :global(figure.full)       { margin: 2rem 0; }
   .person-body :global(figure.full img)   { width: 100%; }
 
