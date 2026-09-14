@@ -1,6 +1,6 @@
 ---
 title: "Samuel Gunn"
-subtitle: "A Son of Milford's Founding Generation"
+epithet: "A Son of Milford's Founding Generation"
 era: "Colonial"
 eraLabel: "Colonial New England"
 dateRange: "1648–1699"
