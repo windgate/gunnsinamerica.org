@@ -4,6 +4,7 @@ epithet: "A Son of Milford's Founding Generation"
 era: "Colonial"
 eraLabel: "Colonial New England"
 dateRange: "1648–1699"
+birth: "1648"
 keyFigure: "Samuel Gunn"
 location: "Milford, Connecticut Colony"
 date: 2026-09-12
