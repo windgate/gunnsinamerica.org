@@ -1,8 +1,9 @@
 ---
 title: "Frederick William Gunn"
-subtitle: "A School, a Conscience, and the Formation of Citizens"
+epithet: "A School, a Conscience, and the Formation of Citizens"
 era: "reform-and-civil-war"
 eraLabel: "Reform and Civil War"
+birth: "1816"
 dateRange: "1816–1881"
 keyFigure: "Frederick William Gunn"
 location: "Washington, Connecticut"
