@@ -1,6 +1,6 @@
 ---
-id: people/mehitable-gunn
-slug: mehitable-gunn
+id: people/mehitable-gunn-1641
+slug: mehitable-gunn-1641
 title: "Mehitable Gunn Fenn Camp"
 epithet: "A Daughter of Milford’s Founding Generation"
 type: person
