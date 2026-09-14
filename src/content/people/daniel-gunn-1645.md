@@ -8,7 +8,6 @@ status: draft
 era: 'Colonial'
 eraLabel: "Colonial America"
 dateRange: "1645–c. 1690"
-birth: "1645"
 keyFigure: false
 location: "Milford and Hartford, Connecticut Colony"
 date: 2026-09-14
@@ -32,18 +31,12 @@ family:
     - people/deborah-coleman-gunn
   children: []
 related:
-  - ref: people/jasper-gunn
-    relationship: father
-  - ref: people/christian-gunn
-    relationship: mother
-  - ref: people/deborah-coleman-gunn
-    relationship: spouse
-  - ref: articles/founding-of-milford
-    relationship: community
-  - ref: articles/milford-second-generation
-    relationship: historical-context
-  - ref: book/chapter-7
-    relationship: companion-chapter
+  - people/jasper-gunn
+  - people/christian-gunn
+  - people/deborah-coleman-gunn
+  - articles/founding-of-milford
+  - articles/milford-second-generation
+  - book/chapter-7
 ---
 
 # Daniel Gunn (1645–c. 1690)
