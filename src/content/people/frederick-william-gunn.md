@@ -28,7 +28,7 @@ related:
 
 # Frederick William Gunn (1816–1881)
 
-![Frederick William Gunn, carte-de-visite, circa 1860s](https://commons.wikimedia.org/wiki/Special:Redirect/file/Frederick_W._Gunn_carte-de-visite_%28front%29%2C_1860s.jpg)
+![Frederick William Gunn, carte-de-visite, circa 1860s](/images/gallery/people/frederick-w-gunn-c1860.jpg)
 
 *Frederick William Gunn, carte-de-visite, c. 1860s. Photograph by S. C. Landon; collection of the Gunn Historical Museum, Washington, Connecticut; digitized image via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Frederick_W._Gunn_carte-de-visite_%28front%29%2C_1860s.jpg). Public domain.*
 
