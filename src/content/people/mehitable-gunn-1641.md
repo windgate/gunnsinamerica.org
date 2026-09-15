@@ -7,6 +7,7 @@ type: person
 status: draft
 era: 'Colonial'
 eraLabel: "Colonial America"
+birth: "1641"
 dateRange: "1641–1730"
 keyFigure: false
 location: "Milford, Connecticut Colony"
