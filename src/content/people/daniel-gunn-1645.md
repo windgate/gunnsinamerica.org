@@ -8,6 +8,7 @@ status: draft
 era: 'Colonial'
 eraLabel: "Colonial America"
 dateRange: "1645–c. 1690"
+birth: "1645"
 keyFigure: false
 location: "Milford and Hartford, Connecticut Colony"
 date: 2026-09-14
