@@ -1,7 +1,7 @@
 ---
 title: "John Gunn (1707–1793)"
 epithet: "Deacon, Town Leader, and Revolutionary-Era Citizen"
-era: "Colonial and Revolutionary America"
+era: "Colonial"
 eraLabel: "The Colonial Generations"
 dateRange: "1707–1793"
 birth: "1707"
