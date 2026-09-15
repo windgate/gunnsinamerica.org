@@ -7,7 +7,7 @@ import { defineCollection, z } from 'astro:content';
 const articleSchema = z.object({
   title:            z.string(),
   subtitle:         z.string(),
-  era:              z.enum(['Colonial', 'Revolutionary', 'War of 1812', 'Frontier', 'Civil War', 'Modern']),
+  era:              z.enum(['Colonial', 'Revolutionary', 'Colonial and Revolutionary', 'War of 1812', 'Frontier', 'Civil War', 'Modern']),
   eraLabel:         z.string(),           // e.g. "Colonial Era · 1635"
   dateRange:        z.string(),           // e.g. "1635 – 1660"
   keyFigure:        z.string(),
