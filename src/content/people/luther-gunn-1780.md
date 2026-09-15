@@ -4,6 +4,7 @@ epithet: "Physician of Pittsfield, Son of the Revolutionary Generation, and Grea
 birth: "c. 1782–1788"
 death: "August 1814, Pittsfield, Massachusetts"
 era: "Frontier"
+birth: "c.1782"
 spouse:
   - Delia Dickinson
 children:
