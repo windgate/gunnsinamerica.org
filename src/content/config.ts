@@ -1,3 +1,4 @@
+cat src/content/config.ts
 import { defineCollection, z } from 'astro:content';
 
 // ── Shared schema fields ─────────────────────────────────
@@ -46,6 +47,28 @@ const articles = defineCollection({
 // Slug naming convention: firstname-lastname-birthyear
 // e.g. nathaniel-gunn-1637.md, samuel-baldwin-gunn-1642.md
 // Exceptions (no year): jasper-gunn.md, christian-gunn.md
+
+// A relational reference can be a bare slug string (when the
+// relationship is well-established and needs no hedge), or an
+// object carrying a certainty/relationship note for the
+// evidence-first cases this project cares about.
+const personRef = z.union([
+  z.string(),
+  z.object({
+    ref:       z.string(),
+    certainty: z.enum(['documented', 'probable', 'disputed', 'unproven', 'traditional']).optional(),
+    note:      z.string().optional(), // freeform hedge, e.g. "named as mother in family wills"
+  }),
+]);
+
+const relatedRef = z.union([
+  z.string(),
+  z.object({
+    ref:          z.string(),
+    relationship: z.string().optional(), // freeform, e.g. "father-and-medical-predecessor"
+  }),
+]);
+
 const people = defineCollection({
   type: 'content',
   schema: z.object({
@@ -55,7 +78,10 @@ const people = defineCollection({
     death:            z.string().optional(),
     birthplace:       z.string().optional(),
     deathplace:       z.string().optional(),
-    era:              z.string().optional(),
+    marriage:         z.string().optional(),
+    burial:           z.string().optional(),
+    location:         z.string().optional(), // combined/summary location, e.g. "Milford and Derby, Connecticut Colony"
+    era:              z.enum(['Colonial', 'Revolutionary', 'War of 1812', 'Frontier', 'Civil War', 'Modern']).optional(),
     eraLabel:         z.string().optional(),
     leadImage:        z.string().optional(),
     leadImageAlt:     z.string().optional(),
@@ -66,10 +92,10 @@ const people = defineCollection({
     summary:          z.string().optional(),
     tags:             z.array(z.string()).optional(),
     sources:          z.array(z.string()).optional(),
-    related:          z.array(z.string()).optional(),
-    spouse:           z.array(z.string()).optional(),
-    parents:          z.array(z.string()).optional(),
-    children:         z.array(z.string()).optional(),
+    related:          z.array(relatedRef).optional(),
+    spouse:           z.array(personRef).optional(),
+    parents:          z.array(personRef).optional(),
+    children:         z.array(personRef).optional(),
     draft:            z.boolean().default(false),
   }),
 });
@@ -117,4 +143,3 @@ const voices = defineCollection({
 });
 
 export const collections = { articles, people, journal, voices };
-
