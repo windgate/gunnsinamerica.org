@@ -80,7 +80,9 @@ const people = defineCollection({
     marriage:         z.string().optional(),
     burial:           z.string().optional(),
     location:         z.string().optional(), // combined/summary location, e.g. "Milford and Derby, Connecticut Colony"
-    era:              z.enum(['Colonial', 'Revolutionary', 'War of 1812', 'Frontier', 'Civil War', 'Modern']).optional(),
+    // Person-specific era enum: adds compound spans (e.g. lives that
+    // straddle two periods) that don't apply to single-event articles.
+    era:              z.enum(['Colonial', 'Revolutionary', 'Colonial and Revolutionary', 'War of 1812', 'Frontier', 'Civil War', 'Modern']).optional(),
     eraLabel:         z.string().optional(),
     leadImage:        z.string().optional(),
     leadImageAlt:     z.string().optional(),
