@@ -106,6 +106,7 @@ const voices = defineCollection({
     sourceUrl:    z.string().optional(),
     rights:       z.enum(['public-domain', 'family-permission', 'rights-pending', 'all-rights-reserved']),
     era:          z.enum(['Colonial', 'Revolutionary', 'War of 1812', 'Frontier', 'Civil War', 'Modern']),
+    lineage:      z.enum(['direct', 'connected']).default('connected'),
     excerpt:      z.string().optional(),
     featured:     z.boolean().default(false),
     audioUrl:     z.string().optional(),

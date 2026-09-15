@@ -162,6 +162,20 @@ const eras = ['All', 'Colonial', 'Revolutionary', 'War of 1812', 'Frontier', 'Ci
   .empty { padding: 3rem 0; color: var(--ink-light); font-style: italic; }
   .empty a { color: var(--accent); }
 
+  .bio-card {
+  border-left: 3px solid var(--rule);   /* default: connected family */
+  padding-left: 1rem;
+  transition: border-color 0.15s;
+}
+
+.bio-card[data-lineage="direct"] {
+  border-left-color: var(--accent);      /* rust — core Gunn line */
+}
+
+.bio-card[data-lineage="connected"] {
+  border-left-color: var(--rule);        /* quiet, same as unaccented rule color */
+}
+
   @media (max-width: 560px) {
     .person-row { grid-template-columns: 1fr; gap: 0.5rem; }
     .row-arrow  { display: none; }
