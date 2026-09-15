@@ -4,6 +4,7 @@ epithet: "Deacon, Town Leader, and Revolutionary-Era Citizen"
 era: "Colonial and Revolutionary America"
 eraLabel: "The Colonial Generations"
 dateRange: "1707–1793"
+birth: "1707"
 keyFigure: "John Gunn"
 location: "Hatfield, Sunderland, and Montague, Massachusetts"
 date: 2026-09-09

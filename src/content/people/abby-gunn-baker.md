@@ -1,15 +1,16 @@
 ---
-title: "Abigail Florence Gunn Baker (1860–1923)"
+title: "Abigail Florence Gunn Baker"
 epithet: "Journalist, historian, civic scholar, and keeper of White House memory — the woman who helped transform presidential possessions into national heritage."
 birth: "1860"
 death: "January 25, 1923"
 birthplace: "Pella, Iowa"
 deathplace: "Washington, D.C. (Garfield Hospital)"
-era: Modern
+era: "Modern"
 eraLabel: "The Progressive Era · 1860–1923"
 date: 2026-08-14
-featured: true
 summary: "Abigail Florence Gunn Baker was a journalist, author, historian, and pioneering researcher of White House history whose more than twenty years of work helped establish the presidential china collection and the White House China Room."
+featured: true
+order: 0
 tags:
   - Gunn Family
   - White House
@@ -29,6 +30,14 @@ sources:
   - "'Communications Made to the Columbia Historical Society,' <em>Records of the Columbia Historical Society, Washington, D.C.</em> 17 (1914): 242–246"
   - "Library of Congress, Prints and Photographs Division, 'White House, West Colonial Garden,' copyright credited to Abby Gunn Baker, Washington"
   - "White House Historical Association, 'Hail to the Chief Curator'"
+parents:
+  - people/elihu-gunn
+  - people/amy-barker-barrett-gunn
+spouse:
+  - people/william-henry-baker
+children: []
+related: []
+draft: true
 ---
 
 <figure class="inline">
@@ -95,7 +104,6 @@ The exchange places Abby squarely within contemporary discussions about the pres
 
 That same year she published **"The White House Collection of Presidential Ware"** in *The Century Magazine*, further demonstrating the evolution of her research into a sustained study of White House material history.
 
-
 ## Author and Civic Scholar
 
 In **1906**, she and **Abby H. Ware** coauthored *Municipal Government of the City of New York*, published by Ginn & Company — a 350-page study of city government used in New York schools. A revised edition appeared in 1916.
@@ -139,3 +147,15 @@ She was not formally a White House curator; that position would not exist until 
 She helped change the way the White House itself was understood. The Executive Mansion was no longer merely the temporary residence of whichever president happened to occupy it. Its furnishings, rooms, objects, photographs, documents, and family memories were increasingly recognized as part of a continuous national history.
 
 Within the larger Gunn family story, her life represents another form of public service. Earlier generations served as ministers, physicians, teachers, soldiers, and civic officers. Abby served through scholarship and memory. She recovered evidence, recorded recollections, preserved objects — and by doing so, helped ensure that a portion of the American past survived.
+
+## Sources & Further Reading
+
+- White House Historical Association, "The White House Collection Research Sources in the Office of the Curator," describing the Abby Gunn Baker Papers
+- National Society of the Daughters of the American Revolution, *Lineage Book*, member no. 60793, "Mrs. Abigail Gunn Baker"
+- January 1923 obituary, *Washington Evening Star*
+- Isabella Hagner, memoir of White House service, 1901–1905
+- Abby Gunn Baker, "The White House Collection of Presidential Ware," *Century Magazine* 76 (October 1908): 830
+- Abby Gunn Baker, "The Erection of the White House," *Records of the Columbia Historical Society, Washington, D.C.* 16 (1913): 120–149
+- "Communications Made to the Columbia Historical Society," *Records of the Columbia Historical Society, Washington, D.C.* 17 (1914): 242–246
+- Library of Congress, Prints and Photographs Division, "White House, West Colonial Garden," copyright credited to Abby Gunn Baker, Washington
+- White House Historical Association, "Hail to the Chief Curator"
