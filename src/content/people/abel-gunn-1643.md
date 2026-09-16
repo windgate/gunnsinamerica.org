@@ -4,7 +4,7 @@ epithet: "Physician and First Recorder of Derby"
 era: Colonial
 eraLabel: "Colonial America"
 location: "Milford and Derby, Connecticut Colony"
-birth: "Before 19 June 1643, Milford, New Haven Colony"
+birth: "1643, Milford, New Haven Colony"
 marriage: "29 October 1667, Milford, New Haven Colony"
 death: "1688, Derby, Connecticut Colony"
 burial: "Probably Old Derby Uptown Burying Ground, Derby; unconfirmed"
