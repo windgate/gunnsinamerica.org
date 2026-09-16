@@ -1,7 +1,7 @@
 ---
 title: "Frederick William Gunn"
 epithet: "A School, a Conscience, and the Formation of Citizens"
-era: "reform-and-civil-war"
+era: "Reform and Civil War"
 eraLabel: "Reform and Civil War"
 birth: "1816"
 dateRange: "1816–1881"
