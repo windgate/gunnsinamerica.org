@@ -7,7 +7,7 @@ import { defineCollection, z } from 'astro:content';
 const articleSchema = z.object({
   title:            z.string(),
   subtitle:         z.string(),
-  era:              z.enum(['Colonial', 'Revolutionary', 'Colonial and Revolutionary', 'War of 1812', 'Frontier', 'Civil War', 'Modern']),
+  era:              z.enum(['Colonial', 'Revolutionary', 'War of 1812', 'Frontier', 'Civil War', 'Modern']),
   eraLabel:         z.string(),           // e.g. "Colonial Era · 1635"
   dateRange:        z.string(),           // e.g. "1635 – 1660"
   keyFigure:        z.string(),
@@ -82,7 +82,7 @@ const people = defineCollection({
     location:         z.string().optional(), // combined/summary location, e.g. "Milford and Derby, Connecticut Colony"
     // Person-specific era enum: adds compound spans (e.g. lives that
     // straddle two periods) that don't apply to single-event articles.
-    era:              z.enum(['Colonial', 'Revolutionary', 'Colonial and Revolutionary', 'War of 1812', 'Frontier', 'Civil War', 'Modern']).optional(),
+    era:              z.enum(['Colonial', 'Revolutionary', 'Colonial and Revolutionary', 'War of 1812', 'Frontier', 'Civil War', 'Reform and Civil War''Modern']).optional(),
     eraLabel:         z.string().optional(),
     leadImage:        z.string().optional(),
     leadImageAlt:     z.string().optional(),
