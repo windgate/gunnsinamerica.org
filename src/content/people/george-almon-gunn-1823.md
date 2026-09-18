@@ -13,6 +13,9 @@ slug: george-almon-gunn-1823
 
 **23 November 1823 – 16 August 1864**
 
+![George Almon Gunn, cabinet card portrait](/images/people/george-almon-gunn-1823-cabinet-card.jpg)
+*George Almon Gunn, cabinet card portrait. The Elite Studio.*
+
 George Almon Gunn was born November 23, 1823, at Mentor, Ohio, into a family whose history stretched back to the earliest generations of colonial New England. His grandfather had served during the American Revolution. His mother's family would become closely connected with the beginnings of the Mormon movement. George himself became part of another defining chapter in American history when, at the age of thirty-eight, he enlisted in the Union Army during the Civil War.
 
 For nearly two years he served with the 67th Ohio Volunteer Infantry, following the regiment from the Carolina coast to the battlefields surrounding Richmond and Petersburg.
@@ -99,6 +102,11 @@ The fighting of 1864 was relentless. The regiment's history records operations a
 It was there that George's war ended.
 
 ## Deep Bottom — August 16, 1864
+
+<figure class="full">
+  <img src="/images/people/harpers-weekly-deep-bottom-1864.jpg" alt="Harper's Weekly engraving, &quot;Capture of Four Guns,&quot; Deep Bottom, Virginia, July 27, 1864" />
+  <figcaption><em>Harper's Weekly</em> engraving, "Capture of Four Guns," depicting the First Deep Bottom operations of July 27, 1864 — the engagement three weeks before George Gunn's death during the Second Deep Bottom fighting of August 13–20. The two actions were fought over much of the same ground north of the James River.</figcaption>
+</figure>
 
 In August, Union forces crossed the James River at Deep Bottom in an effort to threaten Richmond and compel Robert E. Lee to shift Confederate troops away from Petersburg.
 
