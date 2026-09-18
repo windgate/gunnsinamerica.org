@@ -3,8 +3,8 @@ title: George Almon Gunn
 epithet: Union Soldier Killed at Deep Bottom
 era: 'Civil War'
 date: 1864-08-16
-birth: 1823-11-23
-death: 1864-08-16
+birth: '1823-11-23'
+death: '1864-08-16'
 related:
   - jasper-gunn
   - moses-gunn
