@@ -5,7 +5,7 @@ title: "Nina Belle Gunn Pyle"
 epithet: "Teacher, Mother, and Keeper of a Family's Memory"
 type: person
 status: draft
-era: modern
+era: Modern
 eraLabel: "Modern America"
 dateRange: "1877–1941"
 birth: "1877"
