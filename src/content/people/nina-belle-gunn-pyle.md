@@ -70,6 +70,7 @@ related:
 ## Biography
 
 ![Nina Belle Gunn Pyle](/images/people/nina-belle-gunn.png)
+
 *Nina Belle Gunn Pyle*
 
 Nina Belle Gunn Pyle stands near the end of the direct family line traced in *The Gunns in America*, but her life is not merely an ending\. It is a point of passage\. Through her, the story moves from the nineteenth\-century frontier into modern America—from a Nebraska homestead and a one\-room school to a public library, the automobile age, the Great Depression, and a family whose children would carry their inheritance into teaching, farming, art, public service, and war\.
