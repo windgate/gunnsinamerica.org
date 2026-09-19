@@ -110,7 +110,7 @@ The story is affectionate rather than severe\. It shows a spirited young woman l
 
 Nina began teaching at seventeen in the Spann school district, eight miles from the family home\. She rode a horse named Prince to the school and returned home on weekends\.[^8](Ibid.)
 
-![Nina Gunn's 1899 teaching certificate](/images/people/nina-gunn-certificate-1899.jpg)
+![Nina Gunn's 1899 teaching certificate](/images/people/nina-gunn-certificate-1899.JPG)
 *Nina Gunn's teaching certificate, 1899*
 
 Teaching offered young women on the Plains one of the few respectable ways to earn wages outside the household\. The work required mastery of a broad curriculum and the ability to manage children of different ages and levels in a single room\. A teacher might also board near the school during the week, maintain the stove, organize recitations, and serve as one of the few formally educated figures in an isolated district\.
