@@ -3,7 +3,7 @@
 // Change them here and every policy page updates.
 
 export const POLICY = {
-  /** Public contact address for privacy, removal, and accessibility requests. CONFIRM BEFORE DEPLOY. */
+  /** Public contact address for privacy, removal, and accessibility requests. */
   contactEmail:    'editor@gunnsinamerica.org',
   /** Publisher of the website and holder of its copyright. */
   publisher:       'WriteNow.Media',
