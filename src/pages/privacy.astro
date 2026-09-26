@@ -1,0 +1,155 @@
+---
+// src/pages/privacy.astro
+import PolicyLayout from '../layouts/PolicyLayout.astro';
+import { POLICY } from '../data/site-policies';
+const mail = `mailto:${POLICY.contactEmail}`;
+---
+
+<PolicyLayout
+  title="Privacy Policy"
+  description="How GunnsinAmerica.org handles the information visitors send, the services that support the site, and the family information the archive publishes."
+  lead="Gunns in America is a family history archive. It runs no advertising, sets no tracking cookies, and sells nothing about its visitors. This page explains the small amount of information the site does handle, and how the archive treats information about people — living and dead."
+  dateLabel="Effective"
+  date={POLICY.privacyEffective}
+>
+
+  <section>
+    <h2>Who We Are</h2>
+    <p>
+      GunnsinAmerica.org is published by {POLICY.publisher} and maintained by
+      {POLICY.maintainer}. The companion book, <em>The Gunns in America</em>, is published
+      under {POLICY.bookImprint}, an imprint of {POLICY.publisher}. In this policy, “we” and
+      “the project” mean {POLICY.publisher} and the site’s maintainer.
+    </p>
+  </section>
+
+  <section>
+    <h2>What the Site Does Not Do</h2>
+    <ul>
+      <li>It sets no cookies of its own and uses no analytics, advertising, or tracking scripts.</li>
+      <li>It has no user accounts or log-ins.</li>
+      <li>It does not sell, rent, or trade personal information to anyone.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Information You Send Us</h2>
+
+    <h3>Family Recollections</h3>
+    <p>
+      The <a href="/contribute">Share a Recollection</a> form asks for your name, email
+      address, relationship to the family, a title, your story, and whether you hold
+      documents or photographs. We use it to review your contribution, follow up with
+      questions, and — with the permission you give on the form — publish it on this site,
+      credited as you indicate. Your email address is never published.
+    </p>
+
+    <h3>Book updates</h3>
+    <p>
+      The sign-up on the <a href="/book">Book</a> page asks for your email address and,
+      optionally, your name. We use them only to send news about <em>The Gunns in America</em>
+      and its publication. You can ask to be removed at any time.
+    </p>
+
+    <h3>Correspondence</h3>
+    <p>
+      If you write to us directly, we keep the message as part of the project’s research
+      correspondence so we can reply and, where relevant, cite what you shared. We do not
+      publish private correspondence without permission.
+    </p>
+  </section>
+
+  <section>
+    <h2>Services That Support the Site</h2>
+    <p>
+      The site is a set of static pages. A few outside services handle hosting, fonts, and
+      forms, and each receives limited technical information — typically your IP address and
+      browser details — when your browser contacts it:
+    </p>
+    <ul>
+      <li>
+        <strong>GitHub Pages</strong> hosts the site and may keep standard server logs.
+        See the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub Privacy Statement</a>.
+      </li>
+      <li>
+        <strong>Google Fonts</strong> serves the site’s typefaces.
+        See the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a>.
+      </li>
+      <li>
+        <strong>Formspree</strong> receives form submissions and delivers them to us by email.
+        See the <a href="https://formspree.io/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Formspree Privacy Policy</a>.
+      </li>
+    </ul>
+    <p>
+      Links to Patreon, Substack, YouTube, and social media take you to sites with their own
+      privacy practices. We receive no information from them about your visit to this site.
+    </p>
+  </section>
+
+  <section>
+    <h2>Information About Family Members</h2>
+    <p>
+      The archive publishes names, dates, places, and relationships drawn from public records,
+      published genealogies, and family papers. Most of it concerns people who died generations
+      ago. Where records touch people who may still be living, we work to limit what appears.
+    </p>
+    <div class="policy-callout">
+      <p>
+        <strong>If you or a living relative appear anywhere on this site</strong> and you want
+        details corrected, restricted, or removed, write to
+        <a href={mail}>{POLICY.contactEmail}</a>. No explanation is required. We act on
+        requests about living people promptly and do not restore removed details without
+        permission.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Your Choices</h2>
+    <ul>
+      <li>Ask for a copy of what you have sent us.</li>
+      <li>Ask us to correct or remove a published contribution.</li>
+      <li>Ask to be removed from the book-updates list.</li>
+      <li>Ask us to correct, restrict, or remove information about you or a living relative.</li>
+    </ul>
+    <p>
+      Send any request to <a href={mail}>{POLICY.contactEmail}</a>. We aim to respond within
+      30 days. Material already printed — in the book, for example — cannot be recalled, but
+      it will be corrected in later editions.
+    </p>
+  </section>
+
+  <section>
+    <h2>How Long We Keep Information</h2>
+    <p>
+      Recollections and correspondence are kept as part of the project’s research record until
+      you ask us to remove them. Book-update addresses are kept until you unsubscribe or the
+      list is retired.
+    </p>
+  </section>
+
+  <section>
+    <h2>Children</h2>
+    <p>
+      The site is not directed to children under 13, and we do not knowingly collect their
+      information. If a child has sent us information, contact us and we will delete it.
+    </p>
+  </section>
+
+  <section>
+    <h2>Changes to This Policy</h2>
+    <p>
+      If this policy changes, the revised version will be posted here with a new effective
+      date. Significant changes affecting information you have already sent us will not apply
+      to that information without your consent.
+    </p>
+  </section>
+
+  <section>
+    <h2>Contact</h2>
+    <p>
+      Questions about privacy: <a href={mail}>{POLICY.contactEmail}</a>.
+    </p>
+  </section>
+
+</PolicyLayout>

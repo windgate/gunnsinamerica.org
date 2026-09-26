@@ -1,0 +1,5 @@
+{
+  "_readme": "Overrides for build_db.py. Use database card IDs (e.g. \"I222104369410\"). force_private: always withhold (removal requests). force_public: always show (a living person who consented, or someone known to be deceased whose GEDCOM record lacks a death date). Rebuild after editing.",
+  "force_private": [],
+  "force_public": []
+}

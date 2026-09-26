@@ -1,4 +1,6 @@
 ---
+import { POLICY } from '../data/site-policies';
+
 export interface Props {
   title?:       string;
   description?: string;
@@ -16,6 +18,7 @@ const fullTitle = title === 'Gunns in America'
   : `${title} · Gunns in America`;
 
 const path = Astro.url.pathname;
+const year = new Date().getFullYear();
 ---
 
 <!doctype html>
@@ -41,7 +44,9 @@ const path = Astro.url.pathname;
 </head>
 <body>
 
-<nav>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<nav aria-label="Primary">
   <a class="nav-brand" href="/"><span>Gunns</span> in America</a>
   <!-- Primary nav -->
 <ul class="nav-links">
@@ -70,17 +75,27 @@ const path = Astro.url.pathname;
 </button>
 </nav>
 
-<slot />
+<main id="main-content" tabindex="-1">
+  <slot />
+</main>
 
 <footer>
   <div class="footer-brand">Gunns in America · GunnsinAmerica.org</div>
   <p>A family history spanning 1635 to the present · Companion to the book</p>
-  <p style="margin-top:0.35rem">©2026 All Rights Reserved.</p>
-  <nav class="footer-nav" aria-label="Footer navigation">
-  <a href="/support">Support This Project</a>
-  <a href="/contribute">Share a Recollection</a>
-  <a href="/database">Family Database</a>
-</nav>
+
+  <nav class="footer-nav" aria-label="Footer">
+    <a href="/support">Support This Project</a>
+    <a href="/contribute">Share a Recollection</a>
+    <a href="/database">Family Database</a>
+  </nav>
+
+  <nav class="footer-legal" aria-label="Site policies">
+    <a href="/privacy"       class:list={[{ active: path.startsWith('/privacy') }]}>Privacy Policy</a>
+    <a href="/terms"         class:list={[{ active: path.startsWith('/terms') }]}>Terms of Use</a>
+    <a href="/accessibility" class:list={[{ active: path.startsWith('/accessibility') }]}>Accessibility</a>
+  </nav>
+
+  <p class="footer-copy">© {year} {POLICY.copyrightHolder} · All rights reserved.</p>
 </footer>
 
 </body>
@@ -312,8 +327,28 @@ const path = Astro.url.pathname;
     font-family:    var(--sans);
     font-size:      0.72rem;
     letter-spacing: 0.08em;
-    opacity:        0.6;
+    opacity:        0.8;
   }
+
+  /* ── Skip link & main ───────────────────────────────── */
+  .skip-link {
+    position:       absolute;
+    left:           1rem;
+    top:            -3rem;
+    z-index:        1000;
+    padding:        0.6rem 1rem;
+    background:     var(--gold);
+    color:          var(--ink);
+    font-family:    var(--sans);
+    font-size:      0.8rem;
+    font-weight:    600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition:     top 0.15s;
+  }
+  .skip-link:focus { top: 0.75rem; text-decoration: none; }
+  main:focus { outline: none; }
+  main { display: block; }
 
   /* ── Mobile nav ─────────────────────────────────────── */
   @media (max-width: 640px) {
@@ -350,10 +385,49 @@ const path = Astro.url.pathname;
   text-transform: uppercase;
   color:          var(--rule);
   text-decoration: none;
-  opacity:        0.7;
+  opacity:        0.85;
   transition:     opacity 0.15s;
 }
 .footer-nav a:hover { opacity: 1; text-decoration: none; }
+
+/* Footer navs are <nav> elements — undo the sticky site-header styles */
+footer nav {
+  position:      static;
+  height:        auto;
+  background:    none;
+  border-bottom: none;
+  padding:       0;
+  z-index:       auto;
+}
+
+/* ── Footer: site-policy links ───────────────────────── */
+.footer-legal {
+  display:         flex;
+  flex-wrap:       wrap;
+  justify-content: center;
+  gap:             0.4rem 1.25rem;
+  margin:          1.25rem auto 0;
+  padding-top:     1rem;
+  border-top:      1px solid rgba(200, 186, 160, 0.2);
+  max-width:       520px;
+}
+.footer-legal a {
+  font-family:     var(--sans);
+  font-size:       0.66rem;
+  font-weight:     500;
+  letter-spacing:  0.08em;
+  color:           var(--rule);
+  text-decoration: none;
+  opacity:         0.85;
+  transition:      opacity 0.15s, color 0.15s;
+}
+.footer-legal a:hover,
+.footer-legal a.active { opacity: 1; color: var(--gold); text-decoration: none; }
+.footer-legal a:focus-visible,
+.footer-nav a:focus-visible,
+.skip-link:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+.footer-copy { margin-top: 0.75rem; }
 </style>
 
 <script>

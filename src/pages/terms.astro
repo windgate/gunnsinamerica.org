@@ -1,0 +1,148 @@
+---
+// src/pages/terms.astro
+import PolicyLayout from '../layouts/PolicyLayout.astro';
+import { POLICY } from '../data/site-policies';
+const mail = `mailto:${POLICY.contactEmail}`;
+---
+
+<PolicyLayout
+  title="Terms of Use"
+  description="Terms governing use of GunnsinAmerica.org: copyright, reuse of material, family contributions, accuracy of genealogical information, and governing law."
+  lead="These terms govern your use of GunnsinAmerica.org. By using the site, you agree to them. They are written to protect the research and the people who contribute to it, not to restrict honest use of family history."
+  dateLabel="Effective"
+  date={POLICY.termsEffective}
+>
+
+  <section>
+    <h2>About the Site</h2>
+    <p>
+      GunnsinAmerica.org is published by {POLICY.publisher}. It is the companion archive to
+      <em>The Gunns in America</em>, published under {POLICY.bookImprint}, an imprint of
+      {POLICY.publisher}. The site is provided free of charge for personal, family,
+      educational, and research use.
+    </p>
+  </section>
+
+  <section>
+    <h2>Copyright</h2>
+    <p>
+      Unless otherwise noted, the original writing, research, annotations, database
+      compilation, photography, and design on this site are © {POLICY.copyrightHolder}.
+      All rights reserved.
+    </p>
+    <p>
+      Historical documents in the public domain remain in the public domain. Our transcriptions
+      and commentary do not limit anyone’s right to use the underlying document. Images
+      supplied by libraries, archives, historical societies, and private collections are
+      credited where they appear and remain subject to those holders’ terms.
+    </p>
+  </section>
+
+  <section>
+    <h2>What You May Do</h2>
+    <ul>
+      <li>Read, print, and save pages for personal, family, or non-commercial research use.</li>
+      <li>Quote brief excerpts with attribution to “Gunns in America (GunnsinAmerica.org)” and a link to the source page.</li>
+      <li>Cite facts, dates, and sources found here in your own family trees and research.</li>
+    </ul>
+
+    <h3>What requires permission</h3>
+    <ul>
+      <li>Republishing complete articles, biographies, or journal entries.</li>
+      <li>Copying the family database or gallery in bulk, or scraping the site by automated means.</li>
+      <li>Any commercial use, including in books, products, paid databases, or AI training sets.</li>
+    </ul>
+    <p>
+      To ask, write to <a href={mail}>{POLICY.contactEmail}</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Family Contributions</h2>
+    <p>
+      Recollections, documents, and photographs submitted through the site remain yours. By
+      submitting them, you:
+    </p>
+    <ul>
+      <li>
+        Grant {POLICY.publisher} a non-exclusive, royalty-free license to publish, display, and
+        archive your contribution on GunnsinAmerica.org, credited as you indicate, and to edit it
+        for length, clarity, and accuracy.
+      </li>
+      <li>
+        Confirm that you have the right to share the material, and that it does not disclose
+        private information about living people without their consent.
+      </li>
+    </ul>
+    <p>
+      Use of a contribution in the book, on Substack, in video or audio, or in any other
+      publication requires your separate permission. We may decline or remove any submission.
+      You may ask us to remove your contribution from the site at any time.
+    </p>
+  </section>
+
+  <section>
+    <h2>Accuracy of Information</h2>
+    <p>
+      The project follows an evidence-first standard: claims cite their sources, and hypotheses
+      are labeled as hypotheses. Genealogical research is still provisional. Records conflict,
+      transcriptions err, and new evidence changes conclusions.
+    </p>
+    <p>
+      Information here is offered for historical and genealogical research, not as legal,
+      medical, or professional advice. Verify important conclusions against primary sources.
+      Corrections are welcome at <a href={mail}>{POLICY.contactEmail}</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Acceptable Use</h2>
+    <p>
+      Do not attempt to access restricted areas of the site, interfere with its operation,
+      submit spam or unlawful material through its forms, or misrepresent your identity or your
+      relationship to the family.
+    </p>
+  </section>
+
+  <section>
+    <h2>Outside Links</h2>
+    <p>
+      The site links to other websites, including archives, libraries, Patreon, Substack, and
+      social media. We are not responsible for their content or practices.
+    </p>
+  </section>
+
+  <section>
+    <h2>Disclaimer and Limitation of Liability</h2>
+    <p>
+      The site and its content are provided “as is,” without warranties of any kind, express or
+      implied. To the fullest extent permitted by law, {POLICY.publisher}, {POLICY.bookImprint},
+      and the project’s maintainer are not liable for any loss or damage arising from use of the
+      site or reliance on its content.
+    </p>
+  </section>
+
+  <section>
+    <h2>Governing Law</h2>
+    <p>
+      These terms are governed by the laws of {POLICY.governingLaw}, without regard to its
+      conflict-of-law rules.
+    </p>
+  </section>
+
+  <section>
+    <h2>Changes to These Terms</h2>
+    <p>
+      We may revise these terms. The current version is always posted here with its effective
+      date. Continued use of the site after a change means you accept the revised terms.
+    </p>
+  </section>
+
+  <section>
+    <h2>Contact</h2>
+    <p>
+      Questions about these terms: <a href={mail}>{POLICY.contactEmail}</a>.
+    </p>
+  </section>
+
+</PolicyLayout>

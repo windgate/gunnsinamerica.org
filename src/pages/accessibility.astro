@@ -1,0 +1,91 @@
+---
+// src/pages/accessibility.astro
+import PolicyLayout from '../layouts/PolicyLayout.astro';
+import { POLICY } from '../data/site-policies';
+const mail = `mailto:${POLICY.contactEmail}`;
+---
+
+<PolicyLayout
+  title="Accessibility"
+  description="The accessibility standard GunnsinAmerica.org works toward, what the site does to meet it, known limitations, and how to report a barrier."
+  lead="This archive exists to be read — by descendants, researchers, and anyone curious about the family’s story. That includes people who use screen readers, keyboard navigation, magnification, captions, or other assistive technology."
+  dateLabel="Last reviewed"
+  date={POLICY.accessibilityReviewed}
+>
+
+  <section>
+    <h2>Our Standard</h2>
+    <p>
+      GunnsinAmerica.org aims to conform to the
+      <a href="https://www.w3.org/TR/WCAG21/" target="_blank" rel="noopener noreferrer">Web Content Accessibility Guidelines (WCAG) 2.1</a>
+      at Level AA. The site is built as plain, static HTML with no scripts required to read
+      its content, which keeps it compatible with a wide range of browsers and assistive tools.
+    </p>
+  </section>
+
+  <section>
+    <h2>What the Site Does</h2>
+    <ul>
+      <li><strong>Structure.</strong> Pages use headings, landmarks, and lists so screen readers can navigate them, and a “Skip to content” link bypasses the menu.</li>
+      <li><strong>Keyboard access.</strong> Menus, links, and forms can be reached and operated from the keyboard.</li>
+      <li><strong>Text alternatives.</strong> Photographs and documents carry alternative text, and captions identify their subjects and sources.</li>
+      <li><strong>Readable type.</strong> Body text is set at 18 pixels and can be enlarged to 200 percent without loss of content. Layouts adapt to phones and tablets.</li>
+      <li><strong>Forms.</strong> Every form field has a visible label, and optional fields are marked as optional.</li>
+      <li><strong>No surprises.</strong> Nothing plays automatically, flashes, or expires on a timer.</li>
+      <li><strong>Audio.</strong> Recordings added to the Voices collection will be published with a written transcript.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Historical Materials</h2>
+    <p>
+      Much of this archive is made of old documents — handwritten letters, probate records,
+      faded photographs, and printed pages from centuries past. Their images cannot always be
+      made fully accessible on their own. Where we have transcribed a document, the
+      transcription appears with it or in the related article.
+    </p>
+    <p>
+      If you need a transcription or a fuller description of any document or photograph on the
+      site, ask. We will prioritize it.
+    </p>
+  </section>
+
+  <section>
+    <h2>Known Limitations</h2>
+    <ul>
+      <li>
+        The <a href="/database">Family Database</a> holds more than 7,000 individuals on a single
+        page. It can be slow on older devices and long for screen-reader users to browse; searching
+        by name or place is the quickest way in.
+      </li>
+      <li>
+        Some small decorative labels in the site’s gold accent color fall below the recommended
+        contrast ratio. They are being revised.
+      </li>
+      <li>
+        Some older gallery images have brief descriptions that we are expanding.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Report a Barrier</h2>
+    <div class="policy-callout">
+      <p>
+        If something on this site is hard to use, write to
+        <a href={mail}>{POLICY.contactEmail}</a>. Please include the page address, what you were
+        trying to do, and the browser or assistive technology you use. We aim to respond within
+        a week and will provide the content in another format if we cannot fix the page right away.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>How This Was Assessed</h2>
+    <p>
+      This statement reflects a self-assessment of the site by its maintainer, using automated
+      checks, keyboard testing, and manual review. It will be updated as the site changes.
+    </p>
+  </section>
+
+</PolicyLayout>
