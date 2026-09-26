@@ -17,7 +17,7 @@ slug: george-almon-gunn-1823
 <figure style="float: left; width: 260px; margin: 0 1.5rem 1rem 0;">
   <img src="/images/people/george-almon-gunn-1823-cabinet-card.jpg" alt="George Almon Gunn, cabinet card portrait" style="width: 100%; height: auto; display: block;" />
   <figcaption style="font-size: 0.85rem; font-style: italic; margin-top: 0.4rem;">George Almon Gunn, cabinet card portrait. The Elite Studio.</figcaption>
-</figure>*George Almon Gunn, cabinet card portrait. The Elite Studio.*
+</figure>
 
 George Almon Gunn was born November 23, 1823, at Mentor, Ohio, into a family whose history stretched back to the earliest generations of colonial New England. His grandfather had served during the American Revolution. His mother's family would become closely connected with the beginnings of the Mormon movement. George himself became part of another defining chapter in American history when, at the age of thirty-eight, he enlisted in the Union Army during the Civil War.
 
