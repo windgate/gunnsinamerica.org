@@ -8,6 +8,7 @@ death: '1864-08-16'
 related:
   - jasper-gunn
   - moses-gunn
+  - deep-bottom-1864
 slug: george-almon-gunn-1823
 ---
 
@@ -22,7 +23,7 @@ George Almon Gunn was born November 23, 1823, at Mentor, Ohio, into a family who
 
 For nearly two years he served with the 67th Ohio Volunteer Infantry, following the regiment from the Carolina coast to the battlefields surrounding Richmond and Petersburg.
 
-On August 16, 1864, Private George Gunn was killed in action at Deep Bottom, Virginia.
+On August 16, 1864, Private George Gunn was killed in action at [Deep Bottom, Virginia](/articles/deep-bottom-1864).
 
 He left behind a widow, three children, and a son who appears to have been born after his death.
 
