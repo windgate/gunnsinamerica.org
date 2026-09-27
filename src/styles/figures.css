@@ -1,0 +1,52 @@
+/* ---------- Floated figures (biographies & articles) ----------
+   Usage: <figure class="float-left">  or  <figure class="float-right">
+   Size modifiers: add "small" or "large", e.g. class="float-left small"
+---------------------------------------------------------------- */
+figure.float-left,
+figure.float-right {
+  width: min(40%, 280px);
+  margin-top: 0.35rem;
+  margin-bottom: 1rem;
+}
+figure.float-left  { float: left;  margin-left: 0;  margin-right: 1.75rem; }
+figure.float-right { float: right; margin-right: 0; margin-left: 1.75rem; }
+
+figure.float-left.small,  figure.float-right.small  { width: min(30%, 200px); }
+figure.float-left.large,  figure.float-right.large  { width: min(50%, 380px); }
+
+figure.float-left img,
+figure.float-right img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+figure.float-left figcaption,
+figure.float-right figcaption {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  margin-top: 0.45rem;
+  color: var(--ink);
+  opacity: 0.75;
+}
+
+figure.float-left ~ h2,
+figure.float-right ~ h2,
+figure.float-left ~ h3,
+figure.float-right ~ h3 { clear: both; }
+
+.clear { clear: both; }
+
+@media (max-width: 600px) {
+  figure.float-left,
+  figure.float-right,
+  figure.float-left.small,
+  figure.float-right.small,
+  figure.float-left.large,
+  figure.float-right.large {
+    float: none;
+    width: 100%;
+    margin: 0 0 1.25rem;
+  }
+}
