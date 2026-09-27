@@ -12,7 +12,7 @@ related:
   - jasper-gunn
 ---
 
-<figure>
+<figure class="float-left">
   <img src="/images/people/henry-h-gunn-1840.png" alt="Portrait of Henry H. Gunn" />
   <figcaption>Henry H. Gunn (1840–1928)</figcaption>
 </figure>
