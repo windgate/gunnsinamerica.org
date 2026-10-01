@@ -67,8 +67,6 @@ related:
 
 ## Biography
 
-## Biography
-
 ![Nina Belle Gunn Pyle](/images/people/nina-belle-gunn.png)
 
 *Nina Belle Gunn Pyle*

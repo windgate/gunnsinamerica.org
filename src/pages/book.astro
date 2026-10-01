@@ -32,20 +32,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             no spam, just word that it's out.
           </p>
 
-          <form name="book-updates" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/book-thanks">
-            <input type="hidden" name="form-name" value="book-updates" />
-            <p class="hidden-field"><label>Leave this empty: <input name="bot-field" /></label></p>
+<form action="https://formspree.io/f/xdekvjvp" method="POST">
+  <!-- honeypot: Formspree's built-in field name -->
+  <div style="position:absolute;left:-9999px" aria-hidden="true">
+    <label>Leave this empty
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+    </label>
+  </div>
 
-            <div class="field">
-              <label for="name">Name <span class="opt">(optional)</span></label>
-              <input id="name" type="text" name="name" autocomplete="name" />
-            </div>
-            <div class="field">
-              <label for="email">Email</label>
-              <input id="email" type="email" name="email" autocomplete="email" required />
-            </div>
-            <button type="submit" class="book-btn">Notify me</button>
-          </form>
+  <label for="name">Name (optional)</label>
+  <input type="text" id="name" name="name">
+
+  <label for="email">Email</label>
+  <input type="email" id="email" name="email" required>
+
+  <input type="hidden" name="_subject" value="Book list signup – The Gunns in America">
+  <button type="submit">Notify me</button>
+</form>
         </div>
       </div>
     </div>

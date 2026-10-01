@@ -53,6 +53,7 @@ const cards = featured.length > 0
     </p>
     <div class="hero-ctas">
       <a href="/articles" class="hero-cta hero-cta-primary">Explore the Story</a>
+      <span class="hero-cta-sep" aria-hidden="true">✦</span>
       <a href="/database" class="hero-cta hero-cta-secondary">Search the People</a>
     </div>
     <div class="hero-dates">1635 &nbsp;·&nbsp; Colonial &nbsp;·&nbsp; Revolution &nbsp;·&nbsp; Frontier &nbsp;·&nbsp; Civil War &nbsp;·&nbsp; Modern Era</div>
@@ -145,6 +146,39 @@ const cards = featured.length > 0
   .hero-dates {
     font-family: var(--sans); font-size: 0.75rem; letter-spacing: 0.15em;
     text-transform: uppercase; color: var(--gold); opacity: 0.7;
+  }
+
+  .hero-ctas {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+    gap: 1.75rem; margin-bottom: 2.5rem;
+  }
+  .hero-cta-sep {
+    font-size: 0.9rem; color: #e2c161; opacity: 0.85; line-height: 1;
+  }
+  .hero-cta {
+    font-family: var(--sans); font-size: 0.95rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.9rem 2.25rem; border: 2px solid #e2c161;
+    text-decoration: none; transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .hero-cta-primary {
+    background: #e2c161; color: var(--ink);
+  }
+  .hero-cta-primary:hover {
+    background: transparent; color: #e2c161; text-decoration: none;
+    transform: translateY(-1px); box-shadow: 0 0 0 1px #e2c161;
+  }
+  .hero-cta-secondary {
+    background: transparent; color: #e2c161;
+  }
+  .hero-cta-secondary:hover {
+    background: #e2c161; color: var(--ink); text-decoration: none;
+    transform: translateY(-1px);
+  }
+  @media (max-width: 480px) {
+    .hero-ctas { flex-direction: column; align-items: stretch; gap: 1rem; }
+    .hero-cta-sep { display: none; }
+    .hero-cta  { text-align: center; }
   }
 
   .timeline-band { background: var(--accent); padding: 1.5rem 2rem; overflow-x: auto; }

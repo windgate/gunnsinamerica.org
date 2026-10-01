@@ -22,17 +22,6 @@
 // so bio images automatically render small and right-floated with
 // body text wrapping around them — no manual HTML required.
 //
-// OPT OUT (full-width image instead): write raw HTML directly rather
-// than Markdown image syntax. Raw HTML passes through this plugin
-// untouched, since it never matches the "plain paragraph containing
-// only an <img>, followed by a plain paragraph containing only an
-// <em>" pattern this plugin looks for:
-//
-//   <figure class="full">
-//     <img src="image-url" alt="alt text" />
-//     <figcaption>Caption text.</figcaption>
-//   </figure>
-//
 // No new npm dependencies — plain recursive traversal of the hast tree.
 
 function onlyMeaningfulChildren(node) {
@@ -55,11 +44,22 @@ function isEmphasisOnlyParagraph(node) {
 
 export default function rehypeInlineCaptionFigures() {
   return (tree, file) => {
-    // file.history[0] is the absolute source path Astro/vfile assigns
-    // to the markdown file currently being processed.
     const sourcePath = (file && file.history && file.history[0]) || (file && file.path) || '';
     const normalized = sourcePath.replace(/\\/g, '/');
     if (!normalized.includes('/content/people/')) return;
+
+    const debug = normalized.includes('nina-belle-gunn-pyle');
+    if (debug) {
+      console.log('--- DEBUG: top-level children ---');
+      tree.children.forEach((node, i) => {
+        console.log(
+          i,
+          node.type,
+          node.tagName || '',
+          node.children ? onlyMeaningfulChildren(node).map(c => c.type + ':' + (c.tagName || c.value?.slice(0,20))) : ''
+        );
+      });
+    }
 
     const walk = (node) => {
       if (!node.children) return;
