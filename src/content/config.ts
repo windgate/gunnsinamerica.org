@@ -143,4 +143,42 @@ const voices = defineCollection({
   }),
 });
 
-export const collections = { articles, people, journal, voices };
+// ── photo-collections ────────────────────────────────────
+// Curated photo sets for one person, place, or event.
+// One file per collection: src/content/photo-collections/<slug>.md
+// The frontmatter lists photos by their `image` path exactly as it
+// appears in public/gallery-data.json (the single photo registry);
+// title, year and caption come from there unless overridden here.
+// The Markdown body is an optional short introduction.
+// A photo may appear in any number of collections.
+const photoCollections = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title:    z.string(),
+    kind:     z.enum(['person', 'place', 'event']),
+    summary:  z.string().optional(),
+    years:    z.string().optional(),   // e.g. "1816–1881" or "1861"
+    place:    z.string().optional(),   // e.g. "Washington, Connecticut"
+    person:   z.string().optional(),   // people slug — shows this set on that person's page
+    article:  z.string().optional(),   // articles slug — links to the related article
+    // Image path of the featured photo; defaults to the first photo listed.
+    featured: z.string().optional(),
+    order:    z.number().optional(),
+    draft:    z.boolean().default(false),
+    photos: z.array(z.object({
+      image:   z.string(),             // must match an `image` in gallery-data.json
+      title:   z.string().optional(),  // overrides the registry title
+      year:    z.string().optional(),  // overrides the registry year
+      caption: z.string().optional(),  // overrides the registry caption
+      alt:     z.string().optional(),  // alt text; defaults to the title
+    })).min(1),
+  }),
+});
+
+export const collections = {
+  articles,
+  people,
+  journal,
+  voices,
+  'photo-collections': photoCollections,
+};

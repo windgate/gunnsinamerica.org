@@ -1,0 +1,322 @@
+---
+// A featured photo with a strip of clickable thumbnails.
+//
+// Rendered entirely at build time. Without JavaScript every thumbnail is
+// an ordinary link to the full-size image, so the collection still works.
+// With JavaScript, clicking a thumbnail (or using the arrow buttons or
+// arrow keys) swaps the featured photo and its caption in place, and
+// clicking the featured photo opens it larger in a native <dialog>.
+//
+// Usage:
+//   import PhotoCollection from '../components/PhotoCollection.astro';
+//   <PhotoCollection photos={collection.photos} label="Photographs of Frederick William Gunn" />
+
+import type { CollectionPhoto } from '../data/photo-collections';
+
+interface Props {
+  photos: CollectionPhoto[];   // featured photo first
+  label:  string;              // accessible name for the whole region
+  eager?: boolean;             // load the featured image immediately (top-of-page use)
+}
+
+const { photos, label, eager = false } = Astro.props;
+const first = photos[0];
+const multiple = photos.length > 1;
+---
+
+<section class="photo-collection" aria-label={label} data-photo-collection>
+
+  <figure class="pc-featured">
+    <a class="pc-open" href={first.image} target="_blank" rel="noopener" data-pc-open>
+      <img
+        class="pc-main"
+        src={first.image}
+        alt={first.alt}
+        loading={eager ? 'eager' : 'lazy'}
+        decoding="async"
+        data-pc-main
+      />
+    </a>
+    <figcaption class="pc-caption" aria-live="polite">
+      <span class="pc-title" data-pc-title>{first.title}</span>
+      <span class="pc-year" data-pc-year>{first.year}</span>
+      <span class="pc-text" data-pc-text>{first.caption}</span>
+    </figcaption>
+  </figure>
+
+  {multiple && (
+    <div class="pc-controls" data-pc-controls hidden>
+      <button type="button" class="pc-btn" data-pc-prev aria-label="Previous photo">←</button>
+      <span class="pc-count" data-pc-count>1 of {photos.length}</span>
+      <button type="button" class="pc-btn" data-pc-next aria-label="Next photo">→</button>
+    </div>
+  )}
+
+  {multiple && (
+    <ul class="pc-thumbs" role="list">
+      {photos.map((p, i) => (
+        <li>
+          <a
+            class="pc-thumb"
+            href={p.image}
+            aria-current={i === 0 ? 'true' : undefined}
+            data-pc-thumb
+            data-index={i}
+            data-src={p.image}
+            data-title={p.title}
+            data-year={p.year}
+            data-text={p.caption}
+            data-alt={p.alt}
+          >
+            <img src={p.image} alt={p.alt} loading="lazy" decoding="async" />
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
+
+  <dialog class="pc-dialog" data-pc-dialog aria-label="Enlarged photo">
+    <form method="dialog"><button class="pc-close" aria-label="Close">✕</button></form>
+    <img class="pc-dialog-img" src="" alt="" data-pc-dialog-img />
+    <p class="pc-dialog-caption" data-pc-dialog-caption></p>
+  </dialog>
+
+</section>
+
+<style>
+  .photo-collection { margin: 2rem 0; }
+
+  /* Featured photo */
+  .pc-featured { margin: 0; }
+  .pc-open {
+    display: block;
+    background: var(--paper-dark);
+    border: 1px solid var(--rule);
+    cursor: zoom-in;
+  }
+  .pc-main {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 70vh;
+    object-fit: contain;
+    margin: 0 auto;
+  }
+  .pc-caption {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: 1rem;
+    row-gap: 0.25rem;
+    padding-top: 0.75rem;
+  }
+  .pc-title {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+  .pc-year {
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    align-self: baseline;
+    white-space: nowrap;
+  }
+  .pc-text {
+    grid-column: 1 / -1;
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: var(--ink-light);
+  }
+  .pc-text:empty, .pc-year:empty { display: none; }
+
+  /* Prev / next (shown by script) */
+  .pc-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.75rem;
+  }
+  .pc-controls[hidden] { display: none; }
+  .pc-btn {
+    font-family: var(--sans);
+    font-size: 1rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 1px solid var(--rule);
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .pc-btn:hover { border-color: var(--accent); background: var(--accent); color: var(--white); }
+  .pc-count {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    min-width: 5rem;
+    text-align: center;
+  }
+
+  /* Thumbnails */
+  .pc-thumbs {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+    gap: 0.5rem;
+    margin: 1rem 0 0;
+    padding: 0;
+  }
+  .pc-thumbs li { margin: 0; padding: 0; }
+  .pc-thumb {
+    display: block;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: var(--paper-dark);
+    border: 2px solid transparent;
+    outline-offset: 2px;
+  }
+  .pc-thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+    transition: opacity 0.15s;
+  }
+  .pc-thumb:hover img, .pc-thumb:focus-visible img { opacity: 1; }
+  .pc-thumb[aria-current='true'] { border-color: var(--accent); }
+  .pc-thumb[aria-current='true'] img { opacity: 1; }
+
+  /* Enlarged view */
+  .pc-dialog {
+    border: none;
+    padding: 1.5rem;
+    background: rgba(28, 24, 20, 0.96);
+    color: var(--paper);
+    max-width: min(960px, 94vw);
+    max-height: 94vh;
+    width: 100%;
+  }
+  .pc-dialog::backdrop { background: rgba(28, 24, 20, 0.75); }
+  .pc-dialog[open] { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+  .pc-dialog-img {
+    max-width: 100%;
+    max-height: 76vh;
+    object-fit: contain;
+  }
+  .pc-dialog-caption {
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: var(--rule);
+    text-align: center;
+    max-width: 640px;
+  }
+  .pc-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    background: none;
+    border: 1px solid rgba(245, 240, 232, 0.35);
+    color: var(--paper);
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
+  .pc-close:hover { background: var(--accent); border-color: var(--accent); }
+
+  @media (max-width: 600px) {
+    .pc-thumbs { grid-template-columns: repeat(auto-fill, minmax(68px, 1fr)); }
+    .pc-main { max-height: 60vh; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-photo-collection]').forEach(root => {
+    const thumbs = Array.from(root.querySelectorAll<HTMLAnchorElement>('[data-pc-thumb]'));
+    const main   = root.querySelector<HTMLImageElement>('[data-pc-main]')!;
+    const open   = root.querySelector<HTMLAnchorElement>('[data-pc-open]')!;
+    const title  = root.querySelector<HTMLElement>('[data-pc-title]')!;
+    const year   = root.querySelector<HTMLElement>('[data-pc-year]')!;
+    const text   = root.querySelector<HTMLElement>('[data-pc-text]')!;
+    const count  = root.querySelector<HTMLElement>('[data-pc-count]');
+    const ctrls  = root.querySelector<HTMLElement>('[data-pc-controls]');
+    const dialog = root.querySelector<HTMLDialogElement>('[data-pc-dialog]')!;
+    const dImg   = root.querySelector<HTMLImageElement>('[data-pc-dialog-img]')!;
+    const dCap   = root.querySelector<HTMLElement>('[data-pc-dialog-caption]')!;
+
+    let current = 0;
+
+    function show(i: number, moveFocus = false) {
+      if (thumbs.length === 0) return;
+      current = (i + thumbs.length) % thumbs.length;
+      const t = thumbs[current];
+      const d = t.dataset;
+
+      main.src = d.src ?? '';
+      main.alt = d.alt ?? '';
+      open.href = d.src ?? '';
+      title.textContent = d.title ?? '';
+      year.textContent  = d.year  ?? '';
+      text.textContent  = d.text  ?? '';
+      if (count) count.textContent = `${current + 1} of ${thumbs.length}`;
+
+      thumbs.forEach((el, n) => {
+        if (n === current) el.setAttribute('aria-current', 'true');
+        else el.removeAttribute('aria-current');
+      });
+      if (moveFocus) t.focus({ preventScroll: true });
+
+      if (dialog.open) syncDialog();
+
+      // Warm the next image so stepping forward feels instant.
+      const next = thumbs[(current + 1) % thumbs.length]?.dataset.src;
+      if (next) new Image().src = next;
+    }
+
+    function syncDialog() {
+      const d = thumbs[current]?.dataset;
+      dImg.src = d?.src ?? main.src;
+      dImg.alt = d?.alt ?? main.alt;
+      dCap.textContent = [d?.title, d?.year].filter(Boolean).join(' · ');
+    }
+
+    // Thumbnails: swap instead of navigating away.
+    thumbs.forEach((t, i) => {
+      t.addEventListener('click', e => {
+        e.preventDefault();
+        show(i);
+      });
+    });
+
+    // Prev / next buttons.
+    if (ctrls) ctrls.hidden = false;
+    root.querySelector('[data-pc-prev]')?.addEventListener('click', () => show(current - 1));
+    root.querySelector('[data-pc-next]')?.addEventListener('click', () => show(current + 1));
+
+    // Arrow keys while focus is inside this collection (including the dialog).
+    root.addEventListener('keydown', e => {
+      if (thumbs.length < 2) return;
+      if (e.key === 'ArrowRight') { e.preventDefault(); show(current + 1, !dialog.open); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); show(current - 1, !dialog.open); }
+    });
+
+    // Featured photo opens larger.
+    open.addEventListener('click', e => {
+      e.preventDefault();
+      syncDialog();
+      dialog.showModal();
+    });
+    dialog.addEventListener('click', e => {
+      if (e.target === dialog) dialog.close();
+    });
+    dialog.addEventListener('close', () => { dImg.src = ''; });
+  });
+</script>

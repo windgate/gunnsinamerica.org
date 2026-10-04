@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollections } from '../../data/photo-collections';
+
+const all = await getCollections();
+const groups = [
+  { kind: 'person', heading: 'People' },
+  { kind: 'place',  heading: 'Places' },
+  { kind: 'event',  heading: 'Events' },
+].map(g => ({ ...g, items: all.filter(c => c.entry.data.kind === g.kind) }))
+ .filter(g => g.items.length > 0);
+---
+
+<BaseLayout
+  title="Photo Collections"
+  description="Photographs gathered by person, place, and event from four centuries of Gunn family history."
+>
+  <div class="collections-page">
+
+    <header class="page-header">
+      <p class="eyebrow">Gunn Family History</p>
+      <h1>Photo Collections</h1>
+      <p class="page-desc">
+        Photographs gathered around one person, one place, or one event.
+        For everything in a single grid, see the <a href="/gallery">Family Gallery</a>.
+      </p>
+    </header>
+
+    {groups.length === 0 && <p class="empty">No collections have been published yet.</p>}
+
+    {groups.map(g => (
+      <section class="group" aria-labelledby={`h-${g.kind}`}>
+        <h2 id={`h-${g.kind}`}>{g.heading}</h2>
+        <ul class="card-grid" role="list">
+          {g.items.map(c => (
+            <li>
+              <a class="card" href={`/collections/${c.slug}`}>
+                <span class="card-thumb">
+                  <img src={c.featured.image} alt="" loading="lazy" decoding="async" />
+                </span>
+                <span class="card-title">{c.entry.data.title}</span>
+                <span class="card-meta">
+                  {[c.entry.data.years, `${c.photos.length} photo${c.photos.length !== 1 ? 's' : ''}`]
+                    .filter(Boolean).join(' · ')}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+
+  </div>
+</BaseLayout>
+
+<style>
+  .collections-page { max-width: var(--max-wide); margin: 0 auto; padding: clamp(2rem, 5vw, 4rem) 2rem; }
+  .page-header { border-bottom: 1px solid var(--rule); padding-bottom: 2rem; margin-bottom: 2rem; }
+  .eyebrow {
+    font-family: var(--sans); font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem;
+  }
+  h1 { font-family: var(--serif); font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; margin-bottom: 0.5rem; }
+  .page-desc { color: var(--ink-light); max-width: 560px; line-height: 1.7; }
+  .page-desc a { color: var(--accent); }
+  .group { margin-bottom: 3rem; }
+  h2 {
+    font-family: var(--sans); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--ink-light); margin-bottom: 1rem;
+  }
+  .card-grid {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem;
+  }
+  .card { display: flex; flex-direction: column; gap: 0.35rem; text-decoration: none; color: inherit; }
+  .card-thumb {
+    display: block; aspect-ratio: 4 / 3; overflow: hidden;
+    background: var(--paper-dark); border: 1px solid var(--rule);
+  }
+  .card-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+  .card:hover .card-thumb img, .card:focus-visible .card-thumb img { transform: scale(1.04); }
+  .card-title { font-family: var(--serif); font-size: 1rem; font-weight: 700; line-height: 1.3; }
+  .card-meta { font-family: var(--sans); font-size: 0.7rem; color: var(--ink-light); letter-spacing: 0.04em; }
+  .empty { color: var(--ink-light); font-style: italic; padding: 3rem 0; }
+</style>

@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PhotoCollection from '../../components/PhotoCollection.astro';
+import { getEntry } from 'astro:content';
+import { getCollections } from '../../data/photo-collections';
+
+export async function getStaticPaths() {
+  const all = await getCollections();
+  return all.map(c => ({ params: { slug: c.slug }, props: { collection: c } }));
+}
+
+const { collection } = Astro.props;
+const { entry, photos } = collection;
+const d = entry.data;
+const { Content } = await entry.render();
+
+const person  = d.person  ? await getEntry('people', d.person).catch(() => null)     : null;
+const article = d.article ? await getEntry('articles', d.article).catch(() => null) : null;
+
+const kindLabel = { person: 'Person', place: 'Place', event: 'Event' }[d.kind];
+const meta = [d.years, d.place].filter(Boolean).join(' · ');
+const hasIntro = (entry.body ?? '').trim().length > 0;
+---
+
+<BaseLayout
+  title={`${d.title} — Photographs`}
+  description={d.summary ?? `${photos.length} photographs: ${d.title}.`}
+  ogImage={collection.featured.image}
+>
+  <div class="collection-page">
+
+    <div class="breadcrumb">
+      <a href="/">Home</a><span class="sep">›</span>
+      <a href="/gallery">Gallery</a><span class="sep">›</span>
+      <a href="/collections">Collections</a><span class="sep">›</span>
+      <span>{d.title}</span>
+    </div>
+
+    <header class="collection-header">
+      <p class="eyebrow">{kindLabel} collection</p>
+      <h1>{d.title}</h1>
+      {meta && <p class="collection-meta">{meta}</p>}
+      {d.summary && <p class="collection-summary">{d.summary}</p>}
+    </header>
+
+    <PhotoCollection photos={photos} label={`Photographs: ${d.title}`} eager />
+
+    {hasIntro && (
+      <div class="collection-intro"><Content /></div>
+    )}
+
+    {(person || article) && (
+      <nav class="collection-links" aria-label="Related">
+        {person  && <a href={`/people/${person.slug}`}>Read the biography: {person.data.title} →</a>}
+        {article && <a href={`/articles/${article.slug}`}>Read the article: {article.data.title} →</a>}
+      </nav>
+    )}
+
+    <div class="back-bar"><a href="/collections">← All collections</a></div>
+  </div>
+</BaseLayout>
+
+<style>
+  .collection-page { max-width: var(--max-wide); margin: 0 auto; padding: 0 2rem 4rem; }
+  .breadcrumb {
+    padding: 1rem 0; font-family: var(--sans); font-size: 0.7rem;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light);
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+  }
+  .breadcrumb a { color: var(--ink-light); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .collection-header { border-bottom: 1px solid var(--rule); padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
+  .eyebrow {
+    font-family: var(--sans); font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem;
+  }
+  h1 { font-family: var(--serif); font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; margin-bottom: 0.4rem; }
+  .collection-meta { font-family: var(--sans); font-size: 0.85rem; color: var(--ink-light); letter-spacing: 0.04em; }
+  .collection-summary { margin-top: 0.75rem; max-width: 640px; line-height: 1.7; color: var(--ink-light); }
+  .collection-intro { max-width: var(--max); margin: 2.5rem auto 0; line-height: 1.8; }
+  .collection-intro :global(p) { margin-bottom: 1rem; }
+  .collection-links {
+    max-width: var(--max); margin: 2rem auto 0; display: flex; flex-direction: column; gap: 0.5rem;
+    font-family: var(--sans); font-size: 0.85rem;
+  }
+  .collection-links a { color: var(--accent); }
+  .back-bar { margin-top: 3rem; font-family: var(--sans); font-size: 0.8rem; }
+  .back-bar a { color: var(--accent); }
+</style>

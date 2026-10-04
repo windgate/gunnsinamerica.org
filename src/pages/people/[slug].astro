@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, getEntry } from 'astro:content';
+import PhotoCollection from '../../components/PhotoCollection.astro';
+import { getCollectionForPerson } from '../../data/photo-collections';
 
 export async function getStaticPaths() {
   const people = await getCollection('people');
@@ -12,6 +14,7 @@ export async function getStaticPaths() {
 
 const { person } = Astro.props;
 const { Content } = await person.render();
+const photoSet = await getCollectionForPerson(person.slug);
 const d = person.data;
 
 const resolve = async (slugs: string[] | undefined) =>
@@ -96,6 +99,16 @@ const showToc = tocItems.length >= 4;
 
         <Content />
 
+        {photoSet && (
+          <section class="person-photos" aria-labelledby="person-photos-h">
+            <h2 id="person-photos-h">Photographs</h2>
+            <PhotoCollection photos={photoSet.photos} label={`Photographs of ${d.title}`} />
+            <p class="person-photos-more">
+              <a href={`/collections/${photoSet.slug}`}>Open this collection on its own page →</a>
+            </p>
+          </section>
+        )}
+
         {d.sources && d.sources.length > 0 && (
           <div class="sources">
             <h4>Sources &amp; Notes</h4>
@@ -132,6 +145,10 @@ const showToc = tocItems.length >= 4;
 </BaseLayout>
 
 <style>
+  .person-photos { clear: both; margin-top: 3rem; }
+  .person-photos-more { font-family: var(--sans); font-size: 0.8rem; margin-top: 0.75rem; }
+  .person-photos-more a { color: var(--accent); }
+
   /* ── Page wrapper ────────────────────────────────────── */
   .person-page {
     max-width: var(--max-wide);
