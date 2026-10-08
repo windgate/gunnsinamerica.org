@@ -50,13 +50,13 @@ const hasIntro = (entry.body ?? '').trim().length > 0;
     )}
 
     {(person || article) && (
-      <nav class="collection-links" aria-label="Related">
-        {person  && <a href={`/people/${person.slug}`}>Read the biography: {person.data.title} →</a>}
-        {article && <a href={`/articles/${article.slug}`}>Read the article: {article.data.title} →</a>}
-      </nav>
+      <div class="collection-links">
+        {person  && <a href={`/people/${person.slug}`}>Read the biography: {person.data.title}</a>}
+        {article && <a href={`/articles/${article.slug}`}>Read the article: {article.data.title}</a>}
+      </div>
     )}
 
-    <div class="back-bar"><a href="/collections">← All collections</a></div>
+    <div class="back-bar"><a href="/collections">All collections</a></div>
   </div>
 </BaseLayout>
 

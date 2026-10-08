@@ -46,9 +46,9 @@ const multiple = photos.length > 1;
 
   {multiple && (
     <div class="pc-controls" data-pc-controls hidden>
-      <button type="button" class="pc-btn" data-pc-prev aria-label="Previous photo">←</button>
+      <button type="button" class="pc-btn" data-pc-prev aria-label="Previous photo"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       <span class="pc-count" data-pc-count>1 of {photos.length}</span>
-      <button type="button" class="pc-btn" data-pc-next aria-label="Next photo">→</button>
+      <button type="button" class="pc-btn" data-pc-next aria-label="Next photo"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
   )}
 
@@ -76,7 +76,7 @@ const multiple = photos.length > 1;
   )}
 
   <dialog class="pc-dialog" data-pc-dialog aria-label="Enlarged photo">
-    <form method="dialog"><button class="pc-close" aria-label="Close">✕</button></form>
+    <form method="dialog"><button class="pc-close" aria-label="Close"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></form>
     <img class="pc-dialog-img" src="" alt="" data-pc-dialog-img />
     <p class="pc-dialog-caption" data-pc-dialog-caption></p>
   </dialog>
@@ -151,6 +151,9 @@ const multiple = photos.length > 1;
     background: transparent;
     color: var(--ink);
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
   .pc-btn:hover { border-color: var(--accent); background: var(--accent); color: var(--white); }
   .pc-count {
@@ -227,8 +230,10 @@ const multiple = photos.length > 1;
     background: none;
     border: 1px solid rgba(245, 240, 232, 0.35);
     color: var(--paper);
-    font-size: 1.1rem;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .pc-close:hover { background: var(--accent); border-color: var(--accent); }
 
