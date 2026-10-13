@@ -1,6 +1,7 @@
 ---
 title: "Dr. George Henry Gunn"
-subtitle: "An Army Surgeon on the Rio Grande"
+epithet: "An Army Surgeon on the Rio Grande"
+birth: "1840"
 type: people
 status: draft
 era: "Civil War"
