@@ -10,7 +10,8 @@ birth: '1759-12-25'
 death: '1855-09-22'
 birth_place: 'Near Boston, Massachusetts'
 death_place: 'Flat Rock Township, Henry County, Ohio'
-spouse: 'Anna Sartwell'
+spouse: 
+  -'Anna Sartwell'
 occupation: 'Pioneer settler'
 historical_period: 'American Revolution and Early Republic'
 tags:
