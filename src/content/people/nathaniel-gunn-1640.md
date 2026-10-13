@@ -7,7 +7,6 @@ deathplace: "Branford, Connecticut Colony"
 era: "Colonial"
 eraLabel: "Colonial New England"
 featured: false
-order: 3
 date: 2026-07-28
 summary: "The brief life of Nathaniel Gunn, son of Jasper and Christian Gunn, whose only surviving son Samuel preserved the direct family line into the eighteenth century."
 tags:

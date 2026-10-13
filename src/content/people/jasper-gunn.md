@@ -8,7 +8,6 @@ deathplace: "Milford, Connecticut Colony"
 era: "Colonial"
 eraLabel: "Colonial America"
 featured: true
-order: 1
 date: 2026-07-28
 summary: "Concise biography of Jasper Gunn, immigrant physician, founder of Milford, and progenitor of one of America's oldest continuous Gunn family lines."
 tags:

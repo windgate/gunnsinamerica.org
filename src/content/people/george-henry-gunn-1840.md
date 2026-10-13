@@ -12,7 +12,6 @@ location: "Montague, Massachusetts; Fort Quitman, Texas"
 date: 2026-09-10
 summary: "Massachusetts-born physician and Assistant Surgeon in the United States Army whose surviving medical report documents his work with the 9th U.S. Cavalry at remote Fort Quitman, Texas, shortly before his death on active duty at age thirty-one."
 featured: false
-order: 0
 tags:
   - Gunn family
   - Montague

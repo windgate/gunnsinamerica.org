@@ -8,7 +8,6 @@ deathplace: "Milford, Connecticut Colony"
 era: "Colonial"
 eraLabel: "Colonial Era · 1635"
 featured: false
-order: 2
 date: 2026-07-28
 subtitle: "Founding mother of the Gunn family in America — her life, her will, and the generations she set in motion."
 dateRange: "1615 – 1690"

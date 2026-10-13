@@ -11,7 +11,6 @@ date: 2026-09-12
 type: "people"
 summary: "Samuel Gunn, son of Jasper and Christian Gunn, became a Milford landholder and raised three children with Hannah Sanford before his death in 1699."
 featured: false
-order: 0
 tags:
   - Gunn family
   - Milford

@@ -14,7 +14,6 @@ location: "Milford and Hartford, Connecticut Colony"
 date: 2026-09-14
 summary: "Son of Jasper and Christian Gunn, Milford landholder, and Connecticut freeman whose quiet life helped carry the founding generation into an established community."
 featured: false
-order: 0
 tags:
   - Gunn family
   - Coleman family

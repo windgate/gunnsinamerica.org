@@ -2,12 +2,18 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
+const yearOf = (s?: string) => {
+  const m = s?.match(/\d{4}/);
+  return m ? parseInt(m[0], 10) : 9999; // no birth year sorts last
+};
+
 const people = (await getCollection('people'))
   .sort((a, b) =>
-    (a.data.order ?? 999) - (b.data.order ?? 999) ||
+    (a.data.order ?? Infinity) - (b.data.order ?? Infinity) ||
+    yearOf(a.data.birth) - yearOf(b.data.birth) ||
     a.data.title.localeCompare(b.data.title)
   );
-
+  
 const eras = ['All', 'Colonial', 'Revolutionary', 'War of 1812', 'Frontier', 'Civil War', 'Modern'];
 ---
 

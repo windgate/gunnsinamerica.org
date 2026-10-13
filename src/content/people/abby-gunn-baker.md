@@ -10,7 +10,6 @@ eraLabel: "The Progressive Era · 1860–1923"
 date: 2026-08-14
 summary: "Abigail Florence Gunn Baker was a journalist, author, historian, and pioneering researcher of White House history whose more than twenty years of work helped establish the presidential china collection and the White House China Room."
 featured: true
-order: 0
 tags:
   - Gunn Family
   - White House

@@ -14,7 +14,6 @@ location: "Milford, Connecticut Colony"
 date: 2026-09-14
 summary: "Daughter of Jasper and Christian Gunn, mother of nine Fenn children, and a living connection among three families present at Milford's founding."
 featured: false
-order: 0
 tags:
   - Gunn family
   - Fenn family

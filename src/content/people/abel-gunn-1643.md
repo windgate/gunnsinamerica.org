@@ -11,7 +11,6 @@ burial: "Probably Old Derby Uptown Burying Ground, Derby; unconfirmed"
 date: 2026-09-11
 summary: "Son of Dr. Jasper Gunn who carried the family’s medical tradition into the first American-born generation and kept Derby’s earliest surviving town records."
 featured: false
-order: 0
 draft: true
 tags:
   - Gunn family

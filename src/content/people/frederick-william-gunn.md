@@ -10,7 +10,6 @@ location: "Washington, Connecticut"
 type: "biography"
 summary: "Educator, abolitionist, Underground Railroad activist, and co-founder of The Gunnery, Frederick William Gunn joined intellectual independence, moral courage, physical activity, and the natural world in a distinctive vision of education."
 featured: true
-order: 130
 tags:
   - "Gunn family"
   - "education"

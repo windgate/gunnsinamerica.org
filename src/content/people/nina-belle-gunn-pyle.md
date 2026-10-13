@@ -14,7 +14,6 @@ location: "La Salle, Illinois; Chappell, Nebraska; Augusta, Kansas"
 date: 2026-09-19
 summary: "Teacher, pioneer daughter, library trustee, and mother whose life carried the Gunn family story from the Nebraska homestead through bereavement, the Great Depression, and into the modern era."
 featured: true
-order: 0
 tags:
   - Gunn family
   - Pyle family
