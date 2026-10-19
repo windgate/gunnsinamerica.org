@@ -1,17 +1,20 @@
 ---
 import "../styles/figures.css";
+import HeritageBanner from "../components/HeritageBanner.astro";
 import { POLICY } from '../data/site-policies';
 
 export interface Props {
   title?:       string;
   description?: string;
   ogImage?:     string;
+  banner?:      boolean;
 }
 
 const {
   title       = 'Gunns in America',
   description = "A family history spanning 1635 to the present. The story of the Gunn family from Jasper's arrival in colonial New England through four centuries of American life.",
   ogImage     = '/images/og-default.jpg',
+  banner      = true,
 } = Astro.props;
 
 const fullTitle = title === 'Gunns in America'
@@ -75,6 +78,8 @@ const year = new Date().getFullYear();
   <span></span><span></span><span></span>
 </button>
 </nav>
+
+{banner && <HeritageBanner />}
 
 <main id="main-content" tabindex="-1">
   <slot />
