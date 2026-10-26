@@ -12,7 +12,6 @@ location: "Fort Scott, Bourbon County, Kansas"
 date: 2026-09-10
 summary: "Real-estate developer, financier, industrial promoter, and civic benefactor whose work helped shape Fort Scott and whose gift became Gunn Park."
 featured: false
-order: 0
 tags:
   - Gunn family
   - Fort Scott
