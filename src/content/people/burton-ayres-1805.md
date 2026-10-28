@@ -6,6 +6,14 @@ death: '1870-09-23'
 era: 'Frontier'
 date: 2026-10-20
 related: []
+
+connection:
+  title: Connection to the Gunns
+  chain:
+    - { slug: burton-ayres, note: "Husband of Aurelia", self: true }
+    - { slug: franklin-langworthy-ayres-1844, note: "His son", dates: "1844 – 1926" }
+    - { slug: elizabeth-gunn, note: "Franklin's wife" }
+    - { slug: aaron-gunn-1806, note: "Her father", dates: "1806 – 1897" }
 ---
 
 <figure class="float-left" style="width:50%">
