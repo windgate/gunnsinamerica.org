@@ -8,6 +8,7 @@ death: '1926'
 related:
   - burton-ayres-1805
   - nina-belle-gunn-pyle
+  - elizabeth-sarah-gunn-ayres-1846
 ---
 
 **Born:** 1844, Illinois
@@ -40,7 +41,7 @@ Franklin was sixteen or seventeen when the war began in April 1861. No military 
 
 ## Marriage to Elizabeth Sarah Gunn
 
-Franklin married Elizabeth Sarah Gunn (1846–1923) on 5 January 1868 at the First Baptist Church in La Salle. Elizabeth belonged to the Gunn family, whose line runs from colonial New England into the Midwest.
+Franklin married [Elizabeth Sarah “Lizzie” Gunn](/people/elizabeth-sarah-gunn-ayres-1846/) on 5 January 1868 at the First Baptist Church in La Salle. Elizabeth belonged to the Gunn family, whose line runs from colonial New England into the Midwest.
 
 The marriage is documented in a fiftieth-anniversary family record dated 5 January 1918, preserved in the *MHGS Register* of the Midwest Historical and Genealogical Society.[^1] The record names the church, the couple's Kansas residences, and seven children, and it preserves how the family itself remembered its history.
 
