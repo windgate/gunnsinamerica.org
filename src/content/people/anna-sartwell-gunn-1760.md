@@ -70,22 +70,26 @@ Anna's history survives in expedition recollections, company proceedings, family
 
 ## Sources and Notes
 
+<div style="margin-left: 2rem;">
+
 1. Dale C. Kellogg and John B. Threlfall, "Richard Sawtell of Watertown, Mass.," *The New England Historical and Genealogical Register* 126 (1972), p. 134. Birth reference supplied by the family researcher; the cited page was not independently examined in preparing this draft.
 
-2. *Root Genealogical Records*, p. 128, entry for Hannah Root and John Gunn, including their daughter Hannah's marriage to Nathaniel Sartwell, rendered "Sutwell." [Read the genealogy](https://www.seekingmyroots.com/members/files/G005541.pdf){target="_blank" rel="noopener noreferrer"}.
+2. *Root Genealogical Records*, p. 128, entry for Hannah Root and John Gunn, including their daughter Hannah's marriage to Nathaniel Sartwell, rendered "Sutwell." [Read the genealogy](https://www.seekingmyroots.com/members/files/G005541.pdf).
 
-3. *Year Book of the Pennsylvania Society, Sons of the American Revolution*, p. 189, lineage of George Oscar King and service account of Nathaniel Sartwell. [Read the yearbook](https://upload.wikimedia.org/wikipedia/commons/8/84/Year_book_of_the_Pennsylvania_Society%2C_Sons_of_the_American_Revolution_%28IA_yearbookofpennsy01sons%29.pdf){target="_blank" rel="noopener noreferrer"}.
+3. *Year Book of the Pennsylvania Society, Sons of the American Revolution*, p. 189, lineage of George Oscar King and service account of Nathaniel Sartwell. [Read the yearbook](https://upload.wikimedia.org/wikipedia/commons/8/84/Year_book_of_the_Pennsylvania_Society%2C_Sons_of_the_American_Revolution_%28IA_yearbookofpennsy01sons%29.pdf).
 
-4. Amzi Atwater, recollections of the 1796 expedition, reproduced from the *Western Reserve Chronicle* in *Niles' Weekly Register*, 7 January 1837, p. 291. An expedition participant's retrospective account. [Read the account](https://msa.maryland.gov/msa/stagser/s1259/102/0025/pdf/niles7jan1837.pdf){target="_blank" rel="noopener noreferrer"}.
+4. Amzi Atwater, recollections of the 1796 expedition, reproduced from the *Western Reserve Chronicle* in *Niles' Weekly Register*, 7 January 1837, p. 291. An expedition participant's retrospective account. [Read the account](https://msa.maryland.gov/msa/stagser/s1259/102/0025/pdf/niles7jan1837.pdf).
 
-5. Charles Whittlesey, *Early History of Cleveland, Ohio* (1867), pp. 317–319, reproducing the company's approval of Anna's land grant and describing the Gunn family's early residences. [Read the chapter](https://www.clevelandmemory.org/ebooks/whittlesey/Chapter12.html){target="_blank" rel="noopener noreferrer"}.
+5. Charles Whittlesey, *Early History of Cleveland, Ohio* (1867), pp. 317–319, reproducing the company's approval of Anna's land grant and describing the Gunn family's early residences. [Read the chapter](https://www.clevelandmemory.org/ebooks/whittlesey/Chapter12.html).
 
-6. Whittlesey, pp. 355–356, account of illness in 1798 and assistance provided by the Gunn and Kingsbury families. [Read the chapter](https://www.clevelandmemory.org/ebooks/whittlesey/Chapter14.html){target="_blank" rel="noopener noreferrer"}.
+6. Whittlesey, pp. 355–356, account of illness in 1798 and assistance provided by the Gunn and Kingsbury families. [Read the chapter](https://www.clevelandmemory.org/ebooks/whittlesey/Chapter14.html).
 
-7. Whittlesey, p. 333, biographical notice of Elijah Gunn and his later residence near Napoleon. [Read the notice](https://www.clevelandmemory.org/ebooks/whittlesey/Chapter13.html){target="_blank" rel="noopener noreferrer"}.
+7. Whittlesey, p. 333, biographical notice of Elijah Gunn and his later residence near Napoleon. [Read the notice](https://www.clevelandmemory.org/ebooks/whittlesey/Chapter13.html).
 
-8. Gertrude Van Rensselaer Wickham, *The Pioneer Families of Cleveland, 1796–1840*, vol. 1 (1914), pp. 13–15. Used for the later recollection of Anna's nursing and midwifery. Its conflicting statements concerning the children have not been adopted. [Read the transcription](https://ohiogenealogyexpress.com/cuyahoga/cuyahogaco_bios_1914/cuyahogaco_bios_1914_pg0007.htm){target="_blank" rel="noopener noreferrer"}.
+8. Gertrude Van Rensselaer Wickham, *The Pioneer Families of Cleveland, 1796–1840*, vol. 1 (1914), pp. 13–15. Used for the later recollection of Anna's nursing and midwifery. Its conflicting statements concerning the children have not been adopted. [Read the transcription](https://ohiogenealogyexpress.com/cuyahoga/cuyahogaco_bios_1914/cuyahogaco_bios_1914_pg0007.htm).
 
-9. Children's names and life dates supplied by the Gunn family researcher. The reconstructed cousin relationship is also consistent with the [compiled Gunn ancestry](https://famouskin.com/ahnentafel.php?name=62293+anna+gunn){target="_blank" rel="noopener noreferrer"}.
+9. Children's names and life dates supplied by the Gunn family researcher. The reconstructed cousin relationship is also consistent with the [compiled Gunn ancestry](https://famouskin.com/ahnentafel.php?name=62293+anna+gunn).
 
-10. Henry County Genealogical Society, cemetery inscription database, entry for Elijah Gunn, died 22 September 1855, Gunn Cemetery, Flatrock Township. [View the inscriptions](https://www.henrycountyfamilies.org/cemeteries/handle_name_m.php?letter=G&name=Gunn){target="_blank" rel="noopener noreferrer"}.
+10. Henry County Genealogical Society, cemetery inscription database, entry for Elijah Gunn, died 22 September 1855, Gunn Cemetery, Flatrock Township. [View the inscriptions](https://www.henrycountyfamilies.org/cemeteries/handle_name_m.php?letter=G&name=Gunn).
+
+</div>
