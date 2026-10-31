@@ -14,7 +14,7 @@ Anna Sartwell Gunn was born on 21 January 1760 in Sunderland, Massachusetts, the
 
 Anna's mother, Hannah Gunn, was the daughter of Deacon John Gunn and Hannah Root. John descended from Jasper Gunn through Jasper's son Nathaniel and grandson Deacon Samuel Gunn.
 
-About 1780, Anna married [Elijah Gunn](/people/elijah-gunn-1759/) (1759–1855), her second cousin. Both were great-grandchildren of Deacon Samuel Gunn and Elizabeth Wyatt. Anna's line passed through their son Deacon John Gunn and his daughter Hannah; Elijah's passed through their son Deacon Nathaniel Gunn and his son Lieutenant Nathaniel Gunn.
+About 1780, Anna married [Elijah Gunn](/people/elijah-gunn-sr-1759/) (1759–1855), her second cousin. Both were great-grandchildren of Deacon Samuel Gunn and Elizabeth Wyatt. Anna's line passed through their son Deacon John Gunn and his daughter Hannah; Elijah's passed through their son Deacon Nathaniel Gunn and his son Lieutenant Nathaniel Gunn.
 
 Anna was fifteen when the American Revolution began. Her father, Nathaniel Sartwell, responded to the Lexington alarm in April 1775 and subsequently served as a lieutenant in the Massachusetts forces. The surviving accounts do not describe Anna's experiences during the war, but her early adulthood and marriage fell within those years of upheaval.
 
