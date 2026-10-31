@@ -1,6 +1,10 @@
-# Lt. Nathaniel Gunn Jr. (1726–1807)
-
-*Militia officer, Baptist tavern keeper, and Montague town leader*
+---
+title: 'Lt. Nathaniel Gunn Jr. (1726–1807)'
+epithet: 'Militia officer, Baptist tavern keeper, and Montague town leader'
+birth: '1726-01-24'
+death: '1807-04-22'
+era: 'Revolutionary'
+---
 
 Lt. Nathaniel Gunn Jr. occupied a central place in the Gunn family of Massachusetts's Connecticut River Valley. Born on 24 January 1726 in Sunderland, he was the son of Deacon Nathaniel Gunn (1693–1779) and Esther Belden, whose surname also appears as Belding. His life joined the family's early settlement history to the Revolutionary generation and to the many branches that followed. Through his son Elihu, the family homestead and the direct line followed in this history continued; through other children, his descendants became part of the wider story of New England and the expanding nation.[^1]
 
