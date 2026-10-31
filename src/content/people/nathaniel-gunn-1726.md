@@ -35,7 +35,7 @@ Nathaniel and Dorothy lived to see the Revolution give way to the early republic
 Another branch linked Nathaniel to the poet Emily Dickinson. His son Nathaniel and Hannah Montague were the parents of Lucretia Gunn, who married Samuel Fowler Dickinson. Lucretia and Samuel were Emily's paternal grandparents, making Lieutenant Nathaniel Gunn her great-great-grandfather.[^14]
 
 <figure class="float-left" style="width: 50%;">
-  <img src="images/lt-nathaniel-gunn-died-1807.jpg" alt="Gravemarker of Lieutenant Nathaniel Gunn, carved in a scalloped-top slate stone with a shell motif, recording his death on April 22, 1807, in the eighty-second year of his age. Parts of the epitaph are obscured by shadow and a foreground Sons of the American Revolution marker." style="width: 100%; height: auto;">
+  <img src="/images/gallery/people/lt-nathainel-gunn-died-1807.jpg" alt="Gravemarker of Lieutenant Nathaniel Gunn, carved in a scalloped-top slate stone with a shell motif, recording his death on April 22, 1807, in the eighty-second year of his age. Parts of the epitaph are obscured by shadow and a foreground Sons of the American Revolution marker." style="width: 100%; height: auto;">
   <figcaption><em>Lt. Nathaniel Gunn's gravemarker records his death on April 22, 1807, "in the 82d Yr. of his age." Photograph supplied by the Gunn family; photographer and date not identified.</em></figcaption>
 </figure>
 
