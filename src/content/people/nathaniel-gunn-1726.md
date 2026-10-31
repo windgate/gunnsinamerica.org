@@ -51,6 +51,16 @@ Its remembrance of welcome complements the town history's account of his hospita
 
 Nathaniel's place in the family rests on more than the prominence of later descendants. His own record brings together a large household, Baptist commitments, hospitality, militia leadership, and elected service. He helped sustain Montague through the Revolutionary years, while the family he and Dorothy raised carried their connections into new communities and successive generations.
 
+## Sources
+
+- **Smith, John Montague, and others.** *History of the Town of Sunderland, Massachusetts, 1673–1899.* Greenfield, Massachusetts: E. A. Hall & Co., 1899. Genealogical section, pp. 383–388, 443–444. [Digitized volume](https://archive.org/details/16731899historyo00smit). Page references are printed page numbers; the genealogical section has its own pagination.
+- **Marsh, Dwight Whitney.** *Marsh Genealogy: Giving Several Thousand Descendants of John Marsh of Hartford, Ct., 1636–1895.* Amherst, Massachusetts: Press of Carpenter & Morehouse, 1895. P. 232. [Digitized volume](https://archive.org/details/marshgenealogygi00mars).
+- **Pressey, Edward P.** *History of Montague: A Typical Puritan Town.* 1910. Pp. 20, 23–24, 127–128, 242. [Digitized volume](https://archive.org/details/historyofmontagu01pres).
+- **Massachusetts, Secretary of the Commonwealth.** *Massachusetts Soldiers and Sailors of the Revolutionary War: A Compilation from the Archives.* Vol. VI. Boston: Wright & Potter Printing Co., State Printers. P. 952. [Digitized volume](https://archive.org/details/massachusettssol06mass). A published archival compilation; the underlying wartime returns have not been independently examined for this biography.
+- **Emily Dickinson Museum.** "Emily Dickinson's Family & Friends." Entry for Samuel Fowler Dickinson and Lucretia Gunn Dickinson. [Museum website](https://www.emilydickinsonmuseum.org/emily-dickinson/biography/family-friends/). Consulted 31 October 2026.
+- **Gunn family photograph.** Gravemarker of Lt. Nathaniel Gunn, died 22 April 1807. Supplied 31 October 2026; original filename "2004-Nath Gunn died 1807.jpg." Photographer and date unrecorded in the supplied information.
+- **Find a Grave.** "Nathaniel Gunn," memorial ID 68797445. [Memorial and reported epitaph transcription](https://www.findagrave.com/memorial/68797445/nathaniel-gunn). Memorial link and epitaph transcription supplied by the family. Direct access to the memorial was blocked during research; the quoted wording follows the supplied transcription.
+
 ## Endnotes
 
 [^1]: Smith, *History of Sunderland*, genealogies, pp. 383–384, 388: parentage, birth, marriage, death, and Elihu's succession. The identification of the father as "Deacon Nathaniel Gunn" follows the family identification supplied for this biography; the cited genealogy establishes his parentage and town clerkship but does not independently establish that church office.
@@ -82,13 +92,3 @@ Nathaniel's place in the family rests on more than the prominence of later desce
 [^14]: Smith, *History of Sunderland*, genealogies, p. 386, family no. 17; Emily Dickinson Museum, "Emily Dickinson's Family & Friends," entry for Samuel Fowler Dickinson and Lucretia Gunn Dickinson. The great-great-grandfather relationship is derived from the generations identified in these sources.
 
 [^15]: Nathaniel Gunn gravemarker, family-supplied photograph, original filename "2004-Nath Gunn died 1807.jpg"; [Find a Grave, memorial 68797445, "Nathaniel Gunn"](https://www.findagrave.com/memorial/68797445/nathaniel-gunn). The full epitaph above reproduces the Find a Grave transcription supplied by the family; the supplied slashes have been rendered as line breaks, and the wording has been retained. It has not been independently verified against the online memorial or every letter of the stone. The photograph confirms the military title, death date, age wording, and portions of the verse, but shadows, surface wear, and the foreground metal marker obscure parts of the inscription. Photographer and date of photography were not supplied.
-
-## Sources
-
-- **Smith, John Montague, and others.** *History of the Town of Sunderland, Massachusetts, 1673–1899.* Greenfield, Massachusetts: E. A. Hall & Co., 1899. Genealogical section, pp. 383–388, 443–444. [Digitized volume](https://archive.org/details/16731899historyo00smit). Page references are printed page numbers; the genealogical section has its own pagination.
-- **Marsh, Dwight Whitney.** *Marsh Genealogy: Giving Several Thousand Descendants of John Marsh of Hartford, Ct., 1636–1895.* Amherst, Massachusetts: Press of Carpenter & Morehouse, 1895. P. 232. [Digitized volume](https://archive.org/details/marshgenealogygi00mars).
-- **Pressey, Edward P.** *History of Montague: A Typical Puritan Town.* 1910. Pp. 20, 23–24, 127–128, 242. [Digitized volume](https://archive.org/details/historyofmontagu01pres).
-- **Massachusetts, Secretary of the Commonwealth.** *Massachusetts Soldiers and Sailors of the Revolutionary War: A Compilation from the Archives.* Vol. VI. Boston: Wright & Potter Printing Co., State Printers. P. 952. [Digitized volume](https://archive.org/details/massachusettssol06mass). A published archival compilation; the underlying wartime returns have not been independently examined for this biography.
-- **Emily Dickinson Museum.** "Emily Dickinson's Family & Friends." Entry for Samuel Fowler Dickinson and Lucretia Gunn Dickinson. [Museum website](https://www.emilydickinsonmuseum.org/emily-dickinson/biography/family-friends/). Consulted 31 October 2026.
-- **Gunn family photograph.** Gravemarker of Lt. Nathaniel Gunn, died 22 April 1807. Supplied 31 October 2026; original filename "2004-Nath Gunn died 1807.jpg." Photographer and date unrecorded in the supplied information.
-- **Find a Grave.** "Nathaniel Gunn," memorial ID 68797445. [Memorial and reported epitaph transcription](https://www.findagrave.com/memorial/68797445/nathaniel-gunn). Memorial link and epitaph transcription supplied by the family. Direct access to the memorial was blocked during research; the quoted wording follows the supplied transcription.

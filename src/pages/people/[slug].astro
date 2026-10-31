@@ -269,6 +269,20 @@ const showToc = tocItems.length >= 4;
     font-size:     1rem;
     line-height:   1.8;
   }
+  /* Footnotes (remark-gfm): indent and space to match the Sources list */
+  .person-body :global(.footnotes ol) {
+    margin:        0 0 1.5rem;
+    padding-left:  2rem;
+    list-style:    decimal;
+  }
+  .person-body :global(.footnotes li) {
+    margin-bottom: 0.4rem;
+    font-size:     1rem;
+    line-height:   1.8;
+  }
+  .person-body :global(.footnotes li p) {
+    margin-bottom: 0;
+  }
   .person-body :global(h2) {
     font-family:       var(--serif);
     font-size:         1.5rem;
