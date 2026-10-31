@@ -8,8 +8,11 @@ birth_year: 1759
 death_year: 1855
 birth: '1759-12-25'
 death: '1855-09-22'
-birth_place: 'Near Boston, Massachusetts'
+birth_place: 'Montague City, Massachusetts'
 death_place: 'Flat Rock Township, Henry County, Ohio'
+parents:
+  - nathaniel-gunn-1726
+  - dorothy-marsh-gunn-1723
 spouse: 
   - 'Anna Sartwell'
 occupation: 'Pioneer settler'
@@ -38,7 +41,7 @@ Elijah Gunn was among those who went first.
 
 ## A Childhood in Revolutionary Massachusetts
 
-According to his obituary, published in *The North-West* on 28 September 1855, Elijah Gunn was born near Boston on Christmas Day, 25 December 1759. He grew up during a period of mounting conflict between Great Britain and its American colonies.
+According to his obituary, published in *The North-West* on 28 September 1855, Elijah Gunn was born near Boston on Christmas Day, 25 December 1759. Family records instead place his birth in Montague City, Massachusetts, the son of Lt. [Nathaniel Gunn](/people/nathaniel-gunn-1726/) and Dorothy Marsh. He grew up during a period of mounting conflict between Great Britain and its American colonies.
 
 The Boston Massacre of 5 March 1770 occurred when Elijah was ten years old. Five civilians died following a confrontation with British soldiers, and the event became an enduring symbol of colonial resistance.
 
