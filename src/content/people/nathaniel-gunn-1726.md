@@ -31,7 +31,7 @@ Among Nathaniel's younger brothers were [Dr. Moses Gunn](/people/moses-gunn-1728
 
 ## Marriage and Children
 
-On 21 March 1745, Nathaniel married Dorothy Marsh. Born on 28 July 1723, Dorothy was the daughter of Ebenezer Marsh and Elizabeth Gillett. Her father belonged to Sunderland's early settler community; her paternal grandparents were Samuel Marsh and Mary Allison, and her great-grandfather was John Marsh of Hartford. The marriage connected two families with longstanding roots in the Connecticut River Valley.[^4]
+On 21 March 1745, Nathaniel married Dorothy Marsh. Born on 26 July 1723, Dorothy was the daughter of Ebenezer Marsh and Elizabeth Gillett. Her father belonged to Sunderland's early settler community; her paternal grandparents were Samuel Marsh and Mary Allison, and her great-grandfather was John Marsh of Hartford. The marriage connected two families with longstanding roots in the Connecticut River Valley.[^4]
 
 The connection became closer when Nathaniel's brother Asahel married Dorothy's sister Thankful Marsh in 1751. Because two brothers had married two sisters, the children of the two households were double first cousins, related through both their Gunn and their Marsh lines. For Nathaniel and Dorothy, kinship extended beyond their own household into a closely related network of Gunn and Marsh relatives.[^5]
 
@@ -46,10 +46,10 @@ The children's marriages and removals widened the family's connections. The tabl
 | Dorothy | 1745 | Married Elkanah Baker, later George Howland |
 | Submit | 1747 | Married Josiah Rice of Leverett |
 | Jemima | 1749 | Married Zebina Montague |
-| Nathaniel Jr. | baptized 1752 | Married Hannah Montague; their daughter Lucretia married Samuel Fowler Dickinson (the Emily Dickinson line) |
-| Moses | 1754 | Quartermaster sergeant in a 1780 entry that fits his age |
-| Stephen | 1756 | No further detail recorded here |
-| Elijah | 1759 | Moved to Ohio; early settler in Cleveland |
+| Nathaniel Jr. | baptized 1752 | Later Captain Nathaniel Gunn; married Hannah Montague; their daughter Lucretia married Samuel Fowler Dickinson (the Emily Dickinson line) |
+| Moses | 1754 | Sergeant (quartermaster sergeant) in the Revolutionary War |
+| Stephen | 1756 | Served in the Revolutionary War |
+| Elijah | 1759 | Born in Montague City; moved to Ohio; early settler in Cleveland |
 | Elisha (first) | 1761 | Appears to have died young |
 | Elihu | 1763 | Homestead line in Massachusetts (core lineage); married Lucy Phelps in 1792; children Elihu Phelps, Elijah, Aaron |
 | Elisha (second) | 1765 | Moved to Ohio |
@@ -65,7 +65,7 @@ The Revolutionary crisis brought further responsibilities. According to the Mont
 
 His militia office is recorded in *Massachusetts Soldiers and Sailors of the Revolutionary War*. The compilation identifies Nathaniel Gunn of Montague as first lieutenant in Captain Moses Harvey's fifth company, in the Hampshire County regiment commanded by Lieutenant Colonel Samuel Williams. It gives his appointment as 10 May 1776 and cites a regimental return dated at Warwick on 31 December 1778.[^10]
 
-The surviving entry establishes his rank and company without describing a particular battlefield action. It provides a firm basis for remembering him as a Revolutionary militia officer. His son Moses also appears to have served: a military entry for Moses Gunn of Montague, aged twenty-six in 1780, fits the son born in 1754 and records service as a quartermaster sergeant.[^11]
+The surviving entry establishes his rank and company without describing a particular battlefield action. It provides a firm basis for remembering him as a Revolutionary militia officer. His son Moses also served: a military entry for Moses Gunn of Montague, aged twenty-six in 1780, matches the son born in 1754 and records service as a quartermaster sergeant. Another son, Stephen, also served in the Revolutionary War.[^11]
 
 ## Selectman of Montague
 
@@ -118,7 +118,7 @@ Nathaniel's place in the family rests on more than the prominence of later desce
 
 [^3]: Smith, *History of Sunderland*, genealogies, pp. 383–385, 387: sibling relationships, birth years, Dr. Moses Gunn's Yale graduation, and the younger Moses's family entry.
 
-[^4]: Smith, *History of Sunderland*, genealogies, pp. 384, 443–444; Marsh, *Marsh Genealogy*, p. 232: Dorothy's parents, birth, marriage, and Marsh ancestry. The sources consulted name her Dorothy Marsh. Marsh's suggested parentage for Elizabeth Gillett is tentative and is not extended here.
+[^4]: Smith, *History of Sunderland*, genealogies, pp. 384, 443–444; Marsh, *Marsh Genealogy*, p. 232: Dorothy's parents, birth, marriage, and Marsh ancestry. The sources consulted name her Dorothy Marsh. Her birth date is given here as 26 July 1723, following her biography on this site. Marsh's suggested parentage for Elizabeth Gillett is tentative and is not extended here.
 
 [^5]: Smith, *History of Sunderland*, genealogies, pp. 385, 444; Marsh, *Marsh Genealogy*, p. 232: Asahel Gunn's marriage to Thankful Marsh. The double first-cousin relationship follows from the two brothers marrying two sisters.
 
