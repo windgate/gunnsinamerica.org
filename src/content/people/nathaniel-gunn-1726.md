@@ -4,23 +4,62 @@ epithet: 'Militia officer, Baptist tavern keeper, and Montague town leader'
 birth: '1726-01-24'
 death: '1807-04-22'
 era: 'Revolutionary'
+date: 2026-10-31
+parents:
+  - nathaniel-gunn-1693
+spouse:
+  - dorothy-marsh-gunn-1723
+children:
+  - elijah-gunn-sr-1759
+  - elihu-gunn-1763
 ---
+
+- **Born:** 24 January 1726, Sunderland, Massachusetts
+- **Died:** 22 April 1807, aged eighty-one
+- **Parents:** Deacon [Nathaniel Gunn](/people/nathaniel-gunn-1693/) (1693–1779) and Esther Belden
+- **Spouse:** [Dorothy Marsh Gunn](/people/dorothy-marsh-gunn-1723/) (1723–1805), married 21 March 1745
+- **Children:** Eleven, born between 1745 and 1768
+- **Known for:** First lieutenant in a Hampshire County militia company; selectman of Montague; the "Baptist tavern"
+
+## Origins and Family
 
 Lt. Nathaniel Gunn Jr. occupied a central place in the Gunn family of Massachusetts's Connecticut River Valley. Born on 24 January 1726 in Sunderland, he was the son of Deacon Nathaniel Gunn (1693–1779) and Esther Belden, whose surname also appears as Belding. His life joined the family's early settlement history to the Revolutionary generation and to the many branches that followed. Through his son Elihu, the family homestead and the direct line followed in this history continued; through other children, his descendants became part of the wider story of New England and the expanding nation.[^1]
 
 Nathaniel grew up within an extended family accustomed to public responsibility. His grandfather, Deacon Samuel Gunn, was an early Sunderland proprietor who served as town clerk and selectman. His father also held the town clerkship and lived at different times in Sunderland, Hatfield, and the Hunting Hills area that became part of Montague. Nathaniel's mother, Esther, was the daughter of Stephen Belden and Mary Wells. These connections placed him among families whose marriages, landholding, and local offices helped shape the valley's communities.[^2]
 
-Among Nathaniel's younger brothers were Dr. Moses Gunn, born in 1728, and Asahel Gunn, born in 1730. Moses graduated from Yale in 1748 and became a physician and an active participant in the Revolutionary political movement. Nathaniel's own later household included another Moses Gunn, born in 1754. The distinction matters: the physician was his brother, while the younger militia soldier was his son.[^3]
+Among Nathaniel's younger brothers were [Dr. Moses Gunn](/people/moses-gunn-1728/), born in 1728, and [Asahel Gunn](/people/asahel-gunn-1730/), born in 1730. Moses graduated from Yale in 1748 and became a physician and an active participant in the Revolutionary political movement. Nathaniel's own later household included another Moses Gunn, born in 1754. The distinction matters: the physician was his brother, while the younger militia soldier was his son.[^3]
+
+## Marriage and Children
 
 On 21 March 1745, Nathaniel married Dorothy Marsh. Born on 28 July 1723, Dorothy was the daughter of Ebenezer Marsh and Elizabeth Gillett. Her father belonged to Sunderland's early settler community; her paternal grandparents were Samuel Marsh and Mary Allison, and her great-grandfather was John Marsh of Hartford. The marriage connected two families with longstanding roots in the Connecticut River Valley.[^4]
 
 The connection became closer when Nathaniel's brother Asahel married Dorothy's sister Thankful Marsh in 1751. Because two brothers had married two sisters, the children of the two households were double first cousins, related through both their Gunn and their Marsh lines. For Nathaniel and Dorothy, kinship extended beyond their own household into a closely related network of Gunn and Marsh relatives.[^5]
 
-The Sunderland genealogy records eleven children born to Nathaniel and Dorothy over more than twenty years: Dorothy in 1745; Submit in 1747; Jemima in 1749; Nathaniel, baptized in 1752; Moses in 1754; Stephen in 1756; Elijah in 1759; Elisha in 1761; Elihu in 1763; a second Elisha in 1765; and Mercy in 1768. The first Elisha appears to have died young, since his name was given to a later son, a common practice that leaves a small trace of loss within the household.[^6]
+The Sunderland genealogy records eleven children born to Nathaniel and Dorothy over more than twenty years: Dorothy in 1745; Submit in 1747; Jemima in 1749; Nathaniel, baptized in 1752; Moses in 1754; Stephen in 1756; [Elijah](/people/elijah-gunn-sr-1759/) in 1759; Elisha in 1761; Elihu in 1763; a second Elisha in 1765; and Mercy in 1768. The first Elisha appears to have died young, since his name was given to a later son, a common practice that leaves a small trace of loss within the household.[^6]
 
-Their children's marriages widened the family's connections. Dorothy married Elkanah Baker and later George Howland; Submit married Josiah Rice of Leverett; Jemima married Zebina Montague; and the younger Nathaniel married Hannah Montague. Elijah and the younger Elisha eventually moved to Ohio, while Elihu continued the homestead line in Massachusetts.[^7]
+## Children and Branches
+
+The children's marriages and removals widened the family's connections. The table follows each branch as far as the record in this biography goes.[^7]
+
+| Child | Born | Branch and record |
+| --- | --- | --- |
+| Dorothy | 1745 | Married Elkanah Baker, later George Howland |
+| Submit | 1747 | Married Josiah Rice of Leverett |
+| Jemima | 1749 | Married Zebina Montague |
+| Nathaniel Jr. | baptized 1752 | Married Hannah Montague; their daughter Lucretia married Samuel Fowler Dickinson (the Emily Dickinson line) |
+| Moses | 1754 | Quartermaster sergeant in a 1780 entry that fits his age |
+| Stephen | 1756 | No further detail recorded here |
+| Elijah | 1759 | Moved to Ohio; early settler in Cleveland |
+| Elisha (first) | 1761 | Appears to have died young |
+| Elihu | 1763 | Homestead line in Massachusetts (core lineage); married Lucy Phelps in 1792; children Elihu Phelps, Elijah, Aaron |
+| Elisha (second) | 1765 | Moved to Ohio |
+| Mercy | 1768 | No further detail recorded here |
+
+## A Baptist Tavern in Montague
 
 Nathaniel's religious convictions also shaped his public life. The Montague town history associates him with a tavern that welcomed traveling Baptist ministers and became known as the "Baptist tavern." In 1772, he and Moses Harvey protested the use of proceeds from common-land sales to repair the town meetinghouse. The episode places him within the local Baptist community and records his objection to that use of communal funds.[^8]
+
+## The Revolutionary Years
 
 The Revolutionary crisis brought further responsibilities. According to the Montague history, in April 1775 Lieutenant Nathaniel Gunn, Deacon John Gunn, and Medad Bardwell helped arrange an ox wagon of provisions for Cambridge. Its cargo included flour, pork, peas, tobacco, and oats. His contribution was practical: helping supply the forces gathering near Boston.[^9]
 
@@ -28,11 +67,19 @@ His militia office is recorded in *Massachusetts Soldiers and Sailors of the Rev
 
 The surviving entry establishes his rank and company without describing a particular battlefield action. It provides a firm basis for remembering him as a Revolutionary militia officer. His son Moses also appears to have served: a military entry for Moses Gunn of Montague, aged twenty-six in 1780, fits the son born in 1754 and records service as a quartermaster sergeant.[^11]
 
+## Selectman of Montague
+
 Nathaniel's civic work continued during the war. Montague's published list of selectmen records Lieutenant Nathaniel Gunn in 1778, 1779, and 1781. These years place him in local government while the community was also meeting wartime demands.[^12]
+
+## Death and the Homestead
 
 Nathaniel and Dorothy lived to see the Revolution give way to the early republic. Dorothy died on 13 July 1805, after approximately sixty years of marriage. Nathaniel died on 22 April 1807, aged eighty-one. Their son Elihu, born 10 November 1763, succeeded to his father's homestead. Elihu's marriage to Lucy Phelps in 1792 continued the line through children including Elihu Phelps Gunn, Elijah Gunn, and Aaron Gunn.[^13]
 
+## Descendants and the Dickinson Connection
+
 Another branch linked Nathaniel to the poet Emily Dickinson. His son Nathaniel and Hannah Montague were the parents of Lucretia Gunn, who married Samuel Fowler Dickinson. Lucretia and Samuel were Emily's paternal grandparents, making Lieutenant Nathaniel Gunn her great-great-grandfather.[^14]
+
+## The Gravemarker
 
 <figure class="float-left" style="width: 50%;">
   <img src="/images/gallery/people/lt-nathaniel-gunn-died-1807.jpg" alt="Gravemarker of Lieutenant Nathaniel Gunn, carved in a scalloped-top slate stone with a shell motif, recording his death on April 22, 1807, in the eighty-second year of his age. Parts of the epitaph are obscured by shadow and a foreground Sons of the American Revolution marker." style="width: 100%; height: auto;">
@@ -48,6 +95,8 @@ Nathaniel's gravemarker also preserves a personal remembrance of hospitality and
 > But sweetness and the heartfelt pang his last years did afford.
 
 Its remembrance of welcome complements the town history's account of his hospitality to traveling Baptist ministers.[^15]
+
+## Legacy
 
 Nathaniel's place in the family rests on more than the prominence of later descendants. His own record brings together a large household, Baptist commitments, hospitality, militia leadership, and elected service. He helped sustain Montague through the Revolutionary years, while the family he and Dorothy raised carried their connections into new communities and successive generations.
 
