@@ -1,7 +1,7 @@
 ---
 title: "Moses Winters Gunn"
 epithet: "Union soldier, Baptist minister, and last Civil War veteran of La Salle"
-birth: '1839'
+birth: '1839-03-31'
 death: '1935-10-18'
 birthplace: "La Salle, Illinois"
 deathplace: "La Salle County, Illinois"
@@ -77,7 +77,7 @@ On 14 May 1889, at fifty, Moses married Emma Jane Richards, daughter of David Ri
 |---|---|---|
 | Wilmer Gunn | 1890–1893 | Died in early childhood. |
 | Frances Ivy Gunn | 1893–1980 | Living in Chicago in 1935. |
-| Carroll David Gunn | 1896–1980 | Living in La Salle in 1935. |
+| [Carroll David Gunn](/voices/carroll-gunn-oral-history-1976/) | 1896–1980 | Living in La Salle in 1935. Narrator of a 1976 audio oral history. |
 | Emory Lloyd Gunn | 1898–1963 | Called Lloyd in the obituary; living in Omaha, Nebraska, in 1935. |
 
 The surviving children's residences are those given in the 1935 obituary.[^11]
