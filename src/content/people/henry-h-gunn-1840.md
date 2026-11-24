@@ -1,7 +1,7 @@
 ---
 title: "Henry H. Gunn"
 epithet: "Civil War Sergeant, Ohio Farmer, and Witness at Deep Bottom"
-birth: '1840-08-21'
+birth: '1840'
 death: '1928-11'
 era: 'Civil War'
 type: person

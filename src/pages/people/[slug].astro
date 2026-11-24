@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, getEntry } from 'astro:content';
 import PhotoCollection from '../../components/PhotoCollection.astro';
 import { getCollectionForPerson } from '../../data/photo-collections';
+import familyLinks from '../../data/family-db-links.json';
 
 export async function getStaticPaths() {
   const people = await getCollection('people');
@@ -16,6 +17,7 @@ const { person } = Astro.props;
 const { Content } = await person.render();
 const photoSet = await getCollectionForPerson(person.slug);
 const d = person.data;
+const familyRecordId = (familyLinks as Record<string, string>)[person.slug];
 
 const resolve = async (slugs: string[] | undefined) =>
   slugs
@@ -65,6 +67,13 @@ const showToc = tocItems.length >= 4;
         {d.deathplace && <div class="meta-item"><strong>Deathplace</strong>{d.deathplace}</div>}
       </div>
     </header>
+
+    {familyRecordId && (
+      <p class="family-record-link">
+        <a href={`/database/person/${familyRecordId}/`}>See the full family record for {d.title} →</a>
+        <span>parents, spouses, children, places and sources</span>
+      </p>
+    )}
 
     <!-- Two-column layout: body left, TOC right -->
     <div class:list={['content-columns', { 'has-toc': showToc }]}>
@@ -148,6 +157,9 @@ const showToc = tocItems.length >= 4;
   .person-photos { clear: both; margin-top: 3rem; }
   .person-photos-more { font-family: var(--sans); font-size: 0.8rem; margin-top: 0.75rem; }
   .person-photos-more a { color: var(--accent); }
+  .family-record-link { margin: 1rem 0 0; font-family: var(--sans); font-size: .9rem; }
+  .family-record-link a { color: var(--accent); font-weight: 600; }
+  .family-record-link span { margin-left: .6rem; color: var(--ink-light); font-size: .8rem; }
 
   /* ── Page wrapper ────────────────────────────────────── */
   .person-page {
