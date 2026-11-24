@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/database.css';
+import { people, byId, coreLine, counts, generated, surnameGroups, lifespan, personUrl } from '../../data/family-db';
+
+const line = coreLine.map(i => byId.get(i)!).filter(Boolean);
+const top = [...surnameGroups].sort((a, b) => b.people.length - a.people.length).slice(0, 36)
+  .sort((a, b) => a.name.localeCompare(b.name));
+const gen = new Date(generated + 'T12:00:00').toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<BaseLayout title="Family Database" description="Search more than six thousand deceased people in the Gunn family tree, with parents, spouses, children, places and sources.">
+  <Fragment slot="head"><link rel="canonical" href="https://gunnsinamerica.org/database/" /></Fragment>
+  <div class="db">
+    <div class="crumbs"><a href="/">Home</a> › Database</div>
+    <div class="eyebrow">The family record</div>
+    <h1>Family Database</h1>
+    <p class="lede">The people behind the history: every ancestor, spouse and cousin in our tree who has died, with their parents, marriages, children, places and the records that name them. Where a person has a biography, it is one click away.</p>
+
+    <div class="db-search">
+      <label class="muted" for="db-q">Search by name</label>
+      <input id="db-q" type="search" autocomplete="off" placeholder="Try “Jasper Gunn”, “Hatfield” or “Ayres”" />
+      <ul class="db-results" id="db-results" aria-live="polite"></ul>
+    </div>
+
+    <div class="db-stats">
+      <div><strong>{counts.people.toLocaleString('en-US')}</strong><span>People</span></div>
+      <div><strong>{surnameGroups.length.toLocaleString('en-US')}</strong><span>Surnames</span></div>
+      <div><strong>{counts.families.toLocaleString('en-US')}</strong><span>Families</span></div>
+    </div>
+
+    <h2>The direct line</h2>
+    <p class="muted">Nine generations, from Jasper Gunn, who crossed in 1635, to Nina Belle Gunn.</p>
+    <ol class="db-line">
+      {line.map(r => (
+        <li>
+          <span class="gen">Generation {r.core}</span>
+          <a class="nm" href={personUrl(r.id)}>{r.n}</a>
+          <span class="yrs">{lifespan(r)}</span>
+          {r.bio && <a class="bio" href={`/people/${r.bio}/`}>Read the biography →</a>}
+        </li>
+      ))}
+    </ol>
+
+    <h2>Browse by surname</h2>
+    <ul class="db-chips">
+      {top.map(g => <li><a href={`/database/surname/${g.slug}/`}>{g.name}<span>{g.people.length}</span></a></li>)}
+      <li><a href="/database/surnames/"><strong>All {surnameGroups.length.toLocaleString('en-US')} surnames →</strong></a></li>
+    </ul>
+
+    <p class="muted" style="margin-top:2.5rem">
+      Living people, and anyone who may be living, are never shown; relatives who are withheld appear only as counts.
+      The tree was last exported {gen}. Found a mistake or have a missing branch? <a href="/contribute">Tell us</a>.
+    </p>
+  </div>
+
+  <script>
+    const input = document.getElementById('db-q') as HTMLInputElement;
+    const out = document.getElementById('db-results') as HTMLUListElement;
+    type Row = [string, string, string, string];
+    let rows: { r: Row; k: string }[] | null = null, pending: Promise<void> | null = null;
+    const fold = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+    const load = () => (pending ??= fetch('/database/search-index.json').then(r => r.json())
+      .then((j: Row[]) => { rows = j.map(r => ({ r, k: ' ' + fold(r[1] + ' ' + r[3]) })); }));
+    function show() {
+      const toks = fold(input.value).split(/\s+/).filter(Boolean);
+      out.textContent = '';
+      if (!rows || !toks.length) return;
+      const hits = rows.filter(x => toks.every(t => x.k.includes(' ' + t) || (t.length > 3 && x.k.includes(t)))).slice(0, 40);
+      for (const { r } of hits) {
+        const li = document.createElement('li'), a = document.createElement('a'), s = document.createElement('small');
+        a.href = `/database/person/${r[0]}/`;
+        a.append(document.createTextNode(r[1])); s.textContent = [r[2], r[3]].filter(Boolean).join(' · ');
+        a.append(s); li.append(a); out.append(li);
+      }
+      if (!hits.length) { const li = document.createElement('li'); li.style.padding = '.6rem 1rem'; li.textContent = 'No matches.'; out.append(li); }
+    }
+    input.addEventListener('focus', load, { once: true });
+    input.addEventListener('input', () => { load().then(show); });
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') (out.querySelector('a') as HTMLAnchorElement | null)?.click(); });
+  </script>
+</BaseLayout>

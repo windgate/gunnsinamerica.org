@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import '../../../styles/database.css';
+import { surnameGroups, surnameBySlug, yearOf, personUrl, shortPlace } from '../../../data/family-db';
+
+export function getStaticPaths() {
+  return surnameGroups.map(g => ({ params: { slug: g.slug } }));
+}
+const g = surnameBySlug.get(Astro.params.slug!)!;
+const rows = [...g.people].sort((a, b) => (yearOf(a.b?.[0]) ?? 9999) - (yearOf(b.b?.[0]) ?? 9999) || a.n.localeCompare(b.n));
+const n = rows.length;
+---
+<BaseLayout title={`${g.name} family records`} description={`${n} ${n === 1 ? 'person' : 'people'} named ${g.name} in the Gunn family tree, with birth, death and place.`}>
+  <Fragment slot="head"><link rel="canonical" href={`https://gunnsinamerica.org/database/surname/${g.slug}/`} /></Fragment>
+  <div class="db">
+    <div class="crumbs"><a href="/">Home</a> › <a href="/database/">Database</a> › <a href="/database/surnames/">Surnames</a> › {g.name}</div>
+    <h1>{g.name}</h1>
+    <p class="lede">{n.toLocaleString('en-US')} {n === 1 ? 'person' : 'people'} in the tree, oldest first.</p>
+    {n > 25 && <div class="db-filter"><input id="f" type="search" placeholder={`Filter ${g.name} records`} aria-label="Filter this list" /></div>}
+    <table class="db-table">
+      <thead><tr><th>Name</th><th>Born</th><th>Died</th><th>Place</th></tr></thead>
+      <tbody>
+        {rows.map(p => (
+          <tr>
+            <td class="n"><a href={personUrl(p.id)}>{p.n}</a>{p.bio && <> <span title="Has a biography">★</span></>}</td>
+            <td>{yearOf(p.b?.[0]) ?? ''}</td>
+            <td>{yearOf(p.d?.[0]) ?? ''}</td>
+            <td>{shortPlace(p.b?.[1])}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <p class="muted">★ has a biography on this site.</p>
+  </div>
+  <script>
+    const f = document.getElementById('f') as HTMLInputElement | null;
+    f?.addEventListener('input', () => {
+      const q = f.value.toLowerCase();
+      document.querySelectorAll<HTMLElement>('.db-table tbody tr').forEach(tr => { tr.hidden = !!q && !tr.textContent!.toLowerCase().includes(q); });
+    });
+  </script>
+</BaseLayout>

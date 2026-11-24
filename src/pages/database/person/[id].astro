@@ -1,0 +1,130 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import '../../../styles/database.css';
+import { people, byId, coreLine, lifespan, sortByBirth, residences, events, sourceTitles,
+         contextLine, personUrl, surnameUrl, shortPlace } from '../../../data/family-db';
+
+export function getStaticPaths() {
+  return people.map(p => ({ params: { id: p.id } }));
+}
+
+const p = byId.get(Astro.params.id!)!;
+const span = lifespan(p);
+const lede = contextLine(p);
+const parents  = sortByBirth(p.par);
+const siblings = sortByBirth(p.sib);
+const children = sortByBirth(p.ch);
+const spouses  = (p.sp || []).map(s => ({ ...s, r: byId.get(s.id) })).filter(s => s.r);
+const res = residences(p), evs = events(p), srcs = sourceTitles(p);
+const dp = (x?: [string, string]) => (x && (x[0] || x[1]) ? x : null);
+const otherNames = (p.alt?.n || []).filter(n => n !== p.n);
+const altB = (p.alt?.b || []).filter(x => x[0] !== p.b?.[0] || x[1] !== p.b?.[1]);
+const altD = (p.alt?.d || []).filter(x => x[0] !== p.d?.[0] || x[1] !== p.d?.[1]);
+const line = p.core ? coreLine.map(i => byId.get(i)!).filter(Boolean) : [];
+const li = p.core ? line.findIndex(x => x.id === p.id) : -1;
+const prev = li > 0 ? line[li - 1] : null, next = li >= 0 && li < line.length - 1 ? line[li + 1] : null;
+const hiddenRel = (n?: number, noun = '') => n ? `${n} further ${noun} not shown (living or private)` : '';
+const url = new URL(personUrl(p.id), Astro.site).toString();
+const title = span ? `${p.n} (${span})` : p.n;
+---
+<BaseLayout title={title} description={lede.slice(0, 280)}>
+  <Fragment slot="head">
+    <link rel="canonical" href={url} />
+  </Fragment>
+  <article class="db">
+    <div class="crumbs"><a href="/">Home</a> › <a href="/database/">Database</a> › <a href={surnameUrl(p.s)}>{p.s}</a> › {p.n}</div>
+    <div class="eyebrow">Family record{p.core ? ` · Direct line, generation ${p.core}` : ''}</div>
+    <h1>{p.n}</h1>
+    {span && <p class="muted" style="font:500 1rem var(--sans)">{span}</p>}
+    <p class="lede">{lede}</p>
+
+    {p.bio && (
+      <div class="db-callout">
+        <strong>Read the story.</strong> {p.n} has a full biography on this site. <a href={`/people/${p.bio}/`}>Open the biography →</a>
+      </div>
+    )}
+    {p.note && <div class="db-callout"><strong>A note on this record.</strong> {p.note}</div>}
+
+    <h2>Vital records</h2>
+    <dl class="db-facts">
+      {dp(p.b) && <><dt>Born</dt><dd>{[p.b![0], p.b![1]].filter(Boolean).join(' · ')}</dd></>}
+      {dp(p.bp) && <><dt>Baptized</dt><dd>{[p.bp![0], p.bp![1]].filter(Boolean).join(' · ')}</dd></>}
+      {dp(p.d) && <><dt>Died</dt><dd>{[p.d![0], p.d![1]].filter(Boolean).join(' · ')}</dd></>}
+      {dp(p.bu) && <><dt>Buried</dt><dd>{[p.bu![0], p.bu![1]].filter(Boolean).join(' · ')}</dd></>}
+      {p.occ && <><dt>Occupation</dt><dd>{p.occ}</dd></>}
+      {otherNames.length > 0 && <><dt>Also recorded as</dt><dd>{otherNames.join('; ')}</dd></>}
+      {altB.length > 0 && <><dt>Other birth dates</dt><dd>{altB.map(x => [x[0], x[1]].filter(Boolean).join(' · ')).join('; ')}</dd></>}
+      {altD.length > 0 && <><dt>Other death dates</dt><dd>{altD.map(x => [x[0], x[1]].filter(Boolean).join(' · ')).join('; ')}</dd></>}
+      {!dp(p.b) && !dp(p.d) && <><dt>Dates</dt><dd>None recorded in the tree.</dd></>}
+    </dl>
+
+    {(parents.length + siblings.length + spouses.length + children.length + (p.parl||0) + (p.sibl||0) + (p.spl||0) + (p.chl||0)) > 0 && (
+      <>
+        <h2>Family</h2>
+        <div class="db-family">
+          {(parents.length > 0 || p.parl) && (
+            <div><h3>Parents</h3><ul>
+              {parents.map(r => <li><a href={personUrl(r.id)}>{r.n}</a><small>{lifespan(r)}</small></li>)}
+              {p.parl ? <li class="muted">{hiddenRel(p.parl, p.parl === 1 ? 'parent' : 'parents')}</li> : null}
+            </ul></div>
+          )}
+          {(spouses.length > 0 || p.spl) && (
+            <div><h3>{spouses.length + (p.spl||0) > 1 ? 'Marriages' : 'Marriage'}</h3><ul>
+              {spouses.map(s => <li><a href={personUrl(s.r!.id)}>{s.r!.n}</a>
+                <small>{[s.d && `Married ${s.d}`, s.p && shortPlace(s.p)].filter(Boolean).join(' · ') || lifespan(s.r!)}</small></li>)}
+              {p.spl ? <li class="muted">{hiddenRel(p.spl, 'spouse record')}</li> : null}
+            </ul></div>
+          )}
+          {(children.length > 0 || p.chl) && (
+            <div><h3>Children</h3><ul>
+              {children.map(r => <li><a href={personUrl(r.id)}>{r.n}</a><small>{lifespan(r)}</small></li>)}
+              {p.chl ? <li class="muted">{hiddenRel(p.chl, p.chl === 1 ? 'child' : 'children')}</li> : null}
+            </ul></div>
+          )}
+          {(siblings.length > 0 || p.sibl) && (
+            <div><h3>Siblings</h3><ul>
+              {siblings.map(r => <li><a href={personUrl(r.id)}>{r.n}</a><small>{lifespan(r)}</small></li>)}
+              {p.sibl ? <li class="muted">{hiddenRel(p.sibl, p.sibl === 1 ? 'sibling' : 'siblings')}</li> : null}
+            </ul></div>
+          )}
+        </div>
+      </>
+    )}
+
+    {(res.length + evs.length) > 0 && (
+      <>
+        <h2>Places and events</h2>
+        <ul class="db-timeline">
+          {evs.map(([t, d, pl]) => <li><span class="yr">{d}</span><span><em>{t}</em>{pl}</span></li>)}
+          {res.map(([d, pl]) => <li><span class="yr">{d}</span><span><em>Residence</em>{pl}</span></li>)}
+        </ul>
+      </>
+    )}
+
+    {p.core && (
+      <>
+        <h2>The direct line</h2>
+        <p class="muted">{p.n} is generation {p.core} of {line.length} in the line from Jasper Gunn (arrived 1635) to Nina Belle Gunn.</p>
+        <div class="db-line-nav">
+          {prev ? <a href={personUrl(prev.id)}>← {prev.n}</a> : <span />}
+          {next ? <a href={personUrl(next.id)}>{next.n} →</a> : <span />}
+        </div>
+      </>
+    )}
+
+    {srcs.length > 0 && (
+      <>
+        <h2>Sources</h2>
+        <details>
+          <summary>{srcs.length} {srcs.length === 1 ? 'record collection' : 'record collections'} cited for this person</summary>
+          <ul>{srcs.map(s => <li>{s}</li>)}</ul>
+        </details>
+      </>
+    )}
+
+    <p class="muted" style="margin-top:2.5rem">
+      Compiled from the Gunn family tree. Details come from published records and may contain errors; <a href="/contribute">send a correction</a>.
+      Living people are not shown.
+    </p>
+  </article>
+</BaseLayout>

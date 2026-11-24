@@ -1,0 +1,43 @@
+{
+ "_readme": "Display overrides, direct-line start and biography links. Edit freely; re-run build_db.py.",
+ "core_line_start": "I19254484164",
+ "people": {
+  "I19460303566": {
+   "name": "Christian Gunn",
+   "surname": "Gunn",
+   "note": "The tree files her as “(Mary) Christian Baldwin”; the Baldwin surname is a hypothesis, not a documented fact."
+  },
+  "I19460302966": {
+   "birth": [
+    "1607"
+   ],
+   "note": "Birth year follows the FamilySearch index “England, Births and Christenings, 1538-1975” (Jasper Gunne, 1607); https://www.familysearch.org/ark:/61903/1:1:JSLH-SH6. The family tree gives 8 Aug 1606."
+  },
+  "I19460290345": {
+   "alt_birth": [
+    [
+     "1637",
+     ""
+    ]
+   ],
+   "alt_death": [
+    [
+     "1662",
+     ""
+    ]
+   ],
+   "note": "His birth is not known definitively. The tree gives about 1640; Find a Grave and Gunn Ancestry – Montague (E. P. Pressey and Mrs. Lyman O. Gunn) give 1637. For his death the tree and Find a Grave give 1663; Gunn Ancestry gives 1662."
+  }
+ },
+ "bio_links": {
+  "abby-gunn-baker": "I20459030475",
+  "dorothy-marsh-gunn-1723": "I19282089344",
+  "george-almon-gunn-1823": "I28051784012",
+  "anna-sartwell-gunn-1760": "I20459061090",
+  "christian-gunn": "I19460303566",
+  "nathaniel-gunn-1693": "I19459350567",
+  "daniel-gunn-1645": null,
+  "jasper-gunn": "I19460302966"
+ },
+ "core_line_root": "I19460302966"
+}

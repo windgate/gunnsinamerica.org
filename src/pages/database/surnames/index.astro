@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import '../../../styles/database.css';
+import { surnameGroups } from '../../../data/family-db';
+
+const letters = new Map<string, typeof surnameGroups>();
+for (const g of surnameGroups) {
+  const L = /^[A-Za-z]/.test(g.name.normalize('NFD')) ? g.name.normalize('NFD')[0].toUpperCase() : '#';
+  (letters.get(L) ?? letters.set(L, []).get(L)!).push(g);
+}
+const keys = [...letters.keys()].sort();
+---
+<BaseLayout title="Surnames" description="Every surname in the Gunn family tree, A to Z, with the number of recorded people.">
+  <Fragment slot="head"><link rel="canonical" href="https://gunnsinamerica.org/database/surnames/" /></Fragment>
+  <div class="db">
+    <div class="crumbs"><a href="/">Home</a> › <a href="/database/">Database</a> › Surnames</div>
+    <h1>All surnames</h1>
+    <p class="lede">{surnameGroups.length.toLocaleString('en-US')} surnames appear in the tree. Spellings vary in old records, so check close variants.</p>
+    <nav class="db-alpha" aria-label="Jump to letter">{keys.map(k => <a href={`#${k}`}>{k}</a>)}</nav>
+    {keys.map(k => (
+      <section>
+        <h2 id={k}>{k}</h2>
+        <ul class="db-cols">
+          {letters.get(k)!.map(g => <li><a href={`/database/surname/${g.slug}/`}>{g.name}</a> <span class="muted">({g.people.length})</span></li>)}
+        </ul>
+      </section>
+    ))}
+  </div>
+</BaseLayout>
