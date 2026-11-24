@@ -8,6 +8,8 @@ keyFigure: "Thomas Shepard"
 location: "The Atlantic crossing and Massachusetts Bay Colony"
 date: 2026-11-24
 featured: false
+sortYear: 1635
+sortOrder: 1
 people:
   - name: "Thomas Shepard"
     role: "Puritan minister; sailed on the Defence, 1635; author of the only known account of the voyage"

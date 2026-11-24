@@ -2,8 +2,11 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
-const articles = (await getCollection('articles'))
-  .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+const articles = (await getCollection('articles')).sort((a, b) =>
+  (a.data.sortYear ?? 9999) - (b.data.sortYear ?? 9999) ||
+  a.data.sortOrder - b.data.sortOrder ||
+  a.data.date.valueOf() - b.data.date.valueOf()
+);
 
 const eras = ['All', 'Colonial', 'Revolutionary', 'War of 1812', 'Frontier', 'Civil War', 'Modern'];
 ---

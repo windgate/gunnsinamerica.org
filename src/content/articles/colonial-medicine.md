@@ -10,7 +10,8 @@ location: "Milford, Connecticut Colony"
 featured: true
 order: 2
 date: 2026-07-28
-
+sortYear: 1635
+sortOrder: 4
 tags:
   - "Jasper Gunn"
   - "Physician"

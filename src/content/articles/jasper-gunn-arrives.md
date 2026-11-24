@@ -11,6 +11,8 @@ featured: true
 leadImage: /images/articles/colonial-new-england.jpg
 leadImageAlt: "Colonial New England harbor, circa 1635"
 leadImageCaption: "A period illustration of the Massachusetts Bay Colony. — Source: [Your source here]"
+sortYear: 1635
+sortOrder: 3
 people:
   - name: "Jasper Gunn"
     role: "Progenitor; arrived New England 1635"
