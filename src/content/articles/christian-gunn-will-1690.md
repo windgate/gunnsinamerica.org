@@ -26,14 +26,16 @@ The original will has disappeared. Copies survive in the Probate Court of New Ha
 - Spelling was free and easy in 1690. Nothing has been modernized or corrected.
 - *(illegible)* marks words the transcriber could not read.
 
-## The Will
+## Facsimile
 
-<figure class="float-right document-facsimile" style="width:50%;max-width:50%;">
+<figure class="document-facsimile">
 <a href="/images/gallery/documents/christian-gunn-will-1690.jpg" download="christian-gunn-will-1690.jpg" title="Download the full-size image">
-<img src="/images/gallery/documents/christian-gunn-will-1690.jpg" alt="Photograph of the handwritten will of Christian Gunn of Milford, Connecticut, dated 6 May 1690, headed 'Widdow Gun' and numbered 69 at top right. It ends with her mark and the signatures of the witnesses Alexr Bryan and Samll Bryan." loading="lazy" style="width:100%;height:auto;">
+<img src="/images/gallery/documents/christian-gunn-will-1690.jpg" alt="Photograph of the handwritten will of Christian Gunn of Milford, Connecticut, dated 6 May 1690, headed 'Widdow Gun' and numbered 69 at top right. It ends with her mark and the signatures of the witnesses Alexr Bryan and Samll Bryan." loading="lazy">
 </a>
 <figcaption>Will of Christian Gunn, 6 May 1690. New Haven Probate Records, Vol. II, p. 69 (new numbering). <a href="/images/gallery/documents/christian-gunn-will-1690.jpg" download="christian-gunn-will-1690.jpg">Download the full-size image</a>.</figcaption>
 </figure>
+
+## The Will
 
 <div class="document-text">
 
