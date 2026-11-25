@@ -3,7 +3,7 @@ title: "Deep Bottom, Virginia: The Battles of 1864"
 subtitle: "A Union bridgehead on the James River, twice fought over in the summer of 1864 — and the place where Private George Almon Gunn was killed"
 era: 'Civil War'
 eraLabel: "Civil War · 1864"
-dateRange: "July – September 1864"
+dateRange: "1864 (July – September)"
 date: 2026-09-26
 keyFigure: "George Almon Gunn"
 location: "Henrico County, Virginia"
