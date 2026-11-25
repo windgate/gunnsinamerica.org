@@ -4,16 +4,15 @@ subtitle: "A Union bridgehead on the James River, twice fought over in the summe
 era: 'Civil War'
 eraLabel: "Civil War · 1864"
 dateRange: "July – September 1864"
-date: "1864"
+date: 2026-09-26
 keyFigure: "George Almon Gunn"
 location: "Henrico County, Virginia"
-date: 2026-09-26
 featured: false
 leadImage: /images/articles/deep-bottom-pontoon-bridge-1864.jpg
 leadImageAlt: "Pontoon bridge across the James River at Deep Bottom, Virginia, photographed during the Civil War"
 leadImageCaption: "Pontoon bridge at Deep Bottom, James River, Va. Photographed [between 1861 and 1865]. Library of Congress, Prints and Photographs Division, LC-DIG-ppmsca-33355. No known restrictions on publication."
 sortYear: 1864
-sortOrder: 1
+sortOrder: 0
 people:
   - name: "George Almon Gunn"
     role: "Private, Co. I, 67th Ohio Volunteer Infantry — killed at Deep Bottom, August 16, 1864"
