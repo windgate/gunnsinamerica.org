@@ -30,6 +30,8 @@ const articleSchema = z.object({
     title: z.string(),
     slug:  z.string(),
   }).optional(),
+  sortYear: z.number().optional(),
+  sortOrder: z.number().default(0),
 });
 
 // ── articles ─────────────────────────────────────────────

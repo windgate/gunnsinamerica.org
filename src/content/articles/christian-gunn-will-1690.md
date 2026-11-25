@@ -10,6 +10,8 @@ eraLabel: "Colonial Connecticut"
 dateRange: "1690"
 keyFigure: "Christian Gunn"
 location: "Milford, Connecticut"
+sortYear: 1690
+sortOrder: 1
 ---
 
 The last will and testament of Christian Gunn, widow of Jasper Gunn, was written at Milford, Connecticut, on 6 May 1690. It names her children and grandchildren, assigns her bedding, clothing, and household goods item by item, and appoints her son Samuel Gunn executor. She signed it with her mark.

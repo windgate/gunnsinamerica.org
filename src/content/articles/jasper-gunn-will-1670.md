@@ -12,6 +12,8 @@ author: "John Paul Lumpp"
 imprint: "Wepawaug Press"
 featured: false
 draft: false
+sortYear: 1670
+sortOrder: 1
 tags:
   - "Jasper Gunn"
   - "Milford"

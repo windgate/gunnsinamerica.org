@@ -12,6 +12,8 @@ author: "John Paul Lumpp"
 imprint: "Wepawaug Press"
 featured: false
 draft: true
+sortYear: 1635
+sortOrder: 4
 tags:
   - "Jasper Gunn"
   - "Christian Gunn"
