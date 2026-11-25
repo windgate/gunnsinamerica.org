@@ -30,6 +30,8 @@ const articleSchema = z.object({
     title: z.string(),
     slug:  z.string(),
   }).optional(),
+  sortYear: z.number().optional(),
+  sortOrder: z.number().default(0),
 });
 
 // ── articles ─────────────────────────────────────────────
@@ -39,8 +41,6 @@ const articleSchema = z.object({
 const articles = defineCollection({
   type:   'content',
   schema: articleSchema,
-  sortYear: z.number().optional(),
-  sortOrder: z.number().default(0),
 });
 
 // ── people ───────────────────────────────────────────────

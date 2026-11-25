@@ -4,7 +4,7 @@ subtitle: "An annotated and searchable passenger list from the Great Puritan Mig
 era: Colonial
 eraLabel: "Colonial Era · 1635"
 dateRange: "1635"
-grep -rn "getCollection" src/pageskeyFigure: "Jasper Gunn"
+keyFigure: "Jasper Gunn"
 location: "London to Boston, Massachusetts Bay Colony"
 date: 2026-11-24
 featured: false
